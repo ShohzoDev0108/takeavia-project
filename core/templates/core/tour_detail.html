@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tour.title }} — Take Avia Trip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
+    --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
+    --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d; --star:#ffb400;
+    --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12;
+    --shadow-sm:0 2px 10px rgba(15,31,51,.06); --shadow-md:0 12px 30px rgba(15,31,51,.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html, body{ max-width:100%; overflow-x:hidden;}
+  body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  header{ background:#fff; border-bottom:1px solid var(--line); padding:14px 0;}
+  .header-inner{ display:flex; align-items:center; justify-content:space-between;}
+  .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--navy-900);}
+  .logo .plane{ color:var(--blue-600);}
+  .back-link{ font-size:14px; font-weight:600; color:var(--blue-600);}
+
+  .hero-img{ position:relative; height:380px; overflow:hidden;}
+  .hero-img img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .hero-img::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,15,28,.1) 30%, rgba(5,15,28,.8) 100%);}
+  .hero-title{ position:absolute; left:0; right:0; bottom:26px; z-index:2; color:#fff;}
+  .hero-title h1{ font-size:34px; font-weight:800;}
+  .hero-title .sub{ margin-top:6px; font-size:14.5px; color:rgba(255,255,255,.85);}
+  .hero-badges{ position:absolute; top:18px; left:0; right:0; z-index:2;}
+  .hero-badges .row{ display:flex; justify-content:space-between; align-items:center;}
+  .b-rating{ background:rgba(5,15,28,.55); color:#fff; font-size:12px; font-weight:700; padding:7px 12px; border-radius:20px;}
+  .b-seats{ background:#fff; color:var(--orange); font-size:12px; font-weight:700; padding:7px 12px; border-radius:20px; box-shadow:var(--shadow-sm);}
+
+  .detail-grid{ display:grid; grid-template-columns:1.6fr 1fr; gap:26px; margin:30px 0 60px; align-items:start;}
+  .card{ background:#fff; border-radius:16px; box-shadow:var(--shadow-sm); padding:26px;}
+  .card h2{ font-size:19px; font-weight:800; margin-bottom:16px;}
+  .info-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .info-row:last-child{ border-bottom:none;}
+  .info-row .k{ color:var(--ink-500);}
+  .info-row .v{ font-weight:700;}
+  .includes-list{ list-style:none; margin-top:4px;}
+  .includes-list li{ display:flex; align-items:center; gap:10px; padding:9px 0; font-size:14.5px; color:var(--ink-700);}
+  .includes-list .tick{ color:#3da144; font-weight:800;}
+  .price-line{ display:flex; align-items:baseline; gap:8px; margin-bottom:4px;}
+  .price-line .p{ font-size:34px; font-weight:800;}
+  .price-line .per{ font-size:13px; color:var(--ink-500);}
+  .book-form{ display:flex; flex-direction:column; gap:12px; margin-top:16px;}
+  .book-form input{ border:1px solid var(--line); border-radius:10px; padding:13px 16px; font:inherit; font-size:14px; outline:none;}
+  .book-form input:focus{ border-color:var(--lime-dark);}
+  .btn{ display:inline-flex; align-items:center; justify-content:center; border:none; border-radius:10px; font-weight:700; font-size:15px; padding:14px 22px; cursor:pointer; font-family:inherit; background:var(--lime); color:var(--lime-text); transition:background .15s ease, transform .15s ease;}
+  .btn:hover{ background:var(--lime-dark); transform:translateY(-1px);}
+  .muted{ font-size:12.5px; color:var(--ink-400); text-align:center;}
+
+  .similar{ margin:0 0 60px;}
+  .similar h2{ font-size:22px; font-weight:800; margin-bottom:18px;}
+  .sim-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .sim-card{ position:relative; border-radius:14px; overflow:hidden; height:200px; display:block; box-shadow:var(--shadow-sm);}
+  .sim-card img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; display:block;}
+  .sim-card:hover img{ transform:scale(1.08);}
+  .sim-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(5,15,28,0) 40%, rgba(5,15,28,.85) 100%);}
+  .sim-info{ position:absolute; left:14px; right:14px; bottom:12px; z-index:2; color:#fff;}
+  .sim-info h3{ font-size:16px; font-weight:800;}
+  .sim-info span{ font-size:13px; font-weight:700;}
+
+  .toast-wrap{ position:fixed; top:76px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:10px; width:min(92vw, 480px);}
+  .toast{ padding:14px 18px; border-radius:12px; font-size:14px; font-weight:600; box-shadow:var(--shadow-md); transition:opacity .5s ease, transform .5s ease; text-align:center;}
+  .toast-success{ background:#e7f6e2; color:#1e5e12; border:1px solid #b9e3ac;}
+  .toast-error{ background:#fdecec; color:#8f1d1d; border:1px solid #f3bcbc;}
+
+  @media(max-width:900px){
+    .detail-grid{ grid-template-columns:1fr;}
+    .sim-grid{ grid-template-columns:1fr; }
+    .hero-img{ height:260px;}
+    .hero-title h1{ font-size:26px;}
+  }
+</style>
+</head>
+<body>
+
+{% if messages %}
+<div class="toast-wrap">
+  {% for message in messages %}
+  <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<header>
+  <div class="wrap header-inner">
+    <a href="{% url 'core:home' %}" class="logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
+    <a href="{% url 'core:tour_list' %}" class="back-link">&#8592; Barcha turlar</a>
+  </div>
+</header>
+
+<div class="hero-img">
+  <img src="{{ tour.image_url }}" alt="{{ tour.title }}">
+  <div class="hero-badges wrap">
+    <div class="row">
+      <span class="b-rating">&#9733; {{ tour.rating }}</span>
+      {% if tour.seats_left %}<span class="b-seats">&#128293; {{ tour.seats_left }} ta joy qoldi</span>{% endif %}
+    </div>
+  </div>
+  <div class="hero-title wrap">
+    <h1>{{ tour.title }}</h1>
+    <div class="sub">{{ tour.duration }} &middot; {{ tour.hotel_label }} &middot; &#128197; {{ tour.dates }}</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="detail-grid">
+    <div class="card">
+      <h2>Tur haqida</h2>
+      <div class="info-row"><span class="k">Yo'nalish</span><span class="v">{{ tour.title }}</span></div>
+      <div class="info-row"><span class="k">Muddat</span><span class="v">{{ tour.duration }}</span></div>
+      <div class="info-row"><span class="k">Mehmonxona</span><span class="v">{{ tour.hotel_label }}</span></div>
+      <div class="info-row"><span class="k">Sanalar</span><span class="v">{{ tour.dates }}</span></div>
+      <div class="info-row"><span class="k">Qolgan joylar</span><span class="v">{{ tour.seats_left }} ta</span></div>
+
+      <h2 style="margin-top:26px;">Narxga nimalar kiradi</h2>
+      <ul class="includes-list">
+        <li><span class="tick">&#10003;</span> Aviabilet (borish-qaytish)</li>
+        <li><span class="tick">&#10003;</span> Mehmonxona ({{ tour.hotel_label }})</li>
+        <li><span class="tick">&#10003;</span> Aeroport – mehmonxona transferi</li>
+        <li><span class="tick">&#10003;</span> Sug'urta</li>
+        <li><span class="tick">&#10003;</span> 24/7 qo'llab-quvvatlash</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="price-line"><span class="p">${{ tour.price }}</span><span class="per">/ 1 kishi uchun</span></div>
+      <p style="font-size:13.5px; color:var(--ink-500);">Bron qilish uchun ma'lumotlaringizni qoldiring — menejerlarimiz bog'lanadi.</p>
+      <form class="book-form" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Ismingiz">
+        <input type="text" name="contact" placeholder="Telefon raqam yoki email" required>
+        <button class="btn" type="submit">Bron qilish</button>
+        <p class="muted">So'rov yuborish majburiyat emas — to'lov keyin amalga oshiriladi.</p>
+      </form>
+    </div>
+  </div>
+
+  {% if similar %}
+  <div class="similar">
+    <h2>O'xshash turlar</h2>
+    <div class="sim-grid">
+      {% for s in similar %}
+      <a class="sim-card" href="{% url 'core:tour_detail' s.pk %}">
+        <img src="{{ s.image_url }}" alt="{{ s.title }}">
+        <div class="sim-info">
+          <h3>{{ s.title }}</h3>
+          <span>${{ s.price }} &middot; {{ s.duration }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  document.querySelectorAll('.toast').forEach(t => {
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-8px)'; }, 4000);
+    setTimeout(() => t.remove(), 4600);
+  });
+</script>
+</body>
+</html>

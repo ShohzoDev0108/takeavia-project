@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+*.log
+
+# Muhit o'zgaruvchilari (maxfiy kalitlar shu yerda saqlanadi)
+.env
+
+# Virtual muhitlar
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Loyihaga aloqasi yo'q eski fayllar
+/index.html
+/main.py
