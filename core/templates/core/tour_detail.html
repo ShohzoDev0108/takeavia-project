@@ -1,12 +1,47 @@
+{% load i18n l10n static %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% blocktrans with title=tour.title duration=tour.duration hotel=tour.hotel_label asvar page_description %}{{ title }} — {{ duration }}, {{ hotel }}. Take Avia Trip orqali qulay narxda bron qiling: aviabilet, mehmonxona va transfer narxga kiradi.{% endblocktrans %}
 <title>{{ tour.title }} — Take Avia Trip</title>
+<meta name="description" content="{{ page_description }}">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+{% include "core/_seo.html" with seo_title=tour.title|add:" — Take Avia Trip" seo_description=page_description seo_image=tour.image_src seo_type="website" %}
+{% trans "Tur paketlar" as tur_paketlar_label %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Take Avia Trip", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
+    {"@type": "ListItem", "position": 2, "name": "{{ tur_paketlar_label|escapejs }}", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:tour_list' %}"},
+    {"@type": "ListItem", "position": 3, "name": "{{ tour.title|escapejs }}", "item": "{{ seo_canonical_url }}"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ tour.title|escapejs }}",
+  "image": "{{ tour.image_src|escapejs }}",
+  "description": "{{ page_description|escapejs }}",
+  "brand": {"@type": "Brand", "name": "Take Avia Trip"},
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ seo_canonical_url }}",
+    "priceCurrency": "USD",
+    "price": "{{ tour.price|unlocalize }}",
+    "availability": "{% if tour.seats_left > 0 %}https://schema.org/InStock{% else %}https://schema.org/SoldOut{% endif %}"
+  }
+}
+</script>
 <style>
   :root{
     --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
@@ -21,10 +56,20 @@
   a{text-decoration:none; color:inherit;}
   .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
   header{ background:#fff; border-bottom:1px solid var(--line); padding:14px 0;}
-  .header-inner{ display:flex; align-items:center; justify-content:space-between;}
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:14px;}
   .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--navy-900);}
   .logo .plane{ color:var(--blue-600);}
+  .header-right{ display:flex; align-items:center; gap:16px;}
   .back-link{ font-size:14px; font-weight:600; color:var(--blue-600);}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
+  .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+  .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
+  .lang-menu.open{ display:block;}
+  .lang-menu form{ margin:0;}
+  .lang-opt{ width:100%; display:flex; align-items:center; gap:9px; background:none; border:none; padding:9px 10px; border-radius:8px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-700); cursor:pointer; text-align:left;}
+  .lang-opt:hover{ background:var(--bg-soft);}
+  .lang-opt.active{ color:var(--blue-600); background:var(--blue-50);}
+  .lang-opt .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
 
   .hero-img{ position:relative; height:380px; overflow:hidden;}
   .hero-img img{ width:100%; height:100%; object-fit:cover; display:block;}
@@ -94,64 +139,86 @@
 <header>
   <div class="wrap header-inner">
     <a href="{% url 'core:home' %}" class="logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
-    <a href="{% url 'core:tour_list' %}" class="back-link">&#8592; Barcha turlar</a>
+    <div class="header-right">
+      {% get_current_language as CUR_LANG %}
+      {% get_available_languages as AVAILABLE_LANGS %}
+      <div class="lang-select" id="langSelect">
+        <span class="fi fi-{% if CUR_LANG == 'ru' %}ru{% elif CUR_LANG == 'en' %}gb{% else %}uz{% endif %}"></span>
+        <span>{{ CUR_LANG|upper }}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="lang-menu" id="langMenu">
+          {% for code, name in AVAILABLE_LANGS %}
+          <form action="{% url 'switch_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="current" value="{{ CUR_LANG }}">
+            <input type="hidden" name="language" value="{{ code }}">
+            <button type="submit" class="lang-opt{% if code == CUR_LANG %} active{% endif %}">
+              <span class="fi fi-{% if code == 'ru' %}ru{% elif code == 'en' %}gb{% else %}uz{% endif %}"></span> {{ name }}
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'core:tour_list' %}" class="back-link">&#8592; {% trans "Barcha turlar" %}</a>
+    </div>
   </div>
 </header>
 
 <div class="hero-img">
-  <img src="{{ tour.image_url }}" alt="{{ tour.title }}">
+  <img src="{{ tour.image_src }}" alt="{{ tour.title }}">
   <div class="hero-badges wrap">
     <div class="row">
       <span class="b-rating">&#9733; {{ tour.rating }}</span>
-      {% if tour.seats_left %}<span class="b-seats">&#128293; {{ tour.seats_left }} ta joy qoldi</span>{% endif %}
+      {% if tour.seats_left %}<span class="b-seats">&#128293; {% blocktrans with seats=tour.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</span>{% endif %}
     </div>
   </div>
   <div class="hero-title wrap">
     <h1>{{ tour.title }}</h1>
-    <div class="sub">{{ tour.duration }} &middot; {{ tour.hotel_label }} &middot; &#128197; {{ tour.dates }}</div>
+    <div class="sub">{{ tour.duration }} &middot; {{ tour.hotel_label }} &middot; &#128197; {{ tour.dates_display }}</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="detail-grid">
     <div class="card">
-      <h2>Tur haqida</h2>
-      <div class="info-row"><span class="k">Yo'nalish</span><span class="v">{{ tour.title }}</span></div>
-      <div class="info-row"><span class="k">Muddat</span><span class="v">{{ tour.duration }}</span></div>
-      <div class="info-row"><span class="k">Mehmonxona</span><span class="v">{{ tour.hotel_label }}</span></div>
-      <div class="info-row"><span class="k">Sanalar</span><span class="v">{{ tour.dates }}</span></div>
-      <div class="info-row"><span class="k">Qolgan joylar</span><span class="v">{{ tour.seats_left }} ta</span></div>
+      <h2>{% trans "Tur haqida" %}</h2>
+      <div class="info-row"><span class="k">{% trans "Yo'nalish" %}</span><span class="v">{{ tour.title }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Muddat" %}</span><span class="v">{{ tour.duration }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Mehmonxona" %}</span><span class="v">{{ tour.hotel_label }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Sanalar" %}</span><span class="v">{{ tour.dates_display }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Qolgan joylar" %}</span><span class="v">{% blocktrans with seats=tour.seats_left %}{{ seats }} ta{% endblocktrans %}</span></div>
 
-      <h2 style="margin-top:26px;">Narxga nimalar kiradi</h2>
+      <h2 style="margin-top:26px;">{% trans "Narxga nimalar kiradi" %}</h2>
       <ul class="includes-list">
-        <li><span class="tick">&#10003;</span> Aviabilet (borish-qaytish)</li>
-        <li><span class="tick">&#10003;</span> Mehmonxona ({{ tour.hotel_label }})</li>
-        <li><span class="tick">&#10003;</span> Aeroport – mehmonxona transferi</li>
-        <li><span class="tick">&#10003;</span> Sug'urta</li>
-        <li><span class="tick">&#10003;</span> 24/7 qo'llab-quvvatlash</li>
+        <li><span class="tick">&#10003;</span> {% trans "Aviabilet (borish-qaytish)" %}</li>
+        <li><span class="tick">&#10003;</span> {% blocktrans with hotel=tour.hotel_label %}Mehmonxona ({{ hotel }}){% endblocktrans %}</li>
+        <li><span class="tick">&#10003;</span> {% trans "Aeroport – mehmonxona transferi" %}</li>
+        <li><span class="tick">&#10003;</span> {% trans "Sug'urta" %}</li>
+        <li><span class="tick">&#10003;</span> {% trans "24/7 qo'llab-quvvatlash" %}</li>
       </ul>
     </div>
 
     <div class="card">
-      <div class="price-line"><span class="p">${{ tour.price }}</span><span class="per">/ 1 kishi uchun</span></div>
-      <p style="font-size:13.5px; color:var(--ink-500);">Bron qilish uchun ma'lumotlaringizni qoldiring — menejerlarimiz bog'lanadi.</p>
+      <div class="price-line"><span class="p">${{ tour.price }}</span><span class="per">{% trans "/ 1 kishi uchun" %}</span></div>
+      <p style="font-size:13.5px; color:var(--ink-500);">{% trans "Bron qilish uchun ma'lumotlaringizni qoldiring — menejerlarimiz bog'lanadi." %}</p>
       <form class="book-form" method="post">
         {% csrf_token %}
-        <input type="text" name="name" placeholder="Ismingiz">
-        <input type="text" name="contact" placeholder="Telefon raqam yoki email" required>
-        <button class="btn" type="submit">Bron qilish</button>
-        <p class="muted">So'rov yuborish majburiyat emas — to'lov keyin amalga oshiriladi.</p>
+        <input type="text" name="name" placeholder="{% trans 'Ismingiz' %}">
+        <input type="text" name="contact" placeholder="{% trans 'Telefon raqam yoki email' %}" required>
+        <button class="btn" type="submit">{% trans "Bron qilish" %}</button>
+        <p class="muted">{% trans "So'rov yuborish majburiyat emas — to'lov keyin amalga oshiriladi." %}</p>
       </form>
     </div>
   </div>
 
   {% if similar %}
   <div class="similar">
-    <h2>O'xshash turlar</h2>
+    <h2>{% trans "O'xshash turlar" %}</h2>
     <div class="sim-grid">
       {% for s in similar %}
       <a class="sim-card" href="{% url 'core:tour_detail' s.pk %}">
-        <img src="{{ s.image_url }}" alt="{{ s.title }}">
+        <img src="{{ s.image_src }}" alt="{{ s.title }}">
         <div class="sim-info">
           <h3>{{ s.title }}</h3>
           <span>${{ s.price }} &middot; {{ s.duration }}</span>
@@ -164,6 +231,14 @@
 </div>
 
 <script>
+  const langSelect = document.getElementById('langSelect');
+  const langMenu = document.getElementById('langMenu');
+  if (langSelect && langMenu) {
+    langSelect.addEventListener('click', (e) => { langMenu.classList.toggle('open'); e.stopPropagation(); });
+    langMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => langMenu.classList.remove('open'));
+  }
+
   document.querySelectorAll('.toast').forEach(t => {
     setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-8px)'; }, 4000);
     setTimeout(() => t.remove(), 4600);

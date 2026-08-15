@@ -73,6 +73,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -92,6 +93,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.i18n",
+                "core.context_processors.site_settings",
+                "core.context_processors.seo",
             ],
         },
     },
@@ -135,6 +139,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "uz"
 
+# Saytda tanlash mumkin bo'lgan tillar (til almashtirgich shu ro'yxatdan foydalanadi)
+LANGUAGES = [
+    ("uz", "O'zbekcha"),
+    ("ru", "Русский"),
+    ("en", "English"),
+]
+
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
 TIME_ZONE = "Asia/Tashkent"
 
 USE_I18N = True
@@ -149,6 +162,11 @@ STATIC_URL = "static/"
 
 # collectstatic uchun (deploy paytida kerak bo'ladi)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Media fayllar (admin panel orqali yuklangan rasmlar)
+# https://docs.djangoproject.com/en/5.2/topics/files/
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

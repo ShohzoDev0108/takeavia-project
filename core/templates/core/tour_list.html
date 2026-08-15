@@ -1,12 +1,29 @@
+{% load i18n static %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tur paketlar — Take Avia Trip</title>
+{% trans "Tur paketlar" as page_title_short %}
+{% trans "Take Avia Trip'dan issiq tur paketlari — Turkiya, BAA, Misr, Maldiv orollari va boshqa yo'nalishlar. Aviabilet + mehmonxona + transfer, qulay narxlarda." as page_description %}
+<title>{{ page_title_short }} — Take Avia Trip</title>
+<meta name="description" content="{{ page_description }}">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+{% include "core/_seo.html" with seo_title=page_title_short|add:" — Take Avia Trip" seo_description=page_description seo_type="website" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Take Avia Trip", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
+    {"@type": "ListItem", "position": 2, "name": "{{ page_title_short|escapejs }}", "item": "{{ seo_canonical_url }}"}
+  ]
+}
+</script>
 <style>
   :root{
     --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
@@ -21,10 +38,20 @@
   a{text-decoration:none; color:inherit;}
   .wrap{max-width:1240px; margin:0 auto; padding:0 24px;}
   header{ background:#fff; border-bottom:1px solid var(--line); padding:14px 0;}
-  .header-inner{ display:flex; align-items:center; justify-content:space-between;}
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:14px;}
   .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--navy-900);}
   .logo .plane{ color:var(--blue-600);}
+  .header-right{ display:flex; align-items:center; gap:16px;}
   .back-link{ font-size:14px; font-weight:600; color:var(--blue-600);}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
+  .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+  .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
+  .lang-menu.open{ display:block;}
+  .lang-menu form{ margin:0;}
+  .lang-opt{ width:100%; display:flex; align-items:center; gap:9px; background:none; border:none; padding:9px 10px; border-radius:8px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-700); cursor:pointer; text-align:left;}
+  .lang-opt:hover{ background:var(--bg-soft);}
+  .lang-opt.active{ color:var(--blue-600); background:var(--blue-50);}
+  .lang-opt .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
   .page-head{ background:var(--navy-900); color:#fff; padding:30px 0;}
   .page-head h1{ font-size:24px; font-weight:800;}
   .page-head p{ margin-top:6px; font-size:14px; color:rgba(255,255,255,.75);}
@@ -60,38 +87,60 @@
 <header>
   <div class="wrap header-inner">
     <a href="{% url 'core:home' %}" class="logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
-    <a href="{% url 'core:home' %}" class="back-link">&#8592; Bosh sahifaga qaytish</a>
+    <div class="header-right">
+      {% get_current_language as CUR_LANG %}
+      {% get_available_languages as AVAILABLE_LANGS %}
+      <div class="lang-select" id="langSelect">
+        <span class="fi fi-{% if CUR_LANG == 'ru' %}ru{% elif CUR_LANG == 'en' %}gb{% else %}uz{% endif %}"></span>
+        <span>{{ CUR_LANG|upper }}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="lang-menu" id="langMenu">
+          {% for code, name in AVAILABLE_LANGS %}
+          <form action="{% url 'switch_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="current" value="{{ CUR_LANG }}">
+            <input type="hidden" name="language" value="{{ code }}">
+            <button type="submit" class="lang-opt{% if code == CUR_LANG %} active{% endif %}">
+              <span class="fi fi-{% if code == 'ru' %}ru{% elif code == 'en' %}gb{% else %}uz{% endif %}"></span> {{ name }}
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'core:home' %}" class="back-link">&#8592; {% trans "Bosh sahifaga qaytish" %}</a>
+    </div>
   </div>
 </header>
 
 <section class="page-head">
   <div class="wrap">
-    <h1>Tur paketlar</h1>
-    <p>Aviabilet + mehmonxona + transfer — hammasi bitta paketda, eng qulay narxlarda.</p>
+    <h1>{% trans "Tur paketlar" %}</h1>
+    <p>{% trans "Aviabilet + mehmonxona + transfer — hammasi bitta paketda, eng qulay narxlarda." %}</p>
   </div>
 </section>
 
 <div class="wrap">
   <form class="filter-bar" method="get" action="{% url 'core:tour_list' %}">
-    <input type="text" name="q" value="{{ q }}" placeholder="Yo'nalish bo'yicha qidirish (masalan: Dubay)">
-    <button class="btn" type="submit">Qidirish</button>
+    <input type="text" name="q" value="{{ q }}" placeholder="{% trans "Yo'nalish bo'yicha qidirish (masalan: Dubay)" %}">
+    <button class="btn" type="submit">{% trans "Qidirish" %}</button>
   </form>
 
   <div class="tours-grid">
     {% for t in tours %}
     <a class="tour-card" href="{% url 'core:tour_detail' t.pk %}">
       <div class="tour-media">
-        <img src="{{ t.image_url }}" alt="{{ t.title }}">
+        <img src="{{ t.image_src }}" alt="{{ t.title }}">
         <div class="tour-rating">&#9733; {{ t.rating }}</div>
-        {% if t.seats_left %}<div class="tour-badge">&#128293; {{ t.seats_left }} ta joy qoldi</div>{% endif %}
+        {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
         <div class="tour-overlay">
           <h3>{{ t.title }}</h3>
           <div class="meta">{{ t.duration }} &middot; {{ t.hotel_label }}</div>
           <div class="includes">{{ t.includes }}</div>
-          <div class="dates">&#128197; {{ t.dates }}</div>
+          <div class="dates">&#128197; {{ t.dates_display }}</div>
           <div class="tour-foot">
             <div class="tour-price">${{ t.price }}</div>
-            <span class="btn">Batafsil</span>
+            <span class="btn">{% trans "Batafsil" %}</span>
           </div>
         </div>
       </div>
@@ -99,15 +148,24 @@
     {% empty %}
     <div class="empty">
       {% if q %}
-      <p style="font-size:16px; font-weight:700; color:var(--ink-700);">"{{ q }}" bo'yicha tur topilmadi</p>
-      <p style="margin-top:8px;">Boshqa yo'nalishni sinab ko'ring yoki bosh sahifadagi forma orqali so'rov qoldiring.</p>
+      <p style="font-size:16px; font-weight:700; color:var(--ink-700);">{% blocktrans %}"{{ q }}" bo'yicha tur topilmadi{% endblocktrans %}</p>
+      <p style="margin-top:8px;">{% trans "Boshqa yo'nalishni sinab ko'ring yoki bosh sahifadagi forma orqali so'rov qoldiring." %}</p>
       {% else %}
-      <p>Hozircha faol turlar yo'q. Admin panel orqali qo'shing.</p>
+      <p>{% trans "Hozircha faol turlar yo'q. Admin panel orqali qo'shing." %}</p>
       {% endif %}
     </div>
     {% endfor %}
   </div>
 </div>
 
+<script>
+  const langSelect = document.getElementById('langSelect');
+  const langMenu = document.getElementById('langMenu');
+  if (langSelect && langMenu) {
+    langSelect.addEventListener('click', (e) => { langMenu.classList.toggle('open'); e.stopPropagation(); });
+    langMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => langMenu.classList.remove('open'));
+  }
+</script>
 </body>
 </html>

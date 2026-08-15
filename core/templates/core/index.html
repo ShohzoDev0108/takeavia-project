@@ -1,15 +1,19 @@
+{% load i18n l10n static %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Take Avia Trip — Aviabiletlar va tur paketlar</title>
-<meta name="description" content="Take Avia Trip — aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling.">
+{% trans "Take Avia Trip — Aviabiletlar va tur paketlar" as page_title %}
+{% trans "Take Avia Trip — Toshkentdan aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, vizaga yordam, 24/7 qo'llab-quvvatlash." as page_description %}
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ page_description }}">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%230d2645'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle'%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
+{% include "core/_seo.html" with seo_title=page_title seo_description=page_description seo_type="website" %}
 
 <style>
   :root{
@@ -92,9 +96,15 @@
   }
   .phone-badge .num{ font-weight:700; font-size:14.5px; color:var(--ink-900); line-height:1.3;}
   .phone-badge .sub{ font-size:11.5px; color:var(--ink-400);}
-  .lang-select{ display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px;}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
   .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
-  .dest-info .flag .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; box-shadow:0 0 0 1px rgba(255,255,255,.3);}
+  .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
+  .lang-menu.open{ display:block;}
+  .lang-menu form{ margin:0;}
+  .lang-opt{ width:100%; display:flex; align-items:center; gap:9px; background:none; border:none; padding:9px 10px; border-radius:8px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-700); cursor:pointer; text-align:left;}
+  .lang-opt:hover{ background:var(--bg-soft);}
+  .lang-opt.active{ color:var(--blue-600); background:var(--blue-50);}
+  .lang-opt .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
   .burger{ display:none; flex-direction:column; gap:4px; background:none; border:none; padding:6px;}
   .burger span{ width:22px; height:2px; background:var(--ink-900); border-radius:2px;}
 
@@ -140,6 +150,71 @@
   .trust-list li{ display:flex; align-items:center; gap:9px;}
   .trust-list svg{ color:var(--blue-600); flex-shrink:0;}
 
+  /* ===== Route flow (yo'nalishlar tarmog'i animatsiyasi) ===== */
+  .route-flow{ background:linear-gradient(180deg, var(--navy-900), var(--navy-950)); padding:56px 0 68px; overflow:hidden;}
+  .route-flow-head{ text-align:center; margin-bottom:8px;}
+  .route-flow-head h2{ color:#fff; font-size:26px; font-weight:800;}
+  .route-flow-head p{ color:rgba(255,255,255,.6); font-size:14px; margin-top:8px;}
+  .route-flow-track{ position:relative; width:100%; margin-top:56px;}
+  .route-flow-svg{ position:absolute; top:0; left:0; width:100%; height:100%; display:block; overflow:visible;}
+  .route-pulse{
+    position:absolute; top:0; left:0; width:14px; height:14px; margin:-7px 0 0 -7px;
+    border-radius:50%; background:var(--lime);
+    box-shadow:0 0 10px 3px rgba(207,224,33,.7), 0 0 26px 10px rgba(207,224,33,.35);
+    opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:5; will-change:transform;
+  }
+  .route-pulse.is-on{ opacity:1;}
+  .route-dot{ position:absolute; top:0; left:0; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:4;}
+  .route-dot-ring{
+    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(207,224,33,.55);
+    opacity:0; transform:scale(.6);
+  }
+  .route-dot.is-pending .route-dot-ring{ animation:routeRing 1s ease-out infinite;}
+  @keyframes routeRing{
+    0%{ opacity:.9; transform:scale(.5);}
+    100%{ opacity:0; transform:scale(1.9);}
+  }
+  .route-dot-core{
+    width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.35);
+    border:1.5px solid rgba(255,255,255,.5); transition:background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+  }
+  .route-dot.is-active .route-dot-core{
+    background:var(--lime); border-color:var(--lime); transform:scale(1.35);
+    box-shadow:0 0 0 5px rgba(207,224,33,.2), 0 0 16px 4px rgba(207,224,33,.55);
+  }
+  .route-dot-code{
+    margin-top:9px; font-size:11.5px; font-weight:700; letter-spacing:.5px; color:rgba(255,255,255,.55);
+    transition:color .3s ease;
+  }
+  .route-dot.is-active .route-dot-code{ color:#fff;}
+  .route-dot-popup{
+    position:absolute; bottom:calc(100% + 14px); left:50%; transform:translate(-50%,6px);
+    display:flex; align-items:center; gap:7px; background:#fff; color:var(--navy-900);
+    padding:7px 12px; border-radius:20px; font-size:12.5px; font-weight:700; white-space:nowrap;
+    box-shadow:0 8px 20px rgba(0,0,0,.25); opacity:0; pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .route-dot-popup::after{
+    content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:6px solid transparent; border-top-color:#fff;
+  }
+  .route-dot-popup .fi{ width:18px; height:13px; border-radius:2px; background-size:cover; flex-shrink:0;}
+  .route-dot.is-active .route-dot-popup{ opacity:1; transform:translate(-50%,0);}
+  /* Chetdagi (birinchi/oxirgi) nuqtalarning popupi ekrandan chiqib ketmasin */
+  .route-dot:first-child .route-dot-popup{ left:0; transform:translate(0,6px);}
+  .route-dot:first-child .route-dot-popup::after{ left:18px; transform:none;}
+  .route-dot:first-child.is-active .route-dot-popup{ transform:translate(0,0);}
+  .route-dot:last-child .route-dot-popup{ left:auto; right:0; transform:translate(0,6px);}
+  .route-dot:last-child .route-dot-popup::after{ left:auto; right:18px; transform:none;}
+  .route-dot:last-child.is-active .route-dot-popup{ transform:translate(0,0);}
+
+  @media(max-width:640px){
+    .route-flow-head h2{ font-size:21px;}
+    .route-flow-track{ margin-top:46px;}
+    .route-dot-code{ font-size:9.5px;}
+    .route-dot-popup{ font-size:11px; padding:6px 10px;}
+  }
+
   /* ===== Destinations ===== */
   .dest-scroll{ display:flex; gap:20px; overflow-x:auto; padding-bottom:6px; scroll-snap-type:x mandatory;}
   .dest-scroll::-webkit-scrollbar{ height:0;}
@@ -153,12 +228,13 @@
   .dest-card::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(5,15,28,.85) 100%);}
   .dest-badge{ position:absolute; top:12px; left:12px; z-index:2; background:#ffb400; color:#3a2600; font-size:11px; font-weight:700; padding:5px 10px; border-radius:20px; display:flex; align-items:center; gap:5px;}
   .dest-info{ position:absolute; left:14px; right:14px; bottom:14px; z-index:2; color:#fff;}
-  .dest-info .flag{ font-size:12px;}
-  .dest-info h3{ font-size:18px; font-weight:700; margin-top:2px;}
-  .dest-info .country{ font-size:12.5px; opacity:.85; margin-bottom:6px;}
-  .dest-info .price{ font-size:13.5px; font-weight:600;}
-  .dest-info .price b{ font-size:16px;}
-  .dest-info .dur{ font-size:11.5px; opacity:.85; margin-top:2px;}
+  .dest-info .route{ display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; letter-spacing:.3px; text-transform:uppercase;}
+  .dest-info .route .fi{ width:16px; height:11px; border-radius:2px; display:inline-block; background-size:cover; box-shadow:0 0 0 1px rgba(255,255,255,.3);}
+  .dest-info .route .arrow{ color:var(--lime); font-weight:700;}
+  .dest-info h3{ font-size:18px; font-weight:700; margin-top:4px;}
+  .dest-info .country{ font-size:12px; opacity:.8; margin-bottom:8px;}
+  .dest-info .price{ font-size:14.5px; font-weight:700;}
+  .dest-info .price .label{ display:block; font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.4px; opacity:.7; margin-bottom:1px;}
 
   /* ===== Vacation types ===== */
   .vac-grid{ display:grid; grid-template-columns:repeat(8,1fr); gap:16px;}
@@ -313,18 +389,18 @@
 <!-- ===== HEADER ===== -->
 <header>
   <div class="header-inner wrap" style="max-width:1400px;">
-    <a href="#" class="logo">
+    <a href="{% url 'core:home' %}" class="logo">
       <span class="plane">&#9992;</span>
-      <span class="logo-text">TAKE AVIA TRIP<span class="sub">SAYOHAT AGENTLIGI</span></span>
+      <span class="logo-text">TAKE AVIA TRIP<span class="sub">{% trans "SAYOHAT AGENTLIGI" %}</span></span>
     </a>
     <nav class="main-nav">
-      <a href="{% url 'core:home' %}" class="active">Bosh sahifa</a>
-      <a href="#qidiruv">Aviabiletlar</a>
-      <a href="{% url 'core:tour_list' %}">Tur paketlar</a>
-      <a href="#yonalishlar">Yo'nalishlar</a>
-      <a href="#viza">Vizaga yordam</a>
-      <a href="#malumotlar">Ma'lumotlar</a>
-      <a href="#biz-haqimizda">Biz haqimizda</a>
+      <a href="{% url 'core:home' %}" class="active">{% trans "Bosh sahifa" %}</a>
+      <a href="#qidiruv">{% trans "Aviabiletlar" %}</a>
+      <a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a>
+      <a href="#yonalishlar">{% trans "Yo'nalishlar" %}</a>
+      <a href="#viza">{% trans "Vizaga yordam" %}</a>
+      <a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a>
+      <a href="{% url 'core:contact' %}">{% trans "Bog'lanish" %}</a>
     </nav>
     <div class="header-right">
       <div class="phone-badge">
@@ -332,13 +408,29 @@
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </span>
         <span>
-          <a class="num" style="display:block;" href="tel:+998712000010">+998 71 200 00 10</a>
-          <span class="sub">24/7 qo'llab-quvvatlash</span>
+          <a class="num" style="display:block;" href="tel:{{ site_settings.phone_1|cut:' ' }}">{{ site_settings.phone_1 }}</a>
+          <span class="sub">{% trans "24/7 qo'llab-quvvatlash" %}</span>
         </span>
       </div>
-      <div class="lang-select">
-        <span class="fi fi-uz"></span>
-        <span class="lang-code">UZ</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+      {% get_current_language as CUR_LANG %}
+      {% get_available_languages as AVAILABLE_LANGS %}
+      <div class="lang-select" id="langSelect">
+        <span class="fi fi-{% if CUR_LANG == 'ru' %}ru{% elif CUR_LANG == 'en' %}gb{% else %}uz{% endif %}"></span>
+        <span class="lang-code">{{ CUR_LANG|upper }}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="lang-menu" id="langMenu">
+          {% for code, name in AVAILABLE_LANGS %}
+          <form action="{% url 'switch_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="current" value="{{ CUR_LANG }}">
+            <input type="hidden" name="language" value="{{ code }}">
+            <button type="submit" class="lang-opt{% if code == CUR_LANG %} active{% endif %}">
+              <span class="fi fi-{% if code == 'ru' %}ru{% elif code == 'en' %}gb{% else %}uz{% endif %}"></span> {{ name }}
+            </button>
+          </form>
+          {% endfor %}
+        </div>
       </div>
       <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -350,12 +442,12 @@
   <div class="hero-inner wrap" style="max-width:1400px;">
     <div class="hero-top">
       <div>
-        <h1>Sayohatingiz shu yerdan boshlanadi</h1>
-        <p>Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling.</p>
+        <h1>{% trans "Sayohatingiz shu yerdan boshlanadi" %}</h1>
+        <p>{% trans "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling." %}</p>
       </div>
       <div class="hero-toggle">
-        <button class="active" type="button" data-tab="avia">&#9992; Aviabiletlar</button>
-        <button type="button" data-tab="tour">&#127794; Tur paketlar</button>
+        <button class="active" type="button" data-tab="avia">&#9992; {% trans "Aviabiletlar" %}</button>
+        <button type="button" data-tab="tour">&#127794; {% trans "Tur paketlar" %}</button>
       </div>
     </div>
   </div>
@@ -363,41 +455,41 @@
   <form class="search-card" method="post" action="{% url 'core:flight_search' %}">
     {% csrf_token %}
     <div class="field">
-      <label>Qayerdan</label>
+      <label>{% trans "Qayerdan" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <input type="text" name="from_city" value="Toshkent (TAS)">
+        <input type="text" name="from_city" value="{% trans 'Toshkent (TAS)' %}">
       </div>
     </div>
     <div class="field">
-      <label>Qayerga</label>
+      <label>{% trans "Qayerga" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <input type="text" name="to_city" placeholder="Shahar yoki mamlakat">
+        <input type="text" name="to_city" placeholder="{% trans 'Shahar yoki mamlakat' %}">
       </div>
     </div>
     <div class="field">
-      <label>Ketish sanasi</label>
+      <label>{% trans "Ketish sanasi" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         <input type="text" name="depart_date" value="20.05.2026">
       </div>
     </div>
     <div class="field">
-      <label>Qaytish sanasi</label>
+      <label>{% trans "Qaytish sanasi" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         <input type="text" name="return_date" value="27.05.2026">
       </div>
     </div>
     <div class="field">
-      <label>Yo'lovchilar</label>
+      <label>{% trans "Yo'lovchilar" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <input type="text" name="passengers" value="2 kishi, Economy">
+        <input type="text" name="passengers" value="{% trans '2 kishi, Economy' %}">
       </div>
     </div>
-    <button class="btn btn-primary" type="submit">Variantlarni ko'rish</button>
+    <button class="btn btn-primary" type="submit">{% trans "Variantlarni ko'rish" %}</button>
   </form>
 </section>
 
@@ -405,37 +497,66 @@
 <section class="trust-bar">
   <div class="wrap">
     <ul class="trust-list">
-      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9l-6.2 3.4 1.6-6.8L2.2 8.9l6.9-.6z"/></svg> Eng yaxshi narx kafolati</li>
-      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Xavfsiz to'lov</li>
-      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 24/7 qo'llab-quvvatlash</li>
-      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 1000+ mamnun mijozlar</li>
+      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9l-6.2 3.4 1.6-6.8L2.2 8.9l6.9-.6z"/></svg> {% trans "Eng yaxshi narx kafolati" %}</li>
+      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> {% trans "Xavfsiz to'lov" %}</li>
+      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> {% trans "24/7 qo'llab-quvvatlash" %}</li>
+      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> {% trans "1000+ mamnun mijozlar" %}</li>
     </ul>
   </div>
 </section>
 
-<!-- ===== POPULAR DESTINATIONS ===== -->
+<!-- ===== ROUTE FLOW (yo'nalishlar tarmog'i animatsiyasi) ===== -->
+{% if destinations %}
+<section class="route-flow" aria-label="{% trans "Yo'nalishlar tarmog'i" %}">
+  <div class="wrap">
+    <div class="route-flow-head">
+      <h2>{% trans "Bizning yo'nalishlar tarmog'i" %}</h2>
+      <p>{% trans "Toshkentdan dunyoning istalgan nuqtasiga" %}</p>
+    </div>
+    <div class="route-flow-track" id="routeFlow">
+      <svg class="route-flow-svg" id="routeFlowSvg" preserveAspectRatio="none"></svg>
+      <div class="route-pulse" id="routePulse"></div>
+      {% for d in destinations %}
+      <div class="route-dot" data-index="{{ forloop.counter0 }}">
+        <span class="route-dot-ring"></span>
+        <span class="route-dot-core"></span>
+        <span class="route-dot-code">{{ d.to_code }}</span>
+        <div class="route-dot-popup">
+          <span class="fi fi-{{ d.flag_code }}"></span>
+          <span>{{ d.name }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ===== POPULAR FLIGHTS FROM TASHKENT ===== -->
 <section class="section" style="padding-top:16px;" id="yonalishlar">
   <div class="wrap">
     <div class="section-head">
-      <h2>Mashhur yo'nalishlar</h2>
-      <a href="{% url 'core:tour_list' %}" class="see-all">Barchasini ko'rish <span class="circle">&#8594;</span></a>
+      <div>
+        <h2>{% trans "Toshkentdan mashhur reyslar" %}</h2>
+        <p style="font-size:13.5px; color:var(--ink-500); margin-top:6px;">{% trans "TAS aeroportidan eng ko'p qidiriladigan yo'nalishlar" %} &middot; {% trans "narxlar taxminiy" %}</p>
+      </div>
+      <a href="{% url 'core:tour_list' %}" class="see-all">{% trans "Barchasini ko'rish" %} <span class="circle">&#8594;</span></a>
     </div>
     <div class="carousel-row">
       <div class="dest-scroll" id="destScroll">
         {% for d in destinations %}
         <a class="dest-card" href="{% url 'core:tour_list' %}?q={{ d.name|urlencode }}">
-          {% if d.is_popular %}<div class="dest-badge">&#9733; Mashhur</div>{% endif %}
-          <img src="{{ d.image_url }}" alt="{{ d.name }}">
+          {% if d.is_popular %}<div class="dest-badge">&#9733; {% trans "Mashhur" %}</div>{% endif %}
+          <img src="{{ d.image_src }}" alt="{{ d.from_code }} — {{ d.name }}">
           <div class="dest-info">
-            <div class="flag"><span class="fi fi-{{ d.flag_code }}"></span></div>
+            <div class="route"><span class="fi fi-{{ d.flag_code }}"></span> {{ d.from_code }} <span class="arrow">&#8594;</span> {{ d.to_code }}</div>
             <h3>{{ d.name }}</h3>
-            <div class="country">{{ d.country }}</div>
-            <div class="price">${{ d.price_from }} dan</div>
-            <div class="dur">{{ d.duration }}</div>
+            <div class="country">{{ d.country }} &middot; &#9992; {{ d.duration }}</div>
+            <div class="price"><span class="label">{% trans "Taxminiy narx" %}</span> {% blocktrans with price=d.price_from %}${{ price }} dan{% endblocktrans %}</div>
           </div>
         </a>
         {% empty %}
-        <p style="color:var(--ink-500);">Hozircha yo'nalishlar qo'shilmagan. Admin panel orqali qo'shing.</p>
+        <p style="color:var(--ink-500);">{% trans "Hozircha reyslar qo'shilmagan. Admin panel orqali qo'shing." %}</p>
         {% endfor %}
       </div>
       <button class="arrow-btn" id="destNext" aria-label="Keyingisi">&#8594;</button>
@@ -446,16 +567,16 @@
 <!-- ===== VACATION TYPES ===== -->
 <section class="section" style="padding-top:16px; padding-bottom:16px;">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:22px;"><h2>Siz qaysi dam olishni xohlaysiz?</h2></div>
+    <div class="section-head" style="margin-bottom:22px;"><h2>{% trans "Siz qaysi dam olishni xohlaysiz?" %}</h2></div>
     <div class="vac-grid">
-      <div class="vac-item"><div class="emoji">&#127965;</div><span>Dengiz bo'yida</span></div>
-      <div class="vac-item"><div class="emoji">&#10084;&#65039;</div><span>Romantik sayohat</span></div>
-      <div class="vac-item"><div class="emoji">&#128104;&#8205;&#128107;&#8205;&#128103;</div><span>Oilaviy dam olish</span></div>
-      <div class="vac-item"><div class="emoji">&#128176;</div><span>Arzon turlar</span></div>
-      <div class="vac-item"><div class="emoji">&#128142;</div><span>Premium turlar</span></div>
-      <div class="vac-item"><div class="emoji">&#127961;</div><span>Ziyorat turlari</span></div>
-      <div class="vac-item"><div class="emoji">&#128147;</div><span>Davolanish</span></div>
-      <div class="vac-item"><div class="emoji">&#129394;</div><span>Ekstrimal dam olish</span></div>
+      <div class="vac-item"><div class="emoji">&#127965;</div><span>{% trans "Dengiz bo'yida" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#10084;&#65039;</div><span>{% trans "Romantik sayohat" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#128104;&#8205;&#128107;&#8205;&#128103;</div><span>{% trans "Oilaviy dam olish" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#128176;</div><span>{% trans "Arzon turlar" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#128142;</div><span>{% trans "Premium turlar" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#127961;</div><span>{% trans "Ziyorat turlari" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#128147;</div><span>{% trans "Davolanish" %}</span></div>
+      <div class="vac-item"><div class="emoji">&#129394;</div><span>{% trans "Ekstrimal dam olish" %}</span></div>
     </div>
   </div>
 </section>
@@ -465,15 +586,15 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Hot Tours</h2>
-      <a href="{% url 'core:tour_list' %}" class="see-all">Barchasini ko'rish <span class="circle">&#8594;</span></a>
+      <a href="{% url 'core:tour_list' %}" class="see-all">{% trans "Barchasini ko'rish" %} <span class="circle">&#8594;</span></a>
     </div>
     <div class="tours-grid">
         {% for t in tours %}
         <div class="tour-card">
           <div class="tour-media">
-            <img src="{{ t.image_url }}" alt="{{ t.title }}">
+            <img src="{{ t.image_src }}" alt="{{ t.title }}">
             <div class="tour-rating">&#9733; <span>{{ t.rating }}</span></div>
-            {% if t.seats_left %}<div class="tour-badge">&#128293; {{ t.seats_left }} ta joy qoldi</div>{% endif %}
+            {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
             <div class="tour-overlay">
               <h3>{{ t.title }}</h3>
               <div class="meta">
@@ -483,17 +604,17 @@
               <div class="includes">{{ t.includes }}</div>
               <div class="tour-dates">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                {{ t.dates }}
+                {{ t.dates_display }}
               </div>
               <div class="tour-foot">
                 <div class="tour-price">${{ t.price }}</div>
-                <div class="tour-cta"><a class="btn btn-primary" href="{% url 'core:tour_detail' t.pk %}">Batafsil</a></div>
+                <div class="tour-cta"><a class="btn btn-primary" href="{% url 'core:tour_detail' t.pk %}">{% trans "Batafsil" %}</a></div>
               </div>
             </div>
           </div>
         </div>
         {% empty %}
-        <p style="color:var(--ink-500);">Hozircha faol turlar yo'q. Admin panel orqali qo'shing.</p>
+        <p style="color:var(--ink-500);">{% trans "Hozircha faol turlar yo'q. Admin panel orqali qo'shing." %}</p>
         {% endfor %}
     </div>
   </div>
@@ -502,32 +623,32 @@
 <!-- ===== WHY US ===== -->
 <section class="section why-bg">
   <div class="wrap">
-    <div class="section-head" style="margin-bottom:22px;"><h2 id="biz-haqimizda">Nega Take Avia Trip?</h2></div>
+    <div class="section-head" style="margin-bottom:22px;"><h2>{% trans "Nega Take Avia Trip?" %}</h2></div>
     <div class="why-grid">
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
-        <h4>Tekshirilgan mehmonxonalar</h4>
-        <p>Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz.</p>
+        <h4>{% trans "Tekshirilgan mehmonxonalar" %}</h4>
+        <p>{% trans "Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz." %}</p>
       </div>
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
-        <h4>Aviabilet + tur bir joyda</h4>
-        <p>Vaqtingizni tejang, hammasini bir joydan toping.</p>
+        <h4>{% trans "Aviabilet + tur bir joyda" %}</h4>
+        <p>{% trans "Vaqtingizni tejang, hammasini bir joydan toping." %}</p>
       </div>
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h4>24/7 qo'llab-quvvatlash</h4>
-        <p>Har qanday savolingizga doim tayyormiz.</p>
+        <h4>{% trans "24/7 qo'llab-quvvatlash" %}</h4>
+        <p>{% trans "Har qanday savolingizga doim tayyormiz." %}</p>
       </div>
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <h4 id="viza">Viza bo'yicha yordam</h4>
-        <p>Viza rasmiylashtirishda to'liq yordam beramiz.</p>
+        <h4 id="viza">{% trans "Viza bo'yicha yordam" %}</h4>
+        <p>{% trans "Viza rasmiylashtirishda to'liq yordam beramiz." %}</p>
       </div>
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h4>Individual tur tanlash</h4>
-        <p>Sizga mos turni individual tanlab beramiz.</p>
+        <h4>{% trans "Individual tur tanlash" %}</h4>
+        <p>{% trans "Sizga mos turni individual tanlab beramiz." %}</p>
       </div>
     </div>
   </div>
@@ -537,8 +658,8 @@
 <section class="section">
   <div class="wrap">
     <div class="section-head">
-      <h2>Mijozlarimiz fikri</h2>
-      <a href="{% url 'core:tour_list' %}" class="see-all">Barchasini ko'rish <span class="circle">&#8594;</span></a>
+      <h2>{% trans "Mijozlarimiz fikri" %}</h2>
+      <a href="{% url 'core:tour_list' %}" class="see-all">{% trans "Barchasini ko'rish" %} <span class="circle">&#8594;</span></a>
     </div>
     <div class="test-grid">
       {% for r in testimonials %}
@@ -551,7 +672,7 @@
         <p>{{ r.text }}</p>
       </div>
       {% empty %}
-      <p style="color:var(--ink-500);">Hozircha mijoz fikrlari qo'shilmagan.</p>
+      <p style="color:var(--ink-500);">{% trans "Hozircha mijoz fikrlari qo'shilmagan." %}</p>
       {% endfor %}
     </div>
   </div>
@@ -561,13 +682,13 @@
 <section class="wrap" style="margin:40px auto 70px;">
   <div class="cta">
     <div>
-      <h2>Qayerga borishni bilmayapsizmi?</h2>
-      <p>Sizga mos turni tanlab beramiz. So'rov qoldiring, menejerlarimiz siz bilan bog'lanadi.</p>
+      <h2>{% trans "Qayerga borishni bilmayapsizmi?" %}</h2>
+      <p>{% trans "Sizga mos turni tanlab beramiz. So'rov qoldiring, menejerlarimiz siz bilan bog'lanadi." %}</p>
     </div>
     <form class="cta-form" method="post" action="{% url 'core:leave_request' %}">
       {% csrf_token %}
-      <input type="text" name="contact" placeholder="Email yoki telefon raqamingiz" required>
-      <button class="btn btn-primary" type="submit">So'rov qoldirish</button>
+      <input type="text" name="contact" placeholder="{% trans 'Email yoki telefon raqamingiz' %}" required>
+      <button class="btn btn-primary" type="submit">{% trans "So'rov qoldirish" %}</button>
     </form>
   </div>
 </section>
@@ -577,53 +698,55 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <a href="#" class="foot-logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
-        <p class="foot-desc">Take Avia Trip – sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur paketlarni qulay narxlarda taklif etamiz.</p>
+        <a href="{% url 'core:home' %}" class="foot-logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
+        <p class="foot-desc">{% trans "Take Avia Trip – sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur paketlarni qulay narxlarda taklif etamiz." %}</p>
+        {% if site_settings.telegram_url or site_settings.instagram_url or site_settings.youtube_url or site_settings.facebook_url %}
         <div class="foot-social">
-          <a href="#" aria-label="Telegram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L2 10l7 3 2 7 3-4 5 4 3-18z"/></svg></a>
-          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8s0-3-1-4c-1-1-2-1-3-1-4 0-6 0-6 0s-2 0-6 0c-1 0-2 0-3 1-1 1-1 4-1 4s0 3 1 4c0 0 0 0 0 0 1 1 2 1 3 1 4 0 6 0 6 0s2 0 6 0c1 0 2 0 3-1 1-1 1-4 1-4z"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V6a1 1 0 0 1 1-1h2V2h-3a4 4 0 0 0-4 4v3H8v3h2v8h3v-8h2.5l.5-3H13z"/></svg></a>
+          {% if site_settings.telegram_url %}<a href="{{ site_settings.telegram_url }}" target="_blank" rel="noopener" aria-label="Telegram"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 2L2 10l7 3 2 7 3-4 5 4 3-18z"/></svg></a>{% endif %}
+          {% if site_settings.instagram_url %}<a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>{% endif %}
+          {% if site_settings.youtube_url %}<a href="{{ site_settings.youtube_url }}" target="_blank" rel="noopener" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8s0-3-1-4c-1-1-2-1-3-1-4 0-6 0-6 0s-2 0-6 0c-1 0-2 0-3 1-1 1-1 4-1 4s0 3 1 4c0 0 0 0 0 0 1 1 2 1 3 1 4 0 6 0 6 0s2 0 6 0c1 0 2 0 3-1 1-1 1-4 1-4z"/></svg></a>{% endif %}
+          {% if site_settings.facebook_url %}<a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V6a1 1 0 0 1 1-1h2V2h-3a4 4 0 0 0-4 4v3H8v3h2v8h3v-8h2.5l.5-3H13z"/></svg></a>{% endif %}
         </div>
+        {% endif %}
       </div>
       <div class="foot-col">
-        <h5>Kompaniya</h5>
+        <h5>{% trans "Kompaniya" %}</h5>
         <ul>
-          <li><a href="#">Biz haqimizda</a></li>
-          <li><a href="#">Yangiliklar</a></li>
-          <li><a href="#">Karyera</a></li>
-          <li><a href="#">Aloqa</a></li>
+          <li><a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a></li>
+          <li><a href="#">{% trans "Yangiliklar" %}</a></li>
+          <li><a href="#">{% trans "Karyera" %}</a></li>
+          <li><a href="{% url 'core:contact' %}">{% trans "Aloqa" %}</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Xizmatlar</h5>
+        <h5>{% trans "Xizmatlar" %}</h5>
         <ul>
-          <li><a href="#">Aviabiletlar</a></li>
-          <li><a href="{% url 'core:tour_list' %}">Tur paketlar</a></li>
-          <li><a href="#">Vizaga yordam</a></li>
-          <li><a href="#">Sug'urta</a></li>
+          <li><a href="#">{% trans "Aviabiletlar" %}</a></li>
+          <li><a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a></li>
+          <li><a href="#">{% trans "Vizaga yordam" %}</a></li>
+          <li><a href="#">{% trans "Sug'urta" %}</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5 id="malumotlar">Ma'lumotlar</h5>
+        <h5>{% trans "Ma'lumotlar" %}</h5>
         <ul>
-          <li><a href="#">Foydalanish shartlari</a></li>
-          <li><a href="#">Maxfiylik siyosati</a></li>
-          <li><a href="#">Qaytarish siyosati</a></li>
-          <li><a href="#">Savol-javob</a></li>
+          <li><a href="#">{% trans "Foydalanish shartlari" %}</a></li>
+          <li><a href="#">{% trans "Maxfiylik siyosati" %}</a></li>
+          <li><a href="#">{% trans "Qaytarish siyosati" %}</a></li>
+          <li><a href="{% url 'core:contact' %}">{% trans "Savol-javob" %}</a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5>Aloqa</h5>
+        <h5><a href="{% url 'core:contact' %}" style="color:inherit;">{% trans "Aloqa" %}</a></h5>
         <ul class="foot-contact">
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:+998712000010">+998 71 200 00 10</a></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg> <a href="mailto:info@takeaviatrip.uz">info@takeaviatrip.uz</a></li>
-          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Toshkent, Mirobod ko'chasi, 1-uy</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <a href="tel:{{ site_settings.phone_1|cut:' ' }}">{{ site_settings.phone_1 }}</a></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg> <a href="mailto:{{ site_settings.email_1 }}">{{ site_settings.email_1 }}</a></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> <a href="https://www.openstreetmap.org/?mlat={{ site_settings.latitude|unlocalize }}&mlon={{ site_settings.longitude|unlocalize }}#map=16/{{ site_settings.latitude|unlocalize }}/{{ site_settings.longitude|unlocalize }}" target="_blank" rel="noopener">{{ site_settings.address }}</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <p>© 2026 Take Avia Trip. Barcha huquqlar himoyalangan.</p>
+      <p>{% trans "© 2026 Take Avia Trip. Barcha huquqlar himoyalangan." %}</p>
       <div class="pay-icons">
         <span>VISA</span><span>Mastercard</span><span>UZCARD</span>
       </div>
@@ -679,11 +802,148 @@
     toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
+  // Til almashtirgich dropdown
+  const langSelect = document.getElementById('langSelect');
+  const langMenu = document.getElementById('langMenu');
+  if (langSelect && langMenu) {
+    langSelect.addEventListener('click', (e) => {
+      langMenu.classList.toggle('open');
+      e.stopPropagation();
+    });
+    langMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => langMenu.classList.remove('open'));
+  }
+
   // Toast xabarlarni avtomatik yopish
   document.querySelectorAll('.toast').forEach(t => {
     setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-8px)'; }, 4000);
     setTimeout(() => t.remove(), 4600);
   });
+
+  // Yo'nalishlar tarmog'i animatsiyasi (route flow)
+  (function initRouteFlow() {
+    const track = document.getElementById('routeFlow');
+    const svg = document.getElementById('routeFlowSvg');
+    const pulse = document.getElementById('routePulse');
+    if (!track || !svg || !pulse) return;
+
+    const dots = Array.from(track.querySelectorAll('.route-dot'));
+    if (dots.length === 0) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let points = [];
+    let raf = null;
+
+    function layout() {
+      const rect = track.getBoundingClientRect();
+      const W = Math.max(1, rect.width);
+      const H = dots.length > 1 ? Math.max(90, Math.min(150, W * 0.11)) : 60;
+      track.style.height = H + 'px';
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+      const marginX = Math.min(50, W * 0.07);
+      const usableW = Math.max(1, W - marginX * 2);
+      const n = dots.length;
+
+      points = dots.map((dot, i) => {
+        const x = n === 1 ? W / 2 : marginX + (usableW * i) / (n - 1);
+        const wave = n === 1 ? 0 : Math.sin(i * 1.15) * (H * 0.3);
+        const y = H / 2 + wave;
+        dot.style.left = x + 'px';
+        dot.style.top = y + 'px';
+        return { x: x, y: y };
+      });
+
+      let d = '';
+      points.forEach((p, i) => {
+        d += (i === 0 ? 'M ' : ' L ') + p.x + ' ' + p.y;
+      });
+      svg.innerHTML = '<path d="' + d + '" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+
+    layout();
+    window.addEventListener('resize', layout);
+
+    if (reducedMotion || points.length < 2) {
+      // Harakatsiz holatda hammasi ko'rinib tursin — animatsiyaga bog'liq bo'lmasin.
+      dots.forEach(d => d.classList.add('is-active'));
+      return;
+    }
+
+    const HOLD_MS = 1400;   // har bir shaharda to'xtab turish vaqti
+    const TRAVEL_MS = 1100; // shaharlar orasida yurish vaqti
+    const FADE_MS = 260;
+
+    let current = 0;
+    let phase = 'appear'; // appear -> hold -> travel -> appear ...
+    let phaseStart = null;
+
+    function setActive(index) {
+      dots.forEach((d, i) => {
+        d.classList.toggle('is-active', i === index);
+        d.classList.remove('is-pending');
+      });
+    }
+
+    function setPending(index) {
+      dots.forEach((d, i) => d.classList.toggle('is-pending', i === index));
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick(ts) {
+      if (phaseStart === null) phaseStart = ts;
+      const elapsed = ts - phaseStart;
+
+      if (phase === 'appear') {
+        pulse.style.transform = 'translate(' + points[current].x + 'px,' + points[current].y + 'px)';
+        pulse.classList.add('is-on');
+        setActive(current);
+        if (elapsed > FADE_MS) { phase = 'hold'; phaseStart = ts; }
+      } else if (phase === 'hold') {
+        if (elapsed > HOLD_MS) {
+          const next = current + 1;
+          if (next >= points.length) {
+            // Oxirgi shahardan boshiga qaytish — sekin so'nib, boshidan qayta boshlanadi.
+            phase = 'loop-out'; phaseStart = ts;
+          } else {
+            setPending(next);
+            phase = 'travel'; phaseStart = ts;
+          }
+        }
+      } else if (phase === 'travel') {
+        const t = Math.min(1, elapsed / TRAVEL_MS);
+        const from = points[current], to = points[current + 1];
+        pulse.style.transform = 'translate(' + lerp(from.x, to.x, t) + 'px,' + lerp(from.y, to.y, t) + 'px)';
+        if (t >= 1) {
+          current += 1;
+          phase = 'appear'; phaseStart = ts;
+        }
+      } else if (phase === 'loop-out') {
+        pulse.classList.remove('is-on');
+        dots.forEach(d => { d.classList.remove('is-active'); d.classList.remove('is-pending'); });
+        if (elapsed > FADE_MS) {
+          current = 0;
+          phase = 'appear'; phaseStart = ts;
+        }
+      }
+
+      raf = requestAnimationFrame(tick);
+    }
+
+    raf = requestAnimationFrame(tick);
+
+    // Sahifa ko'rinmay qolganda (boshqa tab) animatsiyani to'xtatib, qaytganda davom ettiramiz.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      } else if (!document.hidden && raf === null) {
+        phaseStart = null;
+        raf = requestAnimationFrame(tick);
+      }
+    });
+  })();
 </script>
 </body>
 </html>

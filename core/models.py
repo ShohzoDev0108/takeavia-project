@@ -2,43 +2,81 @@ from django.db import models
 
 
 class Destination(models.Model):
-    """Mashhur yo'nalishlar — bosh sahifadagi kartalar."""
+    """Toshkentdan mashhur reyslar — bosh sahifadagi aviachipta kartalari."""
 
-    name = models.CharField("Nomi", max_length=100)
+    name = models.CharField("Shahar nomi", max_length=100, help_text="Masalan: Istanbul")
     country = models.CharField("Mamlakat", max_length=100)
     flag_code = models.CharField(
         "Bayroq kodi", max_length=2,
         help_text="ISO kod: tr, ae, eg, ge, mv va h.k."
     )
-    image_url = models.URLField("Rasm URL", max_length=500)
-    price_from = models.PositiveIntegerField("Narx ($, ...dan)")
-    duration = models.CharField("Muddat", max_length=50, help_text="Masalan: 7 kecha / 8 kun")
+    from_code = models.CharField("Qayerdan (IATA)", max_length=4, default="TAS")
+    to_code = models.CharField(
+        "Qayerga (IATA)", max_length=4, default="",
+        help_text="Aeroport kodi, masalan: IST, DXB, AYT"
+    )
+    image = models.ImageField(
+        "Rasm", upload_to="destinations/", blank=True, null=True,
+        help_text="Kompyuteringizdan rasm tanlang.",
+    )
+    image_url = models.URLField(
+        "Rasm URL (zaxira)", max_length=500, blank=True,
+        help_text="Faqat yuqorida rasm yuklanmagan holatda ishlatiladi.",
+    )
+    price_from = models.PositiveIntegerField(
+        "Taxminiy narx ($)", help_text="Bir tomonlama/borish-qaytish taxminiy narx, $"
+    )
+    duration = models.CharField(
+        "Parvoz vaqti", max_length=50,
+        help_text="Masalan: 3 soat 40 daqiqa"
+    )
     is_popular = models.BooleanField("Mashhur belgisi", default=False)
     order = models.PositiveIntegerField("Tartib", default=0)
 
     class Meta:
         ordering = ["order", "id"]
-        verbose_name = "Yo'nalish"
-        verbose_name_plural = "Yo'nalishlar"
+        verbose_name = "Mashhur reys"
+        verbose_name_plural = "Mashhur reyslar"
 
     def __str__(self):
-        return f"{self.name} ({self.country})"
+        return f"{self.from_code} → {self.to_code} ({self.name})"
+
+    @property
+    def image_src(self):
+        """Shablonlarda ishlatish uchun: yuklangan fayl bo'lsa o'shani, bo'lmasa URL'ni qaytaradi."""
+        if self.image:
+            return self.image.url
+        return self.image_url
 
 
 class Tour(models.Model):
     """Hot Tours — issiq tur paketlari."""
 
+    UZ_MONTHS = [
+        "", "yanvar", "fevral", "mart", "aprel", "may", "iyun",
+        "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr",
+    ]
+
     title = models.CharField("Nomi", max_length=150)
-    image_url = models.URLField("Rasm URL", max_length=500)
+    image = models.ImageField(
+        "Rasm", upload_to="tours/", blank=True, null=True,
+        help_text="Kompyuteringizdan rasm tanlang.",
+    )
+    image_url = models.URLField(
+        "Rasm URL (zaxira)", max_length=500, blank=True,
+        help_text="Faqat yuqorida rasm yuklanmagan holatda ishlatiladi.",
+    )
     duration = models.CharField("Muddat", max_length=50, help_text="Masalan: 7 kecha / 8 kun")
     hotel_label = models.CharField("Mehmonxona", max_length=50, default="5* Hotel")
     includes = models.CharField("Nimalar kiradi", max_length=200, default="Aviabilet + Mehmonxona + Transfer")
     price = models.PositiveIntegerField("Narx ($)")
-    dates = models.CharField("Sanalar", max_length=60, help_text="Masalan: 20 – 27 May")
+    depart_date = models.DateField("Ketish sanasi", null=True, blank=True)
+    return_date = models.DateField("Qaytish sanasi", null=True, blank=True)
     seats_left = models.PositiveIntegerField("Qolgan joylar", default=5)
     rating = models.DecimalField("Reyting", max_digits=2, decimal_places=1, default=5.0)
     is_active = models.BooleanField("Faol", default=True)
     order = models.PositiveIntegerField("Tartib", default=0)
+    updated_at = models.DateTimeField("Yangilangan vaqti", auto_now=True)
 
     class Meta:
         ordering = ["order", "id"]
@@ -47,6 +85,24 @@ class Tour(models.Model):
 
     def __str__(self):
         return f"{self.title} — ${self.price}"
+
+    @property
+    def image_src(self):
+        if self.image:
+            return self.image.url
+        return self.image_url
+
+    @property
+    def dates_display(self):
+        """Ketish/qaytish sanalaridan '20 – 27 may' ko'rinishidagi matnni avtomatik hosil qiladi."""
+        d, r = self.depart_date, self.return_date
+        if not d:
+            return ""
+        if not r:
+            return f"{d.day} {self.UZ_MONTHS[d.month]}"
+        if d.month == r.month:
+            return f"{d.day} – {r.day} {self.UZ_MONTHS[d.month]}"
+        return f"{d.day} {self.UZ_MONTHS[d.month]} – {r.day} {self.UZ_MONTHS[r.month]}"
 
 
 class Testimonial(models.Model):
@@ -75,11 +131,13 @@ class Lead(models.Model):
         ("contact", "So'rov (CTA forma)"),
         ("flight", "Aviabilet qidiruvi"),
         ("booking", "Tur bron qilish"),
+        ("message", "Bog'lanish sahifasidagi xabar"),
     ]
 
     kind = models.CharField("Turi", max_length=10, choices=KIND_CHOICES, default="contact")
     name = models.CharField("Ism", max_length=150, blank=True)
     contact = models.CharField("Aloqa (email/telefon)", max_length=200, blank=True)
+    message = models.TextField("Xabar matni", blank=True)
     tour = models.ForeignKey(
         "Tour", verbose_name="Tur", null=True, blank=True,
         on_delete=models.SET_NULL, related_name="bookings",
@@ -102,4 +160,55 @@ class Lead(models.Model):
             return f"{self.from_city} → {self.to_city} ({self.created_at:%d.%m.%Y})"
         if self.kind == "booking" and self.tour:
             return f"{self.name or self.contact} — {self.tour.title} ({self.created_at:%d.%m.%Y})"
-        return f"{self.contact} ({self.created_at:%d.%m.%Y})"
+        return f"{self.name or self.contact} ({self.created_at:%d.%m.%Y})"
+
+
+class SiteSettings(models.Model):
+    """Sayt bo'ylab ishlatiladigan aloqa ma'lumotlari — bitta yozuv, admin panelda tahrirlanadi."""
+
+    phone_1 = models.CharField("Telefon 1", max_length=30, default="+998 77 210 54 00")
+    phone_2 = models.CharField("Telefon 2 (ixtiyoriy)", max_length=30, blank=True, default="+998 77 210 83 71")
+    email_1 = models.EmailField("Email 1", max_length=254, default="takeavia1@gmail.com")
+    email_2 = models.EmailField("Email 2 (ixtiyoriy)", max_length=254, blank=True, default="info@takeavia.uz")
+    address = models.CharField("Manzil", max_length=255, default="Mirzo Ulug'bek, Parkent ko'chasi, 51")
+    working_hours = models.CharField("Ish vaqti", max_length=100, default="Har kuni, 24/7")
+    latitude = models.DecimalField(
+        "Xarita — kenglik (latitude)", max_digits=9, decimal_places=6, default=41.318567,
+        help_text="Pastdagi xaritada belgini bosib yoki sudrab aniq joyni tanlang.",
+    )
+    longitude = models.DecimalField(
+        "Xarita — uzunlik (longitude)", max_digits=9, decimal_places=6, default=69.315329,
+    )
+    telegram_url = models.URLField(
+        "Telegram havolasi", max_length=300, blank=True, default="",
+        help_text="Masalan: https://t.me/sizning_kanal — bo'sh qoldirilsa, ikonka sahifada ko'rsatilmaydi.",
+    )
+    instagram_url = models.URLField(
+        "Instagram havolasi", max_length=300, blank=True, default="",
+        help_text="Masalan: https://instagram.com/sizning_sahifa",
+    )
+    facebook_url = models.URLField(
+        "Facebook havolasi", max_length=300, blank=True, default="",
+    )
+    youtube_url = models.URLField(
+        "YouTube havolasi", max_length=300, blank=True, default="",
+    )
+
+    class Meta:
+        verbose_name = "Sayt sozlamalari"
+        verbose_name_plural = "Sayt sozlamalari"
+
+    def __str__(self):
+        return "Sayt sozlamalari (aloqa ma'lumotlari)"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj

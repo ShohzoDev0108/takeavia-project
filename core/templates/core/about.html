@@ -1,0 +1,233 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% trans "Biz haqimizda" as page_title_short %}
+{% trans "Take Avia Trip haqida — 2025-yilda tashkil etilgan, aviabilet va tur paketlari sohasida ishonchli hamkor. Kompaniyamiz, missiyamiz va nima uchun mijozlar bizni tanlaydi." as page_description %}
+<title>{{ page_title_short }} — Take Avia Trip</title>
+<meta name="description" content="{{ page_description }}">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+{% include "core/_seo.html" with seo_title=page_title_short|add:" — Take Avia Trip" seo_description=page_description seo_type="website" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Take Avia Trip", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
+    {"@type": "ListItem", "position": 2, "name": "{{ page_title_short|escapejs }}", "item": "{{ seo_canonical_url }}"}
+  ]
+}
+</script>
+<style>
+  :root{
+    --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
+    --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
+    --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d;
+    --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12;
+    --shadow-sm:0 2px 10px rgba(15,31,51,.06); --shadow-md:0 12px 30px rgba(15,31,51,.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html, body{ max-width:100%; overflow-x:hidden;}
+  body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  header{ background:#fff; border-bottom:1px solid var(--line); padding:14px 0;}
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:14px;}
+  .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--navy-900);}
+  .logo .plane{ color:var(--blue-600);}
+  .header-right{ display:flex; align-items:center; gap:16px;}
+  .back-link{ font-size:14px; font-weight:600; color:var(--blue-600);}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
+  .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+  .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
+  .lang-menu.open{ display:block;}
+  .lang-menu form{ margin:0;}
+  .lang-opt{ width:100%; display:flex; align-items:center; gap:9px; background:none; border:none; padding:9px 10px; border-radius:8px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-700); cursor:pointer; text-align:left;}
+  .lang-opt:hover{ background:var(--bg-soft);}
+  .lang-opt.active{ color:var(--blue-600); background:var(--blue-50);}
+  .lang-opt .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+
+  .page-head{
+    position:relative; overflow:hidden; padding:56px 0 64px; color:#fff;
+    background:
+      linear-gradient(100deg, rgba(9,22,41,.92) 10%, rgba(9,22,41,.55) 75%),
+      url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=80') center/cover;
+  }
+  .page-head h1{ font-size:32px; font-weight:800;}
+  .page-head p{ margin-top:10px; font-size:15px; color:rgba(255,255,255,.82); max-width:560px; line-height:1.6;}
+
+  .section{ padding:56px 0;}
+  .story{ display:grid; grid-template-columns:1.1fr .9fr; gap:36px; align-items:center;}
+  .story img{ width:100%; height:320px; object-fit:cover; border-radius:18px; box-shadow:var(--shadow-md);}
+  .story h2{ font-size:24px; font-weight:800; margin-bottom:14px;}
+  .story p{ font-size:14.5px; color:var(--ink-700); line-height:1.75; margin-bottom:12px;}
+
+  .motto{ margin-top:32px; text-align:center; background:var(--bg-soft); border-radius:16px; padding:28px 24px;}
+  .motto p{ font-size:17px; font-weight:700; color:var(--navy-900); line-height:1.5;}
+  .motto .founder{ display:block; margin-top:10px; font-size:12.5px; color:var(--ink-500); font-weight:600;}
+  .stats-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:32px;}
+  .stat-card{ background:#fff; border-radius:14px; padding:26px 18px; text-align:center; box-shadow:var(--shadow-sm);}
+  .stat-card .num{ font-size:28px; font-weight:800; color:var(--navy-900);}
+  .stat-card .num span{ color:var(--blue-600);}
+  .stat-card .label{ font-size:12.5px; color:var(--ink-500); margin-top:6px; font-weight:600;}
+
+  .why-bg{ background:#fff;}
+  .why-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px;}
+  .why-item{ background:var(--bg-soft); border-radius:14px; padding:24px 18px; text-align:center;}
+  .why-item .ic{
+    width:48px; height:48px; border-radius:12px; background:var(--blue-50); color:var(--blue-600);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+  }
+  .why-item h4{ font-size:14.5px; font-weight:700; margin-bottom:6px; line-height:1.3;}
+  .why-item p{ font-size:12.5px; color:var(--ink-500); line-height:1.5;}
+
+  .cta{
+    border-radius:22px; overflow:hidden; position:relative; padding:48px 40px; margin:8px 0 60px;
+    background:
+      linear-gradient(100deg, rgba(9,22,41,.92) 10%, rgba(9,22,41,.55) 70%),
+      url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1400&q=80') center/cover;
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  }
+  .cta h2{ color:#fff; font-size:24px; font-weight:800; max-width:420px;}
+  .cta p{ color:rgba(255,255,255,.8); font-size:14px; margin-top:8px; max-width:420px;}
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius:10px; font-weight:700; font-size:14.5px; padding:14px 24px; cursor:pointer; font-family:inherit; background:var(--lime); color:var(--lime-text); transition:background .15s ease, transform .15s ease; white-space:nowrap;}
+  .btn:hover{ background:var(--lime-dark); transform:translateY(-1px);}
+
+  @media(max-width:900px){
+    .story{ grid-template-columns:1fr;}
+    .story img{ height:240px;}
+    .stats-row{ grid-template-columns:1fr 1fr;}
+    .why-grid{ grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:520px){
+    .page-head h1{ font-size:26px;}
+    .stats-row{ grid-template-columns:1fr 1fr;}
+    .why-grid{ grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <a href="{% url 'core:home' %}" class="logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
+    <div class="header-right">
+      {% get_current_language as CUR_LANG %}
+      {% get_available_languages as AVAILABLE_LANGS %}
+      <div class="lang-select" id="langSelect">
+        <span class="fi fi-{% if CUR_LANG == 'ru' %}ru{% elif CUR_LANG == 'en' %}gb{% else %}uz{% endif %}"></span>
+        <span>{{ CUR_LANG|upper }}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="lang-menu" id="langMenu">
+          {% for code, name in AVAILABLE_LANGS %}
+          <form action="{% url 'switch_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="current" value="{{ CUR_LANG }}">
+            <input type="hidden" name="language" value="{{ code }}">
+            <button type="submit" class="lang-opt{% if code == CUR_LANG %} active{% endif %}">
+              <span class="fi fi-{% if code == 'ru' %}ru{% elif code == 'en' %}gb{% else %}uz{% endif %}"></span> {{ name }}
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'core:home' %}" class="back-link">&#8592; {% trans "Bosh sahifaga qaytish" %}</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <h1>{% trans "Biz haqimizda" %}</h1>
+    <p>{% trans "Take Avia Trip — sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur paketlarni qulay narxlarda, aniq va o'z vaqtida tashkil etamiz." %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="story">
+      <div>
+        <h2>{% trans "Kompaniya haqida" %}</h2>
+        <p>{% trans "TAKE AVIA TRIP 2025-yilda tashkil etilgan bo'lib, qisqa vaqt ichida ko'plab mijozlarning ishonchini qozonishga va ijobiy fikr-mulohazalarga ega bo'lishga muvaffaq bo'ldi. Kompaniyamizning asosiy maqsadi — har bir mijozga aviaqatnovlar va sayohatlar sohasida qulay, ishonchli hamda puxta tashkil etilgan xizmatlarni taqdim etish." %}</p>
+        <p>{% trans "Biz aviachiptalarni bron qilish, turli yo'nalishlar bo'yicha turlarni tanlash, mehmonxonalarni bron qilish, transferlarni tashkil etish, shuningdek, sayohat bilan bog'liq barcha masalalar bo'yicha professional maslahatlar berish kabi keng ko'lamli xizmatlarni taklif etamiz. Har bir mijozning istaklari, afzalliklari va ehtiyojlaridan kelib chiqib, eng maqbul va manfaatli yechimlarni individual tarzda tanlashga intilamiz." %}</p>
+        <p>{% trans "TAKE AVIA TRIP jamoasi sayohatning har bir bosqichida qulaylik, aniqlik va ishonchlilikka alohida e'tibor qaratadi. Biz uchun sayohat — shunchaki manzilga yetib borish emas, balki yoqimli taassurotlar, xotirjamlik va sifatli xizmat uyg'unligidir. Shu sababli har bir murojaatga katta mas'uliyat bilan yondashib, mijozlarimizga qulay aviareyslar, manfaatli shartlar va yuqori darajadagi xizmatni taklif etamiz." %}</p>
+        <p>{% trans "Bizning asosiy tamoyillarimiz — sifat, tezkorlik, ishonchlilik va mijozlarga g'amxo'rlik. Ana shu yondashuv tufayli TAKE AVIA TRIP shunchaki xizmat ko'rsatuvchi kompaniya emas, balki sayohatda qulaylik va ishonchni qadrlaydigan har bir inson uchun ishonchli hamkorga aylanmoqda." %}</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=75" alt="Sayohat jamoasi">
+    </div>
+
+    <div class="motto">
+      <p>{% trans "TAKE AVIA TRIP — qulay parvozlar, ishonchli xizmat va unutilmas sayohatlar sari to'g'ri tanlov." %}</p>
+      <span class="founder">{% trans "TAKE AVIA TRIP asoschisi — Rejabov Dostonbek Baxtiyorjon o'g'li." %}</span>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="num"><span>1000</span>+</div><div class="label">{% trans "Mamnun mijozlar" %}</div></div>
+      <div class="stat-card"><div class="num"><span>6</span>+</div><div class="label">{% trans "Aviareyslar yo'nalishi" %}</div></div>
+      <div class="stat-card"><div class="num">24<span>/7</span></div><div class="label">{% trans "Qo'llab-quvvatlash" %}</div></div>
+      <div class="stat-card"><div class="num">2025</div><div class="label">{% trans "Tashkil etilgan yili" %}</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section why-bg">
+  <div class="wrap">
+    <div style="margin-bottom:22px;"><h2 style="font-size:24px; font-weight:800;">{% trans "Nega aynan biz?" %}</h2></div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <h4>{% trans "Tekshirilgan mehmonxonalar" %}</h4>
+        <p>{% trans "Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz." %}</p>
+      </div>
+      <div class="why-item">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+        <h4>{% trans "Aviabilet + tur bir joyda" %}</h4>
+        <p>{% trans "Vaqtingizni tejang, hammasini bir joydan toping." %}</p>
+      </div>
+      <div class="why-item">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>{% trans "24/7 qo'llab-quvvatlash" %}</h4>
+        <p>{% trans "Har qanday savolingizga doim tayyormiz." %}</p>
+      </div>
+      <div class="why-item">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <h4>{% trans "Viza bo'yicha yordam" %}</h4>
+        <p>{% trans "Viza rasmiylashtirishda to'liq yordam beramiz." %}</p>
+      </div>
+      <div class="why-item">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h4>{% trans "Individual tur tanlash" %}</h4>
+        <p>{% trans "Sizga mos turni individual tanlab beramiz." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta">
+    <div>
+      <h2>{% trans "Savollaringiz bormi?" %}</h2>
+      <p>{% trans "Jamoamiz bilan bog'laning — biz sizga sayohatni rejalashtirishda yordam beramiz." %}</p>
+    </div>
+    <a class="btn" href="{% url 'core:contact' %}">{% trans "Bog'lanish" %} &#8594;</a>
+  </div>
+</section>
+
+<script>
+  const langSelect = document.getElementById('langSelect');
+  const langMenu = document.getElementById('langMenu');
+  if (langSelect && langMenu) {
+    langSelect.addEventListener('click', (e) => { langMenu.classList.toggle('open'); e.stopPropagation(); });
+    langMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => langMenu.classList.remove('open'));
+  }
+</script>
+</body>
+</html>

@@ -10,4 +10,6 @@ urlpatterns = [
     path("tur/<int:pk>/", views.tour_detail, name="tour_detail"),
     path("qidiruv/", views.flight_search, name="flight_search"),
     path("sorov/", views.leave_request, name="leave_request"),
+    path("biz-haqimizda/", views.about, name="about"),
+    path("boglanish/", views.contact, name="contact"),
 ]

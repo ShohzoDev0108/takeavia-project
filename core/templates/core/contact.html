@@ -1,0 +1,252 @@
+{% load i18n l10n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% trans "Bog'lanish" as page_title_short %}
+{% trans "Take Avia Trip bilan bog'laning — telefon, email yoki xabar qoldiring, menejerlarimiz tez orada aloqaga chiqadi. Manzil: Mirzo Ulug'bek tumani, Toshkent." as page_description %}
+<title>{{ page_title_short }} — Take Avia Trip</title>
+<meta name="description" content="{{ page_description }}">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+{% include "core/_seo.html" with seo_title=page_title_short|add:" — Take Avia Trip" seo_description=page_description seo_type="website" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Take Avia Trip", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
+    {"@type": "ListItem", "position": 2, "name": "{{ page_title_short|escapejs }}", "item": "{{ seo_canonical_url }}"}
+  ]
+}
+</script>
+<style>
+  :root{
+    --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
+    --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
+    --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d;
+    --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12;
+    --shadow-sm:0 2px 10px rgba(15,31,51,.06); --shadow-md:0 12px 30px rgba(15,31,51,.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html, body{ max-width:100%; overflow-x:hidden;}
+  body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  header{ background:#fff; border-bottom:1px solid var(--line); padding:14px 0;}
+  .header-inner{ display:flex; align-items:center; justify-content:space-between; gap:14px;}
+  .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:18px; color:var(--navy-900);}
+  .logo .plane{ color:var(--blue-600);}
+  .header-right{ display:flex; align-items:center; gap:16px;}
+  .back-link{ font-size:14px; font-weight:600; color:var(--blue-600);}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
+  .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+  .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
+  .lang-menu.open{ display:block;}
+  .lang-menu form{ margin:0;}
+  .lang-opt{ width:100%; display:flex; align-items:center; gap:9px; background:none; border:none; padding:9px 10px; border-radius:8px; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-700); cursor:pointer; text-align:left;}
+  .lang-opt:hover{ background:var(--bg-soft);}
+  .lang-opt.active{ color:var(--blue-600); background:var(--blue-50);}
+  .lang-opt .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
+
+  .page-head{ background:var(--navy-900); color:#fff; padding:36px 0;}
+  .page-head h1{ font-size:26px; font-weight:800;}
+  .page-head p{ margin-top:8px; font-size:14px; color:rgba(255,255,255,.75); max-width:520px;}
+
+  .contact-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:26px; margin:32px 0 20px; align-items:start;}
+  .card{ background:#fff; border-radius:16px; box-shadow:var(--shadow-sm); padding:28px;}
+  .card h2{ font-size:18px; font-weight:800; margin-bottom:18px;}
+
+  .info-list li{ display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--line);}
+  .info-list li:last-child{ border-bottom:none;}
+  .info-list .ic{
+    width:40px; height:40px; border-radius:10px; background:var(--blue-50); color:var(--blue-600); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .info-list .k{ font-size:12.5px; color:var(--ink-400); font-weight:600; text-transform:uppercase; letter-spacing:.3px;}
+  .info-list .v{ font-size:14.5px; font-weight:700; margin-top:3px;}
+  .info-list .v a{ color:var(--ink-900);}
+  .info-list .v a:hover{ color:var(--blue-600);}
+
+  .map-wrap{ margin-top:18px; border-radius:14px; overflow:hidden; box-shadow:var(--shadow-sm); height:260px;}
+  .map-wrap iframe{ width:100%; height:100%; border:0; display:block;}
+  .map-link{ display:inline-block; margin-top:10px; font-size:12.5px; font-weight:600; color:var(--blue-600);}
+
+  .form-grid{ display:flex; flex-direction:column; gap:14px;}
+  .form-row{ display:flex; gap:14px; flex-wrap:wrap;}
+  .form-row .field-wrap{ flex:1; min-width:200px;}
+  label{ display:block; font-size:12.5px; font-weight:600; color:var(--ink-500); margin-bottom:6px;}
+  input, textarea{ width:100%; border:1px solid var(--line); border-radius:10px; padding:13px 16px; font:inherit; font-size:14px; outline:none; resize:vertical;}
+  input:focus, textarea:focus{ border-color:var(--lime-dark);}
+  textarea{ min-height:130px;}
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius:10px; font-weight:700; font-size:14.5px; padding:15px 24px; cursor:pointer; font-family:inherit; background:var(--lime); color:var(--lime-text); transition:background .15s ease, transform .15s ease; align-self:flex-start;}
+  .btn:hover{ background:var(--lime-dark); transform:translateY(-1px);}
+  .muted{ font-size:12.5px; color:var(--ink-400);}
+
+  .toast-wrap{ position:fixed; top:76px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:10px; width:min(92vw, 480px);}
+  .toast{ padding:14px 18px; border-radius:12px; font-size:14px; font-weight:600; box-shadow:var(--shadow-md); transition:opacity .5s ease, transform .5s ease; text-align:center;}
+  .toast-success{ background:#e7f6e2; color:#1e5e12; border:1px solid #b9e3ac;}
+  .toast-error{ background:#fdecec; color:#8f1d1d; border:1px solid #f3bcbc;}
+
+  @media(max-width:860px){
+    .contact-grid{ grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+{% if messages %}
+<div class="toast-wrap">
+  {% for message in messages %}
+  <div class="toast toast-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<header>
+  <div class="wrap header-inner">
+    <a href="{% url 'core:home' %}" class="logo"><span class="plane">&#9992;</span> TAKE AVIA TRIP</a>
+    <div class="header-right">
+      {% get_current_language as CUR_LANG %}
+      {% get_available_languages as AVAILABLE_LANGS %}
+      <div class="lang-select" id="langSelect">
+        <span class="fi fi-{% if CUR_LANG == 'ru' %}ru{% elif CUR_LANG == 'en' %}gb{% else %}uz{% endif %}"></span>
+        <span>{{ CUR_LANG|upper }}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        <div class="lang-menu" id="langMenu">
+          {% for code, name in AVAILABLE_LANGS %}
+          <form action="{% url 'switch_language' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="current" value="{{ CUR_LANG }}">
+            <input type="hidden" name="language" value="{{ code }}">
+            <button type="submit" class="lang-opt{% if code == CUR_LANG %} active{% endif %}">
+              <span class="fi fi-{% if code == 'ru' %}ru{% elif code == 'en' %}gb{% else %}uz{% endif %}"></span> {{ name }}
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="{% url 'core:home' %}" class="back-link">&#8592; {% trans "Bosh sahifaga qaytish" %}</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <h1>{% trans "Bog'lanish" %}</h1>
+    <p>{% trans "Savollaringiz bormi yoki sayohatingizni rejalashtirmoqchimisiz? Menejerlarimiz sizga yordam berishga tayyor." %}</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="contact-grid">
+    <div class="card">
+      <h2>{% trans "Aloqa ma'lumotlari" %}</h2>
+      <ul class="info-list">
+        <li>
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <div>
+            <div class="k">{% trans "Telefon" %}</div>
+            <div class="v"><a href="tel:{{ site_settings.phone_1|cut:' ' }}">{{ site_settings.phone_1 }}</a>{% if site_settings.phone_2 %}<br><a href="tel:{{ site_settings.phone_2|cut:' ' }}">{{ site_settings.phone_2 }}</a>{% endif %}</div>
+          </div>
+        </li>
+        <li>
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span>
+          <div>
+            <div class="k">Email</div>
+            <div class="v"><a href="mailto:{{ site_settings.email_1 }}">{{ site_settings.email_1 }}</a>{% if site_settings.email_2 %}<br><a href="mailto:{{ site_settings.email_2 }}">{{ site_settings.email_2 }}</a>{% endif %}</div>
+          </div>
+        </li>
+        <li>
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><div class="k">{% trans "Manzil" %}</div><div class="v"><a href="https://www.openstreetmap.org/?mlat={{ site_settings.latitude|unlocalize }}&mlon={{ site_settings.longitude|unlocalize }}#map=16/{{ site_settings.latitude|unlocalize }}/{{ site_settings.longitude|unlocalize }}" target="_blank" rel="noopener">{{ site_settings.address }}</a></div></div>
+        </li>
+        <li>
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+          <div><div class="k">{% trans "Ish vaqti" %}</div><div class="v">{{ site_settings.working_hours }}</div></div>
+        </li>
+      </ul>
+      <div class="map-wrap" id="contactMap"></div>
+      <a class="map-link" href="https://www.openstreetmap.org/?mlat={{ site_settings.latitude|unlocalize }}&mlon={{ site_settings.longitude|unlocalize }}#map=16/{{ site_settings.latitude|unlocalize }}/{{ site_settings.longitude|unlocalize }}" target="_blank" rel="noopener">
+        {% trans "Xaritada ochish" %} &#8594;
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>{% trans "Xabar qoldiring" %}</h2>
+      <form class="form-grid" method="post">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="field-wrap">
+            <label>{% trans "Ismingiz" %}</label>
+            <input type="text" name="name" placeholder="{% trans 'Ismingiz' %}">
+          </div>
+          <div class="field-wrap">
+            <label>{% trans "Telefon yoki email" %}</label>
+            <input type="text" name="contact" placeholder="+998 90 123 45 67" required>
+          </div>
+        </div>
+        <div>
+          <label>{% trans "Xabaringiz" %}</label>
+          <textarea name="message" placeholder="{% trans "Savolingiz yoki so'rovingizni yozing..." %}" required></textarea>
+        </div>
+        <button class="btn" type="submit">{% trans "Xabarni yuborish" %}</button>
+        <p class="muted">{% trans "Xabaringiz qabul qilingandan so'ng, menejerlarimiz tez orada siz bilan bog'lanadi." %}</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const langSelect = document.getElementById('langSelect');
+  const langMenu = document.getElementById('langMenu');
+  if (langSelect && langMenu) {
+    langSelect.addEventListener('click', (e) => { langMenu.classList.toggle('open'); e.stopPropagation(); });
+    langMenu.addEventListener('click', (e) => e.stopPropagation());
+    document.addEventListener('click', () => langMenu.classList.remove('open'));
+  }
+
+  document.querySelectorAll('.toast').forEach(t => {
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-8px)'; }, 4000);
+    setTimeout(() => t.remove(), 4600);
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  (function() {
+    var tries = 0;
+    function initContactMap() {
+      tries++;
+      var contactMapEl = document.getElementById('contactMap');
+      if (!contactMapEl) { return; }
+      if (typeof L === 'undefined') {
+        if (tries < 40) { setTimeout(initContactMap, 150); }
+        return;
+      }
+      var lat = {{ site_settings.latitude|unlocalize }};
+      var lng = {{ site_settings.longitude|unlocalize }};
+      var map = L.map('contactMap', { scrollWheelZoom: false }).setView([lat, lng], 15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap',
+        maxZoom: 19,
+      }).addTo(map);
+      L.marker([lat, lng]).addTo(map);
+      // Xarita ba'zan konteyner hali to'liq chizilmagan holatda ishga tushadi — qayta o'lchaymiz.
+      setTimeout(function() { map.invalidateSize(); }, 300);
+      setTimeout(function() { map.invalidateSize(); }, 900);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initContactMap);
+    } else {
+      initContactMap();
+    }
+  })();
+</script>
+</body>
+</html>

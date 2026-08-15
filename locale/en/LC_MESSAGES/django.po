@@ -1,0 +1,573 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-15 18:01+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Biz haqimizda"
+msgstr "About Us"
+
+msgid ""
+"Take Avia Trip haqida — 2025-yilda tashkil etilgan, aviabilet va tur "
+"paketlari sohasida ishonchli hamkor. Kompaniyamiz, missiyamiz va nima uchun "
+"mijozlar bizni tanlaydi."
+msgstr ""
+"About Take Avia Trip — founded in 2025, a trusted partner for flight tickets"
+" and tour packages. Learn about our company, our mission, and why customers "
+"choose us."
+
+msgid "Bosh sahifaga qaytish"
+msgstr "Back to home"
+
+msgid ""
+"Take Avia Trip — sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur "
+"paketlarni qulay narxlarda, aniq va o'z vaqtida tashkil etamiz."
+msgstr ""
+"Take Avia Trip is your trusted travel companion. We arrange flights and tour"
+" packages at great prices, accurately and on time."
+
+msgid "Kompaniya haqida"
+msgstr "About the company"
+
+msgid ""
+"TAKE AVIA TRIP 2025-yilda tashkil etilgan bo'lib, qisqa vaqt ichida ko'plab "
+"mijozlarning ishonchini qozonishga va ijobiy fikr-mulohazalarga ega "
+"bo'lishga muvaffaq bo'ldi. Kompaniyamizning asosiy maqsadi — har bir mijozga"
+" aviaqatnovlar va sayohatlar sohasida qulay, ishonchli hamda puxta tashkil "
+"etilgan xizmatlarni taqdim etish."
+msgstr ""
+"TAKE AVIA TRIP was founded in 2025, and within a short time has earned the "
+"trust of many customers along with positive feedback. Our company's main "
+"goal is to provide every customer with convenient, reliable and carefully "
+"organized services in air travel and tourism."
+
+msgid ""
+"Biz aviachiptalarni bron qilish, turli yo'nalishlar bo'yicha turlarni "
+"tanlash, mehmonxonalarni bron qilish, transferlarni tashkil etish, "
+"shuningdek, sayohat bilan bog'liq barcha masalalar bo'yicha professional "
+"maslahatlar berish kabi keng ko'lamli xizmatlarni taklif etamiz. Har bir "
+"mijozning istaklari, afzalliklari va ehtiyojlaridan kelib chiqib, eng maqbul"
+" va manfaatli yechimlarni individual tarzda tanlashga intilamiz."
+msgstr ""
+"We offer a wide range of services: booking flight tickets, selecting tours "
+"across various destinations, booking hotels, arranging transfers, and "
+"professional advice on all travel-related matters. Based on each customer's "
+"wishes, preferences and needs, we strive to select the most suitable and "
+"beneficial solutions individually."
+
+msgid ""
+"TAKE AVIA TRIP jamoasi sayohatning har bir bosqichida qulaylik, aniqlik va "
+"ishonchlilikka alohida e'tibor qaratadi. Biz uchun sayohat — shunchaki "
+"manzilga yetib borish emas, balki yoqimli taassurotlar, xotirjamlik va "
+"sifatli xizmat uyg'unligidir. Shu sababli har bir murojaatga katta "
+"mas'uliyat bilan yondashib, mijozlarimizga qulay aviareyslar, manfaatli "
+"shartlar va yuqori darajadagi xizmatni taklif etamiz."
+msgstr ""
+"The TAKE AVIA TRIP team pays special attention to convenience, accuracy and "
+"reliability at every stage of the journey. For us, travel isn't just about "
+"reaching a destination — it's the combination of pleasant impressions, peace"
+" of mind and quality service. That's why we treat every request with great "
+"responsibility, offering our customers convenient flights, favorable terms "
+"and a high level of service."
+
+msgid ""
+"Bizning asosiy tamoyillarimiz — sifat, tezkorlik, ishonchlilik va mijozlarga"
+" g'amxo'rlik. Ana shu yondashuv tufayli TAKE AVIA TRIP shunchaki xizmat "
+"ko'rsatuvchi kompaniya emas, balki sayohatda qulaylik va ishonchni "
+"qadrlaydigan har bir inson uchun ishonchli hamkorga aylanmoqda."
+msgstr ""
+"Our core principles are quality, speed, reliability and care for our "
+"customers. Thanks to this approach, TAKE AVIA TRIP is becoming more than "
+"just a service company — it's a trusted partner for everyone who values "
+"comfort and confidence in travel."
+
+msgid ""
+"TAKE AVIA TRIP — qulay parvozlar, ishonchli xizmat va unutilmas sayohatlar "
+"sari to'g'ri tanlov."
+msgstr ""
+"TAKE AVIA TRIP — the right choice for comfortable flights, reliable service "
+"and unforgettable journeys."
+
+msgid "TAKE AVIA TRIP asoschisi — Rejabov Dostonbek Baxtiyorjon o'g'li."
+msgstr "Founder of TAKE AVIA TRIP — Rejabov Dostonbek Bakhtiyorjon o'g'li."
+
+msgid "Mamnun mijozlar"
+msgstr "Happy customers"
+
+msgid "Aviareyslar yo'nalishi"
+msgstr "Flight routes"
+
+msgid "Qo'llab-quvvatlash"
+msgstr "Support"
+
+msgid "Tashkil etilgan yili"
+msgstr "Founded in"
+
+msgid "Nega aynan biz?"
+msgstr "Why choose us?"
+
+msgid "Tekshirilgan mehmonxonalar"
+msgstr "Verified hotels"
+
+msgid "Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz."
+msgstr "We choose only reliable, quality hotels."
+
+msgid "Aviabilet + tur bir joyda"
+msgstr "Flights + tours in one place"
+
+msgid "Vaqtingizni tejang, hammasini bir joydan toping."
+msgstr "Save time — find everything in one place."
+
+msgid "24/7 qo'llab-quvvatlash"
+msgstr "24/7 support"
+
+msgid "Har qanday savolingizga doim tayyormiz."
+msgstr "We're always ready to answer any question."
+
+msgid "Viza bo'yicha yordam"
+msgstr "Visa assistance"
+
+msgid "Viza rasmiylashtirishda to'liq yordam beramiz."
+msgstr "We provide full support with visa processing."
+
+msgid "Individual tur tanlash"
+msgstr "Personalized tour selection"
+
+msgid "Sizga mos turni individual tanlab beramiz."
+msgstr "We'll help pick the tour that's right for you."
+
+msgid "Savollaringiz bormi?"
+msgstr "Have questions?"
+
+msgid ""
+"Jamoamiz bilan bog'laning — biz sizga sayohatni rejalashtirishda yordam "
+"beramiz."
+msgstr "Get in touch with our team — we'll help you plan your trip."
+
+msgid "Bog'lanish"
+msgstr "Contact"
+
+msgid ""
+"Take Avia Trip bilan bog'laning — telefon, email yoki xabar qoldiring, "
+"menejerlarimiz tez orada aloqaga chiqadi. Manzil: Mirzo Ulug'bek tumani, "
+"Toshkent."
+msgstr ""
+"Contact Take Avia Trip — leave your phone, email or a message and our "
+"managers will get back to you shortly. Address: Mirzo Ulugbek district, "
+"Tashkent."
+
+msgid ""
+"Savollaringiz bormi yoki sayohatingizni rejalashtirmoqchimisiz? "
+"Menejerlarimiz sizga yordam berishga tayyor."
+msgstr ""
+"Have questions or want to plan your trip? Our managers are ready to help."
+
+msgid "Aloqa ma'lumotlari"
+msgstr "Contact information"
+
+msgid "Telefon"
+msgstr "Phone"
+
+msgid "Manzil"
+msgstr "Address"
+
+msgid "Ish vaqti"
+msgstr "Working hours"
+
+msgid "Xaritada ochish"
+msgstr "Open in map"
+
+msgid "Xabar qoldiring"
+msgstr "Leave a message"
+
+msgid "Ismingiz"
+msgstr "Your name"
+
+msgid "Telefon yoki email"
+msgstr "Phone or email"
+
+msgid "Xabaringiz"
+msgstr "Your message"
+
+msgid "Savolingiz yoki so'rovingizni yozing..."
+msgstr "Write your question or request..."
+
+msgid "Xabarni yuborish"
+msgstr "Send message"
+
+msgid ""
+"Xabaringiz qabul qilingandan so'ng, menejerlarimiz tez orada siz bilan "
+"bog'lanadi."
+msgstr "Once we receive your message, our managers will contact you shortly."
+
+msgid "Take Avia Trip — Aviabiletlar va tur paketlar"
+msgstr "Take Avia Trip — Flight Tickets and Tour Packages"
+
+msgid ""
+"Take Avia Trip — Toshkentdan aviabiletlar va tur paketlarni eng arzon "
+"narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, vizaga "
+"yordam, 24/7 qo'llab-quvvatlash."
+msgstr ""
+"Take Avia Trip — book flight tickets and tour packages from Tashkent at the "
+"best prices. Turkey, UAE, Egypt and more destinations, visa assistance, 24/7"
+" support."
+
+msgid "SAYOHAT AGENTLIGI"
+msgstr "TRAVEL AGENCY"
+
+msgid "Bosh sahifa"
+msgstr "Home"
+
+msgid "Aviabiletlar"
+msgstr "Flights"
+
+msgid "Tur paketlar"
+msgstr "Tour packages"
+
+msgid "Yo'nalishlar"
+msgstr "Destinations"
+
+msgid "Vizaga yordam"
+msgstr "Visa help"
+
+msgid "Sayohatingiz shu yerdan boshlanadi"
+msgstr "Your journey starts here"
+
+msgid "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling."
+msgstr "Book flights and tour packages at the best prices."
+
+msgid "Qayerdan"
+msgstr "From"
+
+msgid "Toshkent (TAS)"
+msgstr "Tashkent (TAS)"
+
+msgid "Qayerga"
+msgstr "To"
+
+msgid "Shahar yoki mamlakat"
+msgstr "City or country"
+
+msgid "Ketish sanasi"
+msgstr "Departure date"
+
+msgid "Qaytish sanasi"
+msgstr "Return date"
+
+msgid "Yo'lovchilar"
+msgstr "Passengers"
+
+msgid "2 kishi, Economy"
+msgstr "2 people, Economy"
+
+msgid "Variantlarni ko'rish"
+msgstr "View options"
+
+msgid "Eng yaxshi narx kafolati"
+msgstr "Best price guarantee"
+
+msgid "Xavfsiz to'lov"
+msgstr "Secure payment"
+
+msgid "1000+ mamnun mijozlar"
+msgstr "1000+ happy customers"
+
+msgid "Yo'nalishlar tarmog'i"
+msgstr "Route network"
+
+msgid "Bizning yo'nalishlar tarmog'i"
+msgstr "Our route network"
+
+msgid "Toshkentdan dunyoning istalgan nuqtasiga"
+msgstr "From Tashkent to anywhere in the world"
+
+msgid "Toshkentdan mashhur reyslar"
+msgstr "Popular flights from Tashkent"
+
+msgid "TAS aeroportidan eng ko'p qidiriladigan yo'nalishlar"
+msgstr "The most searched routes from TAS airport"
+
+msgid "narxlar taxminiy"
+msgstr "prices are approximate"
+
+msgid "Barchasini ko'rish"
+msgstr "View all"
+
+msgid "Mashhur"
+msgstr "Popular"
+
+msgid "Taxminiy narx"
+msgstr "Approx. price"
+
+#, python-format
+msgid "$%(price)s dan"
+msgstr "from $%(price)s"
+
+msgid "Hozircha reyslar qo'shilmagan. Admin panel orqali qo'shing."
+msgstr "No routes added yet. Add them via the admin panel."
+
+msgid "Siz qaysi dam olishni xohlaysiz?"
+msgstr "What kind of vacation do you want?"
+
+msgid "Dengiz bo'yida"
+msgstr "Beach vacation"
+
+msgid "Romantik sayohat"
+msgstr "Romantic trip"
+
+msgid "Oilaviy dam olish"
+msgstr "Family vacation"
+
+msgid "Arzon turlar"
+msgstr "Budget tours"
+
+msgid "Premium turlar"
+msgstr "Premium tours"
+
+msgid "Ziyorat turlari"
+msgstr "Pilgrimage tours"
+
+msgid "Davolanish"
+msgstr "Health & wellness"
+
+msgid "Ekstrimal dam olish"
+msgstr "Extreme vacation"
+
+#, python-format
+msgid "%(seats)s ta joy qoldi"
+msgstr "%(seats)s seats left"
+
+msgid "Batafsil"
+msgstr "Details"
+
+msgid "Hozircha faol turlar yo'q. Admin panel orqali qo'shing."
+msgstr "No active tours yet. Add them via the admin panel."
+
+msgid "Nega Take Avia Trip?"
+msgstr "Why Take Avia Trip?"
+
+msgid "Mijozlarimiz fikri"
+msgstr "What our customers say"
+
+msgid "Hozircha mijoz fikrlari qo'shilmagan."
+msgstr "No customer reviews yet."
+
+msgid "Qayerga borishni bilmayapsizmi?"
+msgstr "Not sure where to go?"
+
+msgid ""
+"Sizga mos turni tanlab beramiz. So'rov qoldiring, menejerlarimiz siz bilan "
+"bog'lanadi."
+msgstr ""
+"We'll help you choose the right tour. Leave a request and our managers will "
+"contact you."
+
+msgid "Email yoki telefon raqamingiz"
+msgstr "Your email or phone number"
+
+msgid "So'rov qoldirish"
+msgstr "Leave a request"
+
+msgid ""
+"Take Avia Trip – sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur "
+"paketlarni qulay narxlarda taklif etamiz."
+msgstr ""
+"Take Avia Trip – your trusted travel companion. We offer flights and tour "
+"packages at great prices."
+
+msgid "Kompaniya"
+msgstr "Company"
+
+msgid "Yangiliklar"
+msgstr "News"
+
+msgid "Karyera"
+msgstr "Careers"
+
+msgid "Aloqa"
+msgstr "Contact"
+
+msgid "Xizmatlar"
+msgstr "Services"
+
+msgid "Sug'urta"
+msgstr "Insurance"
+
+msgid "Ma'lumotlar"
+msgstr "Information"
+
+msgid "Foydalanish shartlari"
+msgstr "Terms of use"
+
+msgid "Maxfiylik siyosati"
+msgstr "Privacy policy"
+
+msgid "Qaytarish siyosati"
+msgstr "Refund policy"
+
+msgid "Savol-javob"
+msgstr "FAQ"
+
+msgid "© 2026 Take Avia Trip. Barcha huquqlar himoyalangan."
+msgstr "© 2026 Take Avia Trip. All rights reserved."
+
+msgid "Qidiruv natijalari"
+msgstr "Search results"
+
+msgid "Take Avia Trip bo'yicha aviabilet va tur qidiruv natijalari."
+msgstr "Take Avia Trip flight and tour search results."
+
+msgid "Barcha yo'nalishlar"
+msgstr "All destinations"
+
+msgid ""
+"So'rovingiz qabul qilindi — menejerlarimiz aviabilet variantlari bilan tez "
+"orada bog'lanadi. Quyida yo'nalishingizga mos tur paketlar:"
+msgstr ""
+"Your request has been received — our managers will contact you shortly with "
+"flight options. Below are tour packages matching your route:"
+
+#, python-format
+msgid "\"%(to_city)s\" bo'yicha tayyor tur topilmadi"
+msgstr "No ready-made tour found for \"%(to_city)s\""
+
+msgid ""
+"Lekin xavotir olmang — so'rovingiz saqlandi va menejerlarimiz siz uchun "
+"individual variant tayyorlab, bog'lanadi."
+msgstr ""
+"But don't worry — your request has been saved and our managers will prepare "
+"a custom option and contact you."
+
+#, python-format
+msgid ""
+"%(title)s — %(duration)s, %(hotel)s. Take Avia Trip orqali qulay narxda bron"
+" qiling: aviabilet, mehmonxona va transfer narxga kiradi."
+msgstr ""
+"%(title)s — %(duration)s, %(hotel)s. Book at a great price through Take Avia"
+" Trip: flight, hotel and transfer included in the price."
+
+msgid "Barcha turlar"
+msgstr "All tours"
+
+msgid "Tur haqida"
+msgstr "About the tour"
+
+msgid "Yo'nalish"
+msgstr "Destination"
+
+msgid "Muddat"
+msgstr "Duration"
+
+msgid "Mehmonxona"
+msgstr "Hotel"
+
+msgid "Sanalar"
+msgstr "Dates"
+
+msgid "Qolgan joylar"
+msgstr "Seats left"
+
+#, python-format
+msgid "%(seats)s ta"
+msgstr "%(seats)s"
+
+msgid "Narxga nimalar kiradi"
+msgstr "What's included in the price"
+
+msgid "Aviabilet (borish-qaytish)"
+msgstr "Flight (round trip)"
+
+#, python-format
+msgid "Mehmonxona (%(hotel)s)"
+msgstr "Hotel (%(hotel)s)"
+
+msgid "Aeroport – mehmonxona transferi"
+msgstr "Airport – hotel transfer"
+
+msgid "/ 1 kishi uchun"
+msgstr "/ per person"
+
+msgid ""
+"Bron qilish uchun ma'lumotlaringizni qoldiring — menejerlarimiz bog'lanadi."
+msgstr "Leave your details to book — our managers will contact you."
+
+msgid "Telefon raqam yoki email"
+msgstr "Phone number or email"
+
+msgid "Bron qilish"
+msgstr "Book now"
+
+msgid "So'rov yuborish majburiyat emas — to'lov keyin amalga oshiriladi."
+msgstr "Sending a request is not binding — payment is made later."
+
+msgid "O'xshash turlar"
+msgstr "Similar tours"
+
+msgid ""
+"Take Avia Trip'dan issiq tur paketlari — Turkiya, BAA, Misr, Maldiv orollari"
+" va boshqa yo'nalishlar. Aviabilet + mehmonxona + transfer, qulay narxlarda."
+msgstr ""
+"Hot tour packages from Take Avia Trip — Turkey, UAE, Egypt, Maldives and "
+"more destinations. Flight + hotel + transfer at great prices."
+
+msgid ""
+"Aviabilet + mehmonxona + transfer — hammasi bitta paketda, eng qulay "
+"narxlarda."
+msgstr "Flight + hotel + transfer — all in one package, at the best prices."
+
+msgid "Yo'nalish bo'yicha qidirish (masalan: Dubay)"
+msgstr "Search by destination (e.g. Dubai)"
+
+msgid "Qidirish"
+msgstr "Search"
+
+#, python-format
+msgid "\"%(q)s\" bo'yicha tur topilmadi"
+msgstr "No tours found for \"%(q)s\""
+
+msgid ""
+"Boshqa yo'nalishni sinab ko'ring yoki bosh sahifadagi forma orqali so'rov "
+"qoldiring."
+msgstr ""
+"Try another destination or leave a request via the form on the homepage."
+
+#, python-format
+msgid ""
+"\"%(title)s\" turi uchun so'rovingiz qabul qilindi! Menejerlarimiz tez orada"
+" bog'lanadi."
+msgstr ""
+"Your request for \"%(title)s\" has been received! Our managers will contact "
+"you shortly."
+
+msgid "Iltimos, telefon raqamingiz yoki emailingizni kiriting."
+msgstr "Please enter your phone number or email."
+
+msgid ""
+"So'rovingiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
+msgstr ""
+"Your request has been received! Our managers will contact you shortly."
+
+msgid "Iltimos, email yoki telefon raqamingizni kiriting."
+msgstr "Please enter your email or phone number."
+
+msgid ""
+"Xabaringiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
+msgstr ""
+"Your message has been received! Our managers will contact you shortly."
+
+msgid "Iltimos, aloqa ma'lumotingiz va xabar matningizni kiriting."
+msgstr "Please enter your contact info and your message."

@@ -15,10 +15,34 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from core import seo, views as core_views
+
+# Til prefiksi OLMAYDIGAN manzillar: admin panel, til almashtirish, SEO fayllari
+# (sitemap.xml/robots.txt har doim bitta, umumiy manzilda bo'lishi kerak).
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("core.urls")),
+    path("i18n/almashtirish/", core_views.switch_language, name="switch_language"),
+    path("sitemap.xml", seo.sitemap_view, name="sitemap"),
+    path("robots.txt", seo.robots_view, name="robots"),
 ]
+
+# Saytning asosiy sahifalari — har bir til uchun alohida, qidiruv tizimlari
+# indekslay oladigan manzil hosil qiladi:
+#   uz -> /boglanish/         (standart til, prefikssiz)
+#   ru -> /ru/boglanish/
+#   en -> /en/boglanish/
+urlpatterns += i18n_patterns(
+    path("", include("core.urls")),
+    prefix_default_language=False,
+)
+
+# Rivojlantirish muhitida (DEBUG=true) media fayllarni Django orqali xizmat qildiramiz.
+# Productionda bu ish veb-serverga (nginx va h.k.) yuklatiladi.
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
