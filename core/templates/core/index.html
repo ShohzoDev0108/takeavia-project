@@ -150,12 +150,8 @@
   .trust-list li{ display:flex; align-items:center; gap:9px;}
   .trust-list svg{ color:var(--blue-600); flex-shrink:0;}
 
-  /* ===== Route flow (yo'nalishlar tarmog'i animatsiyasi) ===== */
-  .route-flow{ background:linear-gradient(180deg, var(--navy-900), var(--navy-950)); padding:56px 0 68px; overflow:hidden;}
-  .route-flow-head{ text-align:center; margin-bottom:8px;}
-  .route-flow-head h2{ color:#fff; font-size:26px; font-weight:800;}
-  .route-flow-head p{ color:rgba(255,255,255,.6); font-size:14px; margin-top:8px;}
-  .route-flow-track{ position:relative; width:100%; margin-top:56px;}
+  /* ===== Route flow (yo'nalishlar tarmog'i animatsiyasi) — hero foniga singdirilgan ===== */
+  .hero-flow{ position:relative; width:100%; margin-top:40px;}
   .route-flow-svg{ position:absolute; top:0; left:0; width:100%; height:100%; display:block; overflow:visible;}
   .route-pulse{
     position:absolute; top:0; left:0; width:14px; height:14px; margin:-7px 0 0 -7px;
@@ -166,7 +162,7 @@
   .route-pulse.is-on{ opacity:1;}
   .route-dot{ position:absolute; top:0; left:0; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:4;}
   .route-dot-ring{
-    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(207,224,33,.55);
+    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(207,224,33,.6);
     opacity:0; transform:scale(.6);
   }
   .route-dot.is-pending .route-dot-ring{ animation:routeRing 1s ease-out infinite;}
@@ -175,23 +171,23 @@
     100%{ opacity:0; transform:scale(1.9);}
   }
   .route-dot-core{
-    width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.35);
-    border:1.5px solid rgba(255,255,255,.5); transition:background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+    width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.32);
+    border:1.5px solid rgba(255,255,255,.55); transition:background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
   }
   .route-dot.is-active .route-dot-core{
     background:var(--lime); border-color:var(--lime); transform:scale(1.35);
-    box-shadow:0 0 0 5px rgba(207,224,33,.2), 0 0 16px 4px rgba(207,224,33,.55);
+    box-shadow:0 0 0 5px rgba(207,224,33,.22), 0 0 16px 4px rgba(207,224,33,.55);
   }
   .route-dot-code{
-    margin-top:9px; font-size:11.5px; font-weight:700; letter-spacing:.5px; color:rgba(255,255,255,.55);
-    transition:color .3s ease;
+    margin-top:9px; font-size:11.5px; font-weight:700; letter-spacing:.5px; color:rgba(255,255,255,.6);
+    text-shadow:0 1px 6px rgba(0,0,0,.3); transition:color .3s ease;
   }
   .route-dot.is-active .route-dot-code{ color:#fff;}
   .route-dot-popup{
     position:absolute; bottom:calc(100% + 14px); left:50%; transform:translate(-50%,6px);
     display:flex; align-items:center; gap:7px; background:#fff; color:var(--navy-900);
     padding:7px 12px; border-radius:20px; font-size:12.5px; font-weight:700; white-space:nowrap;
-    box-shadow:0 8px 20px rgba(0,0,0,.25); opacity:0; pointer-events:none;
+    box-shadow:0 8px 22px rgba(0,0,0,.3); opacity:0; pointer-events:none;
     transition:opacity .3s ease, transform .3s ease;
   }
   .route-dot-popup::after{
@@ -209,8 +205,7 @@
   .route-dot:last-child.is-active .route-dot-popup{ transform:translate(0,0);}
 
   @media(max-width:640px){
-    .route-flow-head h2{ font-size:21px;}
-    .route-flow-track{ margin-top:46px;}
+    .hero-flow{ margin-top:26px;}
     .route-dot-code{ font-size:9.5px;}
     .route-dot-popup{ font-size:11px; padding:6px 10px;}
   }
@@ -450,6 +445,24 @@
         <button type="button" data-tab="tour">&#127794; {% trans "Tur paketlar" %}</button>
       </div>
     </div>
+
+    {% if destinations %}
+    <div class="hero-flow" id="routeFlow" aria-label="{% trans "Bizning yo'nalishlar tarmog'i" %} — {% trans "Toshkentdan dunyoning istalgan nuqtasiga" %}">
+      <svg class="route-flow-svg" id="routeFlowSvg" preserveAspectRatio="none"></svg>
+      <div class="route-pulse" id="routePulse"></div>
+      {% for d in destinations %}
+      <div class="route-dot" data-index="{{ forloop.counter0 }}">
+        <span class="route-dot-ring"></span>
+        <span class="route-dot-core"></span>
+        <span class="route-dot-code">{{ d.to_code }}</span>
+        <div class="route-dot-popup">
+          <span class="fi fi-{{ d.flag_code }}"></span>
+          <span>{{ d.name }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
 
   <form class="search-card" method="post" action="{% url 'core:flight_search' %}">
@@ -504,33 +517,6 @@
     </ul>
   </div>
 </section>
-
-<!-- ===== ROUTE FLOW (yo'nalishlar tarmog'i animatsiyasi) ===== -->
-{% if destinations %}
-<section class="route-flow" aria-label="{% trans "Yo'nalishlar tarmog'i" %}">
-  <div class="wrap">
-    <div class="route-flow-head">
-      <h2>{% trans "Bizning yo'nalishlar tarmog'i" %}</h2>
-      <p>{% trans "Toshkentdan dunyoning istalgan nuqtasiga" %}</p>
-    </div>
-    <div class="route-flow-track" id="routeFlow">
-      <svg class="route-flow-svg" id="routeFlowSvg" preserveAspectRatio="none"></svg>
-      <div class="route-pulse" id="routePulse"></div>
-      {% for d in destinations %}
-      <div class="route-dot" data-index="{{ forloop.counter0 }}">
-        <span class="route-dot-ring"></span>
-        <span class="route-dot-core"></span>
-        <span class="route-dot-code">{{ d.to_code }}</span>
-        <div class="route-dot-popup">
-          <span class="fi fi-{{ d.flag_code }}"></span>
-          <span>{{ d.name }}</span>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 <!-- ===== POPULAR FLIGHTS FROM TASHKENT ===== -->
 <section class="section" style="padding-top:16px;" id="yonalishlar">
@@ -858,7 +844,7 @@
       points.forEach((p, i) => {
         d += (i === 0 ? 'M ' : ' L ') + p.x + ' ' + p.y;
       });
-      svg.innerHTML = '<path d="' + d + '" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+      svg.innerHTML = '<path d="' + d + '" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
     }
 
     layout();
