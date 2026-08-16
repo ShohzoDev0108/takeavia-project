@@ -28,7 +28,12 @@ Sayt: http://127.0.0.1:8000/ — Admin: http://127.0.0.1:8000/admin/
 
 ## Serverga chiqarish (production)
 
-`.env.example` faylini ko'ring. Serverda quyidagi muhit o'zgaruvchilari SHART:
+To'liq, bosqichma-bosqich (Hetzner + Ubuntu + Nginx + Gunicorn + Let's Encrypt)
+qo'llanma uchun **[`deploy/DEPLOY.md`](deploy/DEPLOY.md)** ga qarang. U yerda
+tayyor Nginx (`deploy/nginx_takeaviatrip.conf`) va systemd (`deploy/takeavia-gunicorn.service`)
+konfiguratsiya fayllari ham bor.
+
+Qisqacha: `.env.example` faylini ko'ring. Serverda quyidagi muhit o'zgaruvchilari SHART:
 
 | O'zgaruvchi | Qiymat |
 |---|---|
@@ -57,6 +62,10 @@ python manage.py collectstatic
 takeavia_project/
 ├── manage.py
 ├── requirements.txt
+├── deploy/            # serverga joylashtirish uchun qo'llanma va konfiguratsiya
+│   ├── DEPLOY.md
+│   ├── nginx_takeaviatrip.conf
+│   └── takeavia-gunicorn.service
 ├── takeavia/          # loyiha sozlamalari (settings, urls, wsgi)
 └── core/              # asosiy ilova
     ├── models.py      # Destination, Tour, Testimonial, Lead

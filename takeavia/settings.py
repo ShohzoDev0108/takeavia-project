@@ -72,6 +72,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # Nginx/gunicorn ortida statik fayllarni (CSS/JS/rasm) to'g'ridan-to'g'ri
+    # Django orqali samarali va xavfsiz berish uchun (production'da ham, dev'da ham ishlaydi).
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -162,6 +165,23 @@ STATIC_URL = "static/"
 
 # collectstatic uchun (deploy paytida kerak bo'ladi)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Production'da statik fayllarni siqilgan va hash qo'shilgan nom bilan
+# (masalan style.a1b2c3.css) berish uchun — brauzer keshi to'g'ri yangilanadi.
+# Lokal ishlab chiqishda (DEBUG=true) oddiy rejim ishlatiladi — har safar
+# `collectstatic` ishga tushirish shart bo'lmasin.
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            if not DEBUG
+            else "django.contrib.staticfiles.storage.StaticFilesStorage"
+        ),
+    },
+}
 
 # Media fayllar (admin panel orqali yuklangan rasmlar)
 # https://docs.djangoproject.com/en/5.2/topics/files/

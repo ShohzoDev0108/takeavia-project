@@ -1,0 +1,30 @@
+# systemd xizmat fayli — Gunicorn'ni doimiy ishlab turadigan xizmat sifatida
+# ishga tushiradi (server qayta yoqilganda ham avtomatik ishga tushadi,
+# xato bilan to'xtab qolsa — avtomatik qayta ishga tushadi).
+#
+# O'RNATISH:
+#   1) Kerak bo'lsa yo'llarni (WorkingDirectory, ExecStart) o'z joylashuvingizga
+#      moslang — quyida standart joylashuv /var/www/takeavia_project deb olingan.
+#   2) Faylni nusxalang:  /etc/systemd/system/takeavia-gunicorn.service
+#   3) Yuklang va yoqing:
+#        sudo systemctl daemon-reload
+#        sudo systemctl enable --now takeavia-gunicorn
+#   4) Holatini tekshirish:  sudo systemctl status takeavia-gunicorn
+#   5) Loglarni ko'rish:     sudo journalctl -u takeavia-gunicorn -f
+
+[Unit]
+Description=Take Avia Trip - Gunicorn (Django)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/takeavia_project
+EnvironmentFile=/var/www/takeavia_project/.env
+ExecStart=/var/www/takeavia_project/venv/bin/gunicorn takeavia.wsgi:application --bind 127.0.0.1:8000 --workers 3
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
