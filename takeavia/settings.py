@@ -39,7 +39,7 @@ if not DEBUG and SECRET_KEY == _DEV_SECRET_KEY:
         "import get_random_secret_key; print(get_random_secret_key())\""
     )
 
-# Serverda DJANGO_ALLOWED_HOSTS="takeaviatrip.uz,www.takeaviatrip.uz" ko'rinishida bering.
+# Serverda DJANGO_ALLOWED_HOSTS="takeavia.uz,www.takeavia.uz" ko'rinishida bering.
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 # HTTPS bilan ishlaganda CSRF uchun ishonchli manzillar

@@ -3,7 +3,7 @@
 Bu qo'llanma Hetzner'da yaratilgan `takeavia` serveriga (Ubuntu, IP: `95.217.128.222`)
 loyihani birinchi marta joylashtirish uchun. Har bir buyruqni ketma-ket bajaring.
 
-Domen nomi bo'lgan joylarda **`takeaviatrip.uz`** yozilgan — buni har doim
+Domen nomi bo'lgan joylarda **`takeavia.uz`** yozilgan — buni har doim
 o'zingizning haqiqiy domeningizga almashtiring (nginx faylida, `.env`da va h.k.).
 
 ---
@@ -87,8 +87,8 @@ python3 -c "from django.core.management.utils import get_random_secret_key; prin
 ```
 DJANGO_SECRET_KEY=<yuqorida generatsiya qilingan kalit>
 DJANGO_DEBUG=false
-DJANGO_ALLOWED_HOSTS=takeaviatrip.uz,www.takeaviatrip.uz
-DJANGO_CSRF_TRUSTED_ORIGINS=https://takeaviatrip.uz,https://www.takeaviatrip.uz
+DJANGO_ALLOWED_HOSTS=takeavia.uz,www.takeavia.uz
+DJANGO_CSRF_TRUSTED_ORIGINS=https://takeavia.uz,https://www.takeavia.uz
 ```
 
 Saqlab chiqing (`nano`da: `Ctrl+O`, `Enter`, `Ctrl+X`).
@@ -132,15 +132,15 @@ journalctl -u takeavia-gunicorn -e
 ## 8. Nginx sozlash
 
 ```bash
-cp /var/www/takeavia_project/deploy/nginx_takeaviatrip.conf /etc/nginx/sites-available/takeaviatrip.uz
-nano /etc/nginx/sites-available/takeaviatrip.uz   # domen nomini tekshiring/almashtiring
-ln -s /etc/nginx/sites-available/takeaviatrip.uz /etc/nginx/sites-enabled/
+cp /var/www/takeavia_project/deploy/nginx_takeavia.conf /etc/nginx/sites-available/takeavia.uz
+nano /etc/nginx/sites-available/takeavia.uz   # domen nomini tekshiring/almashtiring
+ln -s /etc/nginx/sites-available/takeavia.uz /etc/nginx/sites-enabled/
 nginx -t
 systemctl reload nginx
 ```
 
 Shu bosqichdan so'ng sayt `http://95.217.128.222` yoki (agar DNS allaqachon
-ishlagan bo'lsa) `http://takeaviatrip.uz` manzilida ochilishi kerak (hali https'siz).
+ishlagan bo'lsa) `http://takeavia.uz` manzilida ochilishi kerak (hali https'siz).
 
 ---
 
@@ -155,7 +155,7 @@ bo'limiga quyidagilarni qo'shing:
 | A | `www` | `95.217.128.222` |
 
 DNS o'zgarishi butun dunyoga tarqalishi (propagation) bir necha daqiqadan bir
-necha soatgacha vaqt olishi mumkin. `nslookup takeaviatrip.uz` buyrug'i bilan
+necha soatgacha vaqt olishi mumkin. `nslookup takeavia.uz` buyrug'i bilan
 tekshirib borishingiz mumkin.
 
 ---
@@ -166,7 +166,7 @@ DNS ishlay boshlagach (domen serverning IP-manziliga ko'rsatgach):
 
 ```bash
 apt install -y certbot python3-certbot-nginx
-certbot --nginx -d takeaviatrip.uz -d www.takeaviatrip.uz
+certbot --nginx -d takeavia.uz -d www.takeavia.uz
 ```
 
 Savol beriladi — email kiritasiz, shartlarga roziligingizni bildirasiz, va
@@ -178,10 +178,10 @@ avtomatik yangilab turadi (qo'shimcha sozlash shart emas).
 
 ## 11. Yakuniy tekshirish
 
-- `https://takeaviatrip.uz` — bosh sahifa ochilishi, rasm/animatsiya ko'rinishi
-- `https://takeaviatrip.uz/admin/` — admin panelga kirish
+- `https://takeavia.uz` — bosh sahifa ochilishi, rasm/animatsiya ko'rinishi
+- `https://takeavia.uz/admin/` — admin panelga kirish
 - Qidiruv formasi orqali so'rov yuborib ko'rish, admin panelda ko'rinishini tekshirish
-- `https://takeaviatrip.uz/sitemap.xml` va `/robots.txt` ochilishini tekshirish
+- `https://takeavia.uz/sitemap.xml` va `/robots.txt` ochilishini tekshirish
 - Uch tilni ham tekshirish (UZ/RU/EN — yuqoridagi til almashtirgich orqali)
 
 ---
