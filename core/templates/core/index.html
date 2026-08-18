@@ -508,14 +508,14 @@
       <label>{% trans "Ketish sanasi" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <input type="text" name="depart_date" value="20.05.2026">
+        <input type="text" name="depart_date" value="{{ default_depart_date }}">
       </div>
     </div>
     <div class="field">
       <label>{% trans "Qaytish sanasi" %}</label>
       <div class="value">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <input type="text" name="return_date" value="27.05.2026">
+        <input type="text" name="return_date" value="{{ default_return_date }}">
       </div>
     </div>
     <div class="field">

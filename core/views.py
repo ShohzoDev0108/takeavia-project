@@ -1,3 +1,5 @@
+import datetime
+
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
@@ -58,10 +60,18 @@ def switch_language(request):
 
 def home(request):
     """Bosh sahifa — barcha bo'limlar ma'lumotlar bazasidan olinadi."""
+    # Qidiruv formasidagi "Ketish/Qaytish sanasi" har doim BUGUNGI kunga
+    # nisbatan avtomatik hisoblanadi (avval qattiq yozilgan "20.05.2026" kabi
+    # sana o'tib ketgach eskirib, mijozlarga chalkash ko'rinardi).
+    today = datetime.date.today()
+    default_depart = today + datetime.timedelta(days=7)
+    default_return = default_depart + datetime.timedelta(days=7)
     context = {
         "destinations": Destination.objects.all(),
         "tours": Tour.objects.filter(is_active=True)[:6],
         "testimonials": Testimonial.objects.filter(is_active=True)[:3],
+        "default_depart_date": default_depart.strftime("%d.%m.%Y"),
+        "default_return_date": default_return.strftime("%d.%m.%Y"),
     }
     return render(request, "core/index.html", context)
 
