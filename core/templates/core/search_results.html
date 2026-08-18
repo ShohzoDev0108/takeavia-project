@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static db_i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -20,7 +20,7 @@
     --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
     --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
     --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d;
-    --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12;
+    --lime:#1c64f2; --lime-dark:#1550cc; --lime-text:#ffffff; /* brend rangi: mijoz talabiga muvofiq KOK fon + OQ matn (nom tarixiy) */
     --shadow-sm:0 2px 10px rgba(15,31,51,.06); --shadow-md:0 12px 30px rgba(15,31,51,.10);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -119,14 +119,14 @@
     {% for t in tours %}
     <div class="tour-card">
       <div class="tour-media">
-        <img src="{{ t.image_src }}" alt="{{ t.title }}">
+        <img src="{{ t.image_src }}" alt="{{ t.title }}" width="400" height="380" loading="lazy" decoding="async">
         <div class="tour-rating">&#9733; {{ t.rating }}</div>
         {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
         <div class="tour-overlay">
           <h3>{{ t.title }}</h3>
-          <div class="meta">{{ t.duration }} &middot; {{ t.hotel_label }}</div>
-          <div class="includes">{{ t.includes }}</div>
-          <div class="dates">&#128197; {{ t.dates_display }}</div>
+          <div class="meta">{{ t.duration|dbtr }} &middot; {{ t.hotel_label }}</div>
+          <div class="includes">{{ t.includes|dbtr }}</div>
+          <div class="dates">&#128197; {{ t.dates_display|dbtr }}</div>
           <div class="tour-foot">
             <div class="tour-price">${{ t.price }}</div>
             <button class="btn">{% trans "Batafsil" %}</button>

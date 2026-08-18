@@ -1,10 +1,10 @@
-{% load i18n l10n static %}
+{% load i18n l10n static db_i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{% blocktrans with title=tour.title duration=tour.duration hotel=tour.hotel_label asvar page_description %}{{ title }} — {{ duration }}, {{ hotel }}. Take Avia Trip orqali qulay narxda bron qiling: aviabilet, mehmonxona va transfer narxga kiradi.{% endblocktrans %}
+{% blocktrans with title=tour.title duration=tour.duration|dbtr hotel=tour.hotel_label asvar page_description %}{{ title }} — {{ duration }}, {{ hotel }}. Take Avia Trip orqali qulay narxda bron qiling: aviabilet, mehmonxona va transfer narxga kiradi.{% endblocktrans %}
 <title>{{ tour.title }} — Take Avia Trip</title>
 <meta name="description" content="{{ page_description }}">
 <meta name="robots" content="index, follow">
@@ -13,6 +13,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
 {% include "core/_seo.html" with seo_title=tour.title|add:" — Take Avia Trip" seo_description=page_description seo_image=tour.image_src seo_type="website" %}
+
+{# SEO: tur paketi uchun TouristTrip + narx (Offer) strukturaviy ma'lumoti — Google boy natijalari uchun #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "{{ tour.title|escapejs }}",
+  "description": "{{ page_description|escapejs }}",
+  "touristType": "Leisure",
+  {% if tour.image_src %}"image": "{% if 'http' in tour.image_src %}{{ tour.image_src }}{% else %}{{ request.scheme }}://{{ request.get_host }}{{ tour.image_src }}{% endif %}",
+  {% endif %}"provider": {
+    "@type": "TravelAgency",
+    "name": "Take Avia Trip",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ tour.price }}",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/{% if tour.seats_left > 0 %}InStock{% else %}SoldOut{% endif %}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"
+  }
+}
+</script>
+
+{# SEO: non ushqalari (breadcrumb) — qidiruv natijasida sahifa yo'li chiroyli ko'rinadi #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "{% trans 'Bosh sahifa' %}", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
+    {"@type": "ListItem", "position": 2, "name": "{% trans 'Tur paketlar' %}", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:tour_list' %}"},
+    {"@type": "ListItem", "position": 3, "name": "{{ tour.title|escapejs }}"}
+  ]
+}
+</script>
 {% trans "Tur paketlar" as tur_paketlar_label %}
 <script type="application/ld+json">
 {
@@ -47,7 +84,7 @@
     --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-50:#eaf2ff;
     --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
     --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d; --star:#ffb400;
-    --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12;
+    --lime:#1c64f2; --lime-dark:#1550cc; --lime-text:#ffffff; /* brend rangi: mijoz talabiga muvofiq KOK fon + OQ matn (nom tarixiy) */
     --shadow-sm:0 2px 10px rgba(15,31,51,.06); --shadow-md:0 12px 30px rgba(15,31,51,.10);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -166,7 +203,7 @@
 </header>
 
 <div class="hero-img">
-  <img src="{{ tour.image_src }}" alt="{{ tour.title }}">
+  <img src="{{ tour.image_src }}" alt="{{ tour.title }}" width="1200" height="380" fetchpriority="high" decoding="async">
   <div class="hero-badges wrap">
     <div class="row">
       <span class="b-rating">&#9733; {{ tour.rating }}</span>
@@ -175,7 +212,7 @@
   </div>
   <div class="hero-title wrap">
     <h1>{{ tour.title }}</h1>
-    <div class="sub">{{ tour.duration }} &middot; {{ tour.hotel_label }} &middot; &#128197; {{ tour.dates_display }}</div>
+    <div class="sub">{{ tour.duration|dbtr }} &middot; {{ tour.hotel_label }} &middot; &#128197; {{ tour.dates_display|dbtr }}</div>
   </div>
 </div>
 
@@ -184,9 +221,9 @@
     <div class="card">
       <h2>{% trans "Tur haqida" %}</h2>
       <div class="info-row"><span class="k">{% trans "Yo'nalish" %}</span><span class="v">{{ tour.title }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Muddat" %}</span><span class="v">{{ tour.duration }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Muddat" %}</span><span class="v">{{ tour.duration|dbtr }}</span></div>
       <div class="info-row"><span class="k">{% trans "Mehmonxona" %}</span><span class="v">{{ tour.hotel_label }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Sanalar" %}</span><span class="v">{{ tour.dates_display }}</span></div>
+      <div class="info-row"><span class="k">{% trans "Sanalar" %}</span><span class="v">{{ tour.dates_display|dbtr }}</span></div>
       <div class="info-row"><span class="k">{% trans "Qolgan joylar" %}</span><span class="v">{% blocktrans with seats=tour.seats_left %}{{ seats }} ta{% endblocktrans %}</span></div>
 
       <h2 style="margin-top:26px;">{% trans "Narxga nimalar kiradi" %}</h2>
@@ -218,10 +255,10 @@
     <div class="sim-grid">
       {% for s in similar %}
       <a class="sim-card" href="{% url 'core:tour_detail' s.pk %}">
-        <img src="{{ s.image_src }}" alt="{{ s.title }}">
+        <img src="{{ s.image_src }}" alt="{{ s.title }}" width="300" height="200" loading="lazy" decoding="async">
         <div class="sim-info">
           <h3>{{ s.title }}</h3>
-          <span>${{ s.price }} &middot; {{ s.duration }}</span>
+          <span>${{ s.price }} &middot; {{ s.duration|dbtr }}</span>
         </div>
       </a>
       {% endfor %}

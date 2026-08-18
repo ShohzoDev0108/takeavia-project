@@ -22,7 +22,10 @@ User=www-data
 Group=www-data
 WorkingDirectory=/var/www/takeavia_project
 EnvironmentFile=/var/www/takeavia_project/.env
-ExecStart=/var/www/takeavia_project/venv/bin/gunicorn takeavia.wsgi:application --bind 127.0.0.1:8000 --workers 3
+# --no-control-socket: www-data foydalanuvchisining $HOME (/var/www) papkasiga
+# yozish huquqi yo'q, shuning uchun Gunicorn'ning "control socket" (gunicornc
+# CLI orqali runtime boshqaruv) xususiyatini o'chiramiz — biz undan foydalanmaymiz.
+ExecStart=/var/www/takeavia_project/venv/bin/gunicorn takeavia.wsgi:application --bind 127.0.0.1:8000 --workers 3 --no-control-socket
 Restart=always
 RestartSec=3
 

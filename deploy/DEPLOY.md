@@ -115,27 +115,33 @@ pip install -r requirements.txt
 
 ## 5. `.env` faylini yaratish
 
-```bash
-cp .env.example .env
-nano .env
-```
-
-Yangi maxfiy kalit yaratish uchun (alohida terminalda yoki shu yerda):
+Quyidagi buyruqni **to'liq, bir butun holda** nusxalab, terminalga joylang
+(u avtomatik yangi maxfiy kalit generatsiya qilib, `.env` faylini yaratadi —
+qo'lda `nano`da yozishga hojat yo'q):
 
 ```bash
-python3 -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-```
-
-`.env` faylini quyidagicha to'ldiring (o'z domeningiz bilan):
-
-```
-DJANGO_SECRET_KEY=<yuqorida generatsiya qilingan kalit>
+SECRET_KEY=$(python3 -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())")
+cat > .env << EOF
+DJANGO_SECRET_KEY='$SECRET_KEY'
 DJANGO_DEBUG=false
 DJANGO_ALLOWED_HOSTS=takeavia.uz,www.takeavia.uz
 DJANGO_CSRF_TRUSTED_ORIGINS=https://takeavia.uz,https://www.takeavia.uz
+EOF
 ```
 
-Saqlab chiqing (`nano`da: `Ctrl+O`, `Enter`, `Ctrl+X`).
+**Muhim:** `DJANGO_SECRET_KEY` qiymati albatta bitta tirnoq (`'...'`) ichida
+bo'lishi kerak — kalit tarkibida `!`, `#`, `(`, `)` kabi maxsus belgilar
+bo'lishi mumkin, ular tirnoqsiz yozilsa keyingi bosqichda (`source .env`)
+bash xato beradi.
+
+Tekshirish uchun (maxfiy kalitni ekranga chiqarmasdan, faqat qatorlar sonini
+ko'rsatadi):
+
+```bash
+wc -l .env
+```
+
+4 qator chiqishi kerak.
 
 ---
 
@@ -256,3 +262,4 @@ sudo systemctl restart takeavia-gunicorn
 | "DisallowedHost" xatosi | `.env`dagi `DJANGO_ALLOWED_HOSTS` domeningizni o'z ichiga oladimi? |
 | SSL ishlamayapti | DNS to'liq tarqalganmi (`nslookup`)? `certbot --nginx` qayta ishga tushiring |
 | Formadan yuborilgan ma'lumot saqlanmayapti | `DJANGO_CSRF_TRUSTED_ORIGINS`da `https://` bilan to'g'ri domen bormi? |
+| Loglarda "Control server error: Permission denied: '/var/www/.gunicorn'" | Zararsiz — Gunicorn'ning `gunicornc` runtime-boshqaruv xususiyati, foydalanilmaydi. `takeavia-gunicorn.service`dagi `--no-control-socket` bayrog'i shuni oldini oladi (fayl allaqachon shu bilan keladi). |

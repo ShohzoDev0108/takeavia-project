@@ -1,4 +1,4 @@
-{% load i18n l10n static %}
+{% load i18n l10n static db_i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -13,6 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<!-- LCP: hero fon rasmini oldindan yuklash -->
+<link rel="preload" as="image" fetchpriority="high" href="https://images.unsplash.com/photo-1470214203634-e436a8848e23?auto=format&fit=crop&w=1600&q=80">
 {% include "core/_seo.html" with seo_title=page_title seo_description=page_description seo_type="website" %}
 
 <style>
@@ -32,9 +34,9 @@
     --white:#ffffff;
     --orange:#ff7a3d;
     --star:#ffb400;
-    --lime:#cfe021;
-    --lime-dark:#b6c81a;
-    --lime-text:#1c2b12;
+    --lime:#1c64f2;      /* brend ko'ki: mijoz talabi — ko'k fon, oq matn (nom tarixiy) */
+    --lime-dark:#1550cc;
+    --lime-text:#ffffff;
     --radius-lg:18px;
     --radius-md:12px;
     --radius-sm:8px;
@@ -62,9 +64,9 @@
     padding:14px 22px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
     white-space:nowrap;
   }
-  .btn-primary{ background:var(--lime); color:var(--lime-text); box-shadow:0 8px 20px rgba(207,224,33,.35);}
-  .btn-primary:hover{ background:var(--lime-dark); transform:translateY(-2px); box-shadow:0 12px 26px rgba(207,224,33,.5);}
-  .btn-primary:active{ transform:translateY(0); box-shadow:0 6px 14px rgba(207,224,33,.35);}
+  .btn-primary{ background:var(--lime); color:var(--lime-text); box-shadow:0 8px 20px rgba(28,100,242,.35);}
+  .btn-primary:hover{ background:var(--lime-dark); transform:translateY(-2px); box-shadow:0 12px 26px rgba(28,100,242,.5);}
+  .btn-primary:active{ transform:translateY(0); box-shadow:0 6px 14px rgba(28,100,242,.35);}
   .btn-outline{ background:#fff; color:var(--ink-900); border:1px solid var(--line);}
   .btn-outline:hover{ border-color:var(--blue-600); color:var(--blue-600);}
   .section{ padding:64px 0;}
@@ -134,7 +136,7 @@
     display:flex; align-items:stretch; padding:10px; gap:0; flex-wrap:wrap;
   }
   .field{ flex:1; min-width:150px; display:flex; flex-direction:column; gap:4px; padding:12px 20px; position:relative; border-radius:10px; transition:background .15s ease;}
-  .field:focus-within{ background:rgba(207,224,33,.14);}
+  .field:focus-within{ background:rgba(28,100,242,.14);}
   .field:focus-within label{ color:var(--lime-dark);}
   .field + .field{ border-left:1px solid var(--line);}
   .field label{ font-size:12px; color:var(--ink-400); font-weight:600;}
@@ -156,13 +158,13 @@
   .route-pulse{
     position:absolute; top:0; left:0; width:14px; height:14px; margin:-7px 0 0 -7px;
     border-radius:50%; background:var(--lime);
-    box-shadow:0 0 10px 3px rgba(207,224,33,.7), 0 0 26px 10px rgba(207,224,33,.35);
+    box-shadow:0 0 10px 3px rgba(28,100,242,.7), 0 0 26px 10px rgba(28,100,242,.35);
     opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:5; will-change:transform;
   }
   .route-pulse.is-on{ opacity:1;}
   .route-dot{ position:absolute; top:0; left:0; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:4;}
   .route-dot-ring{
-    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(207,224,33,.6);
+    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(28,100,242,.6);
     opacity:0; transform:scale(.6);
   }
   .route-dot.is-pending .route-dot-ring{ animation:routeRing 1s ease-out infinite;}
@@ -176,7 +178,7 @@
   }
   .route-dot.is-active .route-dot-core{
     background:var(--lime); border-color:var(--lime); transform:scale(1.35);
-    box-shadow:0 0 0 5px rgba(207,224,33,.22), 0 0 16px 4px rgba(207,224,33,.55);
+    box-shadow:0 0 0 5px rgba(28,100,242,.22), 0 0 16px 4px rgba(28,100,242,.55);
   }
   .route-dot-code{
     margin-top:9px; font-size:11.5px; font-weight:700; letter-spacing:.5px; color:rgba(255,255,255,.6);
@@ -234,7 +236,7 @@
   /* ===== Vacation types ===== */
   .vac-grid{ display:grid; grid-template-columns:repeat(8,1fr); gap:16px;}
   .vac-item{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 12px; text-align:center; transition:all .18s ease; cursor:pointer;}
-  .vac-item:hover{ border-color:var(--lime-dark); background:rgba(207,224,33,.08); box-shadow:var(--shadow-sm); transform:translateY(-3px);}
+  .vac-item:hover{ border-color:var(--lime-dark); background:rgba(28,100,242,.08); box-shadow:var(--shadow-sm); transform:translateY(-3px);}
   .vac-item .emoji{ font-size:30px; margin-bottom:12px;}
   .vac-item span{ font-size:13px; font-weight:600; color:var(--ink-700); line-height:1.3;}
 
@@ -287,6 +289,16 @@
   .test-head span{ font-size:12px; color:var(--ink-400);}
   .test-card .stars{ margin-top:12px;}
   .test-card p{ font-size:13.5px; color:var(--ink-700); line-height:1.6; margin-top:10px;}
+
+  /* ===== FAQ (SEO uchun ham muhim: FAQPage schema bilan birga) ===== */
+  .faq-list{ max-width:860px;}
+  .faq-item{ border:1px solid var(--line); border-radius:12px; margin-bottom:12px; background:#fff; overflow:hidden;}
+  .faq-item summary{ list-style:none; cursor:pointer; display:flex; justify-content:space-between; align-items:center; gap:14px; padding:16px 20px; font-weight:600; font-size:15.5px; color:var(--ink-900);}
+  .faq-item summary::-webkit-details-marker{ display:none;}
+  .faq-item summary::after{ content:"+"; font-size:22px; font-weight:600; color:var(--blue-600); flex-shrink:0; transition:transform .2s ease;}
+  .faq-item[open] summary::after{ transform:rotate(45deg);}
+  .faq-item[open]{ border-color:var(--blue-600);}
+  .faq-item p{ padding:0 20px 16px; font-size:14.5px; line-height:1.65; color:var(--ink-700);}
 
   /* ===== CTA ===== */
   .cta{
@@ -513,7 +525,7 @@
       <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9l-6.2 3.4 1.6-6.8L2.2 8.9l6.9-.6z"/></svg> {% trans "Eng yaxshi narx kafolati" %}</li>
       <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> {% trans "Xavfsiz to'lov" %}</li>
       <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> {% trans "24/7 qo'llab-quvvatlash" %}</li>
-      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> {% trans "1000+ mamnun mijozlar" %}</li>
+      <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> {% trans "5000+ mamnun mijozlar" %}</li>
     </ul>
   </div>
 </section>
@@ -533,11 +545,11 @@
         {% for d in destinations %}
         <a class="dest-card" href="{% url 'core:tour_list' %}?q={{ d.name|urlencode }}">
           {% if d.is_popular %}<div class="dest-badge">&#9733; {% trans "Mashhur" %}</div>{% endif %}
-          <img src="{{ d.image_src }}" alt="{{ d.from_code }} — {{ d.name }}">
+          <img src="{{ d.image_src }}" alt="{{ d.from_code }} — {{ d.name }}" width="200" height="250" loading="lazy" decoding="async">
           <div class="dest-info">
             <div class="route"><span class="fi fi-{{ d.flag_code }}"></span> {{ d.from_code }} <span class="arrow">&#8594;</span> {{ d.to_code }}</div>
             <h3>{{ d.name }}</h3>
-            <div class="country">{{ d.country }} &middot; &#9992; {{ d.duration }}</div>
+            <div class="country">{{ d.country|dbtr }} &middot; &#9992; {{ d.duration|dbtr }}</div>
             <div class="price"><span class="label">{% trans "Taxminiy narx" %}</span> {% blocktrans with price=d.price_from %}${{ price }} dan{% endblocktrans %}</div>
           </div>
         </a>
@@ -578,19 +590,19 @@
         {% for t in tours %}
         <div class="tour-card">
           <div class="tour-media">
-            <img src="{{ t.image_src }}" alt="{{ t.title }}">
+            <img src="{{ t.image_src }}" alt="{{ t.title }}" width="400" height="420" loading="lazy" decoding="async">
             <div class="tour-rating">&#9733; <span>{{ t.rating }}</span></div>
             {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
             <div class="tour-overlay">
               <h3>{{ t.title }}</h3>
               <div class="meta">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                {{ t.duration }} &middot; {{ t.hotel_label }}
+                {{ t.duration|dbtr }} &middot; {{ t.hotel_label }}
               </div>
-              <div class="includes">{{ t.includes }}</div>
+              <div class="includes">{{ t.includes|dbtr }}</div>
               <div class="tour-dates">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                {{ t.dates_display }}
+                {{ t.dates_display|dbtr }}
               </div>
               <div class="tour-foot">
                 <div class="tour-price">${{ t.price }}</div>
@@ -651,8 +663,8 @@
       {% for r in testimonials %}
       <div class="test-card">
         <div class="test-head">
-          {% if r.avatar_url %}<img src="{{ r.avatar_url }}" alt="{{ r.name }}">{% endif %}
-          <div><h4>{{ r.name }}</h4><span>{{ r.city }}</span></div>
+          {% if r.avatar_url %}<img src="{{ r.avatar_url }}" alt="{{ r.name }}" width="48" height="48" loading="lazy" decoding="async">{% endif %}
+          <div><h4>{{ r.name }}</h4><span>{{ r.city|dbtr }}</span></div>
         </div>
         <div class="stars">{% for _ in "12345"|slice:r.rating %}&#9733;{% endfor %}</div>
         <p>{{ r.text }}</p>
@@ -663,6 +675,44 @@
     </div>
   </div>
 </section>
+
+<!-- ===== FAQ ===== -->
+{% trans "Aviabilet yoki turni qanday band qilsam bo'ladi?" as faq_q1 %}
+{% trans "Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz 24/7 javob berib, barcha detallarni siz bilan kelishib oladi." as faq_a1 %}
+{% trans "Tur paket narxiga nimalar kiradi?" as faq_q2 %}
+{% trans "Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan." as faq_a2 %}
+{% trans "Vizaga yordam berasizlarmi?" as faq_q3 %}
+{% trans "Ha, vizali yo'nalishlar uchun hujjatlarni tayyorlash va topshirishda to'liq yordam beramiz." as faq_a3 %}
+{% trans "Chipta va tur narxlari nimaga qarab o'zgaradi?" as faq_q4 %}
+{% trans "Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi." as faq_a4 %}
+{% trans "To'lovni qanday amalga oshirish mumkin?" as faq_q5 %}
+{% trans "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi." as faq_a5 %}
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section-head"><h2>{% trans "Ko'p beriladigan savollar" %}</h2></div>
+    <div class="faq-list">
+      <details class="faq-item"><summary>{{ faq_q1 }}</summary><p>{{ faq_a1 }}</p></details>
+      <details class="faq-item"><summary>{{ faq_q2 }}</summary><p>{{ faq_a2 }}</p></details>
+      <details class="faq-item"><summary>{{ faq_q3 }}</summary><p>{{ faq_a3 }}</p></details>
+      <details class="faq-item"><summary>{{ faq_q4 }}</summary><p>{{ faq_a4 }}</p></details>
+      <details class="faq-item"><summary>{{ faq_q5 }}</summary><p>{{ faq_a5 }}</p></details>
+    </div>
+  </div>
+</section>
+{# SEO: FAQPage strukturaviy ma'lumoti — Google qidiruvida savol-javoblar ko'rinishi uchun #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "{{ faq_q1|escapejs }}", "acceptedAnswer": {"@type": "Answer", "text": "{{ faq_a1|escapejs }}"}},
+    {"@type": "Question", "name": "{{ faq_q2|escapejs }}", "acceptedAnswer": {"@type": "Answer", "text": "{{ faq_a2|escapejs }}"}},
+    {"@type": "Question", "name": "{{ faq_q3|escapejs }}", "acceptedAnswer": {"@type": "Answer", "text": "{{ faq_a3|escapejs }}"}},
+    {"@type": "Question", "name": "{{ faq_q4|escapejs }}", "acceptedAnswer": {"@type": "Answer", "text": "{{ faq_a4|escapejs }}"}},
+    {"@type": "Question", "name": "{{ faq_q5|escapejs }}", "acceptedAnswer": {"@type": "Answer", "text": "{{ faq_a5|escapejs }}"}}
+  ]
+}
+</script>
 
 <!-- ===== CTA ===== -->
 <section class="wrap" style="margin:40px auto 70px;">

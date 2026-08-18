@@ -287,8 +287,8 @@ msgstr "Гарантия лучшей цены"
 msgid "Xavfsiz to'lov"
 msgstr "Безопасная оплата"
 
-msgid "1000+ mamnun mijozlar"
-msgstr "1000+ довольных клиентов"
+msgid "5000+ mamnun mijozlar"
+msgstr "5000+ довольных клиентов"
 
 msgid "Yo'nalishlar tarmog'i"
 msgstr "Сеть направлений"
@@ -576,3 +576,38 @@ msgstr "Ваше сообщение принято! Наши менеджеры 
 
 msgid "Iltimos, aloqa ma'lumotingiz va xabar matningizni kiriting."
 msgstr "Пожалуйста, укажите контактные данные и текст сообщения."
+
+# FAQ bo'limi (bosh sahifa)
+msgid "Ko'p beriladigan savollar"
+msgstr "Часто задаваемые вопросы"
+
+msgid "Aviabilet yoki turni qanday band qilsam bo'ladi?"
+msgstr "Как забронировать авиабилет или тур?"
+
+msgid "Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz 24/7 javob berib, barcha detallarni siz bilan kelishib oladi."
+msgstr "Заполните форму на сайте или свяжитесь с нами по телефону — наши менеджеры на связи 24/7 и согласуют с вами все детали."
+
+msgid "Tur paket narxiga nimalar kiradi?"
+msgstr "Что входит в стоимость тур-пакета?"
+
+msgid "Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan."
+msgstr "Обычно в цену входят авиабилет (туда-обратно), отель, трансфер из аэропорта и страховка. Точный список указан на странице каждого тура."
+
+msgid "Vizaga yordam berasizlarmi?"
+msgstr "Помогаете ли вы с оформлением визы?"
+
+msgid "Ha, vizali yo'nalishlar uchun hujjatlarni tayyorlash va topshirishda to'liq yordam beramiz."
+msgstr "Да, для визовых направлений мы полностью помогаем с подготовкой и подачей документов."
+
+msgid "Chipta va tur narxlari nimaga qarab o'zgaradi?"
+msgstr "От чего зависят цены на билеты и туры?"
+
+msgid "Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi."
+msgstr "Цена зависит от даты, сезона, авиакомпании и количества оставшихся мест. Поэтому цены на сайте ориентировочные — точную цену подтвердит менеджер."
+
+msgid "To'lovni qanday amalga oshirish mumkin?"
+msgstr "Как можно оплатить?"
+
+msgid "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi."
+msgstr "Наши менеджеры подробно расскажут о способах оплаты и предложат самый удобный для вас вариант."
+
