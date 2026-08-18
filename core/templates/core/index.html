@@ -36,10 +36,10 @@
     --white:#ffffff;
     --orange:#ff7a3d;
     --star:#ffb400;
-    --lime:#1c64f2;      /* brend ko'ki: mijoz talabi — ko'k fon, oq matn (asosiy tugmalar uchun, nom tarixiy) */
-    --lime-dark:#1550cc;
-    --lime-text:#ffffff;
-    --neon:#cfe021;       /* asl neon-yashil: dekorativ elementlar (yorqin sharcha, ikkinchi darajali tugmalar) uchun qaytarildi */
+    --lime:#cfe021;       /* asl neon-yashil: barcha tugmalar va faol menyu chizig'i shu rangda */
+    --lime-dark:#b6c81a;
+    --lime-text:#1c2b12;
+    --neon:#cfe021;
     --neon-dark:#b6c81a;
     --neon-text:#1c2b12;
     --radius-lg:18px;
@@ -69,18 +69,18 @@
     padding:14px 22px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
     white-space:nowrap;
   }
-  .btn-primary{ background:var(--lime); color:var(--lime-text); box-shadow:0 8px 20px rgba(28,100,242,.35);}
-  .btn-primary:hover{ background:var(--lime-dark); transform:translateY(-2px); box-shadow:0 12px 26px rgba(28,100,242,.5);}
-  .btn-primary:active{ transform:translateY(0); box-shadow:0 6px 14px rgba(28,100,242,.35);}
+  .btn-primary{ background:var(--lime); color:var(--lime-text); box-shadow:0 8px 20px rgba(207,224,33,.45);}
+  .btn-primary:hover{ background:var(--lime-dark); transform:translateY(-2px); box-shadow:0 12px 26px rgba(207,224,33,.6);}
+  .btn-primary:active{ transform:translateY(0); box-shadow:0 6px 14px rgba(207,224,33,.45);}
   .btn-outline{ background:#fff; color:var(--ink-900); border:1px solid var(--line);}
   .btn-outline:hover{ border-color:var(--blue-600); color:var(--blue-600);}
   .section{ padding:64px 0;}
   .section-head{ display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:28px; gap:16px; flex-wrap:wrap;}
   .section-head h2{ font-size:28px; font-weight:800; color:var(--ink-900);}
-  .see-all{ display:inline-flex; align-items:center; gap:6px; color:var(--blue-600); font-weight:600; font-size:14px;}
+  .see-all{ display:inline-flex; align-items:center; gap:6px; color:var(--lime-dark); font-weight:600; font-size:14px;}
   .see-all .circle{
-    width:26px; height:26px; border-radius:50%; background:var(--blue-50);
-    display:flex; align-items:center; justify-content:center; color:var(--blue-600);
+    width:26px; height:26px; border-radius:50%; background:rgba(207,224,33,.18);
+    display:flex; align-items:center; justify-content:center; color:var(--lime-dark);
   }
 
   /* ===== HEADER ===== */
@@ -92,9 +92,9 @@
   .logo-text{ line-height:1;}
   nav.main-nav{ display:flex; align-items:center; gap:28px; flex:1; justify-content:center;}
   nav.main-nav a{ font-size:14.5px; font-weight:500; color:var(--ink-700); white-space:nowrap; position:relative; padding:6px 0;}
-  nav.main-nav a.active{ color:var(--blue-600); font-weight:600;}
-  nav.main-nav a.active::after{ content:""; position:absolute; left:0; right:0; bottom:-14px; height:2px; background:var(--blue-600);}
-  nav.main-nav a:hover{ color:var(--blue-600);}
+  nav.main-nav a.active{ color:var(--lime-dark); font-weight:600;}
+  nav.main-nav a.active::after{ content:""; position:absolute; left:0; right:0; bottom:-14px; height:2px; background:var(--lime-dark);}
+  nav.main-nav a:hover{ color:var(--lime-dark);}
   .header-right{ display:flex; align-items:center; gap:18px; flex-shrink:0;}
   .phone-badge{ display:flex; align-items:center; gap:10px;}
   .phone-badge .icon{
@@ -142,7 +142,7 @@
     display:flex; align-items:stretch; padding:10px; gap:0; flex-wrap:wrap;
   }
   .field{ flex:1; min-width:150px; display:flex; flex-direction:column; gap:4px; padding:12px 20px; position:relative; border-radius:10px; transition:background .15s ease;}
-  .field:focus-within{ background:rgba(28,100,242,.14);}
+  .field:focus-within{ background:rgba(207,224,33,.16);}
   .field:focus-within label{ color:var(--lime-dark);}
   .field + .field{ border-left:1px solid var(--line);}
   .field label{ font-size:12px; color:var(--ink-400); font-weight:600;}

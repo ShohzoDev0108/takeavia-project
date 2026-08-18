@@ -58,20 +58,30 @@ def switch_language(request):
     return HttpResponseRedirect(next_url)
 
 
-def home(request):
-    """Bosh sahifa — barcha bo'limlar ma'lumotlar bazasidan olinadi."""
-    # Qidiruv formasidagi "Ketish/Qaytish sanasi" har doim BUGUNGI kunga
-    # nisbatan avtomatik hisoblanadi (avval qattiq yozilgan "20.05.2026" kabi
-    # sana o'tib ketgach eskirib, mijozlarga chalkash ko'rinardi).
+def _hero_context():
+    """Har bir sahifada ko'rinadigan yuqori "hero" bo'limi (qidiruv formasi +
+    yo'nalishlar animatsiyasi) uchun umumiy kontekst.
+
+    Avval bu faqat bosh sahifada bor edi — boshqa sahifaga o'tilganda hero
+    butunlay yo'qolib qolardi. Endi har bir view shu kontekstni qo'shib,
+    hero barcha sahifalarda bir xil ko'rinadi.
+    """
     today = datetime.date.today()
     default_depart = today + datetime.timedelta(days=7)
     default_return = default_depart + datetime.timedelta(days=7)
-    context = {
+    return {
         "destinations": Destination.objects.all(),
-        "tours": Tour.objects.filter(is_active=True)[:6],
-        "testimonials": Testimonial.objects.filter(is_active=True)[:3],
         "default_depart_date": default_depart.strftime("%d.%m.%Y"),
         "default_return_date": default_return.strftime("%d.%m.%Y"),
+    }
+
+
+def home(request):
+    """Bosh sahifa — barcha bo'limlar ma'lumotlar bazasidan olinadi."""
+    context = {
+        "tours": Tour.objects.filter(is_active=True)[:6],
+        "testimonials": Testimonial.objects.filter(is_active=True)[:3],
+        **_hero_context(),
     }
     return render(request, "core/index.html", context)
 
@@ -82,7 +92,8 @@ def tour_list(request):
     tours = Tour.objects.filter(is_active=True)
     if q:
         tours = tours.filter(title__icontains=q)
-    return render(request, "core/tour_list.html", {"tours": tours, "q": q})
+    context = {"tours": tours, "q": q, **_hero_context()}
+    return render(request, "core/tour_list.html", context)
 
 
 def tour_detail(request, pk):
@@ -103,7 +114,8 @@ def tour_detail(request, pk):
         messages.error(request, _("Iltimos, telefon raqamingiz yoki emailingizni kiriting."))
 
     similar = Tour.objects.filter(is_active=True).exclude(pk=tour.pk)[:3]
-    return render(request, "core/tour_detail.html", {"tour": tour, "similar": similar})
+    context = {"tour": tour, "similar": similar, **_hero_context()}
+    return render(request, "core/tour_detail.html", context)
 
 
 def flight_search(request):
@@ -137,6 +149,7 @@ def flight_search(request):
         "return_date": return_date,
         "passengers": passengers or _("2 kishi, Economy"),
         "tours": matching_tours,
+        **_hero_context(),
     }
     return render(request, "core/search_results.html", context)
 
@@ -158,7 +171,7 @@ def leave_request(request):
 
 def about(request):
     """'Biz haqimizda' sahifasi — kompaniya haqida, statistika va afzalliklar."""
-    return render(request, "core/about.html")
+    return render(request, "core/about.html", _hero_context())
 
 
 def contact(request):
@@ -175,4 +188,4 @@ def contact(request):
             )
             return redirect("core:contact")
         messages.error(request, _("Iltimos, aloqa ma'lumotingiz va xabar matningizni kiriting."))
-    return render(request, "core/contact.html")
+    return render(request, "core/contact.html", _hero_context())
