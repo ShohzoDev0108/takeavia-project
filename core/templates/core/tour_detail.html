@@ -10,8 +10,10 @@
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css"></noscript>
 {% include "core/_seo.html" with seo_title=tour.title|add:" — Take Avia Trip" seo_description=page_description seo_image=tour.image_src seo_type="website" %}
 
 {# SEO: tur paketi uchun TouristTrip + narx (Offer) strukturaviy ma'lumoti — Google boy natijalari uchun #}
@@ -38,18 +40,6 @@
 }
 </script>
 
-{# SEO: non ushqalari (breadcrumb) — qidiruv natijasida sahifa yo'li chiroyli ko'rinadi #}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "{% trans 'Bosh sahifa' %}", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:home' %}"},
-    {"@type": "ListItem", "position": 2, "name": "{% trans 'Tur paketlar' %}", "item": "{{ request.scheme }}://{{ request.get_host }}{% url 'core:tour_list' %}"},
-    {"@type": "ListItem", "position": 3, "name": "{{ tour.title|escapejs }}"}
-  ]
-}
-</script>
 {% trans "Tur paketlar" as tur_paketlar_label %}
 <script type="application/ld+json">
 {
@@ -126,6 +116,7 @@
   .info-row:last-child{ border-bottom:none;}
   .info-row .k{ color:var(--ink-500);}
   .info-row .v{ font-weight:700;}
+  .tour-desc p{ font-size:14.5px; line-height:1.75; color:var(--ink-700); margin-top:10px;}
   .includes-list{ list-style:none; margin-top:4px;}
   .includes-list li{ display:flex; align-items:center; gap:10px; padding:9px 0; font-size:14.5px; color:var(--ink-700);}
   .includes-list .tick{ color:#3da144; font-weight:800;}
@@ -225,6 +216,11 @@
       <div class="info-row"><span class="k">{% trans "Mehmonxona" %}</span><span class="v">{{ tour.hotel_label }}</span></div>
       <div class="info-row"><span class="k">{% trans "Sanalar" %}</span><span class="v">{{ tour.dates_display|dbtr }}</span></div>
       <div class="info-row"><span class="k">{% trans "Qolgan joylar" %}</span><span class="v">{% blocktrans with seats=tour.seats_left %}{{ seats }} ta{% endblocktrans %}</span></div>
+
+      {% if tour.description_display %}
+      <h2 style="margin-top:26px;">{% blocktrans with title=tour.title %}{{ title }} haqida{% endblocktrans %}</h2>
+      <div class="tour-desc">{{ tour.description_display|linebreaks }}</div>
+      {% endif %}
 
       <h2 style="margin-top:26px;">{% trans "Narxga nimalar kiradi" %}</h2>
       <ul class="includes-list">

@@ -611,3 +611,20 @@ msgstr "Как можно оплатить?"
 msgid "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi."
 msgstr "Наши менеджеры подробно расскажут о способах оплаты и предложат самый удобный для вас вариант."
 
+
+# Bosh sahifa SEO matn bloki
+msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
+msgstr "Take Avia Trip — надёжная авиакасса и туристическое агентство в Ташкенте"
+
+msgid "Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay reys hamda narxni topamiz."
+msgstr "С Take Avia Trip вы можете забронировать авиабилеты из Ташкента в любую точку мира по выгодной цене. Самые востребованные направления — Стамбул, Анталья, Дубай, Шарм-эль-Шейх, Батуми и Мальдивы. Мы работаем с крупными авиакомпаниями и подберём для вас самый удобный рейс и цену."
+
+msgid "Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Vizali davlatlar uchun hujjatlarni rasmiylashtirishda yordam beramiz — arizadan vizagacha barcha bosqichlarda yoningizdamiz."
+msgstr "Помимо авиабилетов мы предлагаем готовые тур-пакеты: в цену входят перелёт, отель, трансфер из аэропорта и страховка. Для визовых стран помогаем с оформлением документов — мы рядом на всех этапах, от заявки до визы."
+
+msgid "Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab beramiz."
+msgstr "Наш офис находится в Ташкенте, а менеджеры на связи 24/7. Спланируйте путешествие уже сегодня — заполните форму на сайте или позвоните, и мы подготовим лучшее предложение."
+
+
+msgid "%(title)s haqida"
+msgstr "О направлении %(title)s"

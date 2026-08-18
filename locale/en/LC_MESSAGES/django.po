@@ -606,3 +606,20 @@ msgstr "How can I pay?"
 msgid "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi."
 msgstr "Our managers will tell you about the payment options in detail and offer the most convenient one for you."
 
+
+# Bosh sahifa SEO matn bloki
+msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
+msgstr "Take Avia Trip — a trusted ticket office and travel agency in Tashkent"
+
+msgid "Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay reys hamda narxni topamiz."
+msgstr "With Take Avia Trip you can book flights from Tashkent to anywhere in the world at a great price. The most popular destinations are Istanbul, Antalya, Dubai, Sharm El Sheikh, Batumi and the Maldives. We work with major airlines and will find the most convenient flight and price for you."
+
+msgid "Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Vizali davlatlar uchun hujjatlarni rasmiylashtirishda yordam beramiz — arizadan vizagacha barcha bosqichlarda yoningizdamiz."
+msgstr "Besides flights, we offer ready-made tour packages: the price includes flights, hotel, airport transfer and insurance. For visa destinations we help with the paperwork — we are with you at every step, from application to visa."
+
+msgid "Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab beramiz."
+msgstr "Our office is located in Tashkent and our managers are available 24/7. Plan your trip today — fill in the form on the website or give us a call, and we will prepare the best offer."
+
+
+msgid "%(title)s haqida"
+msgstr "About %(title)s"

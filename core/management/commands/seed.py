@@ -90,4 +90,8 @@ class Command(BaseCommand):
             ])
             self.stdout.write(self.style.SUCCESS("Mijoz fikrlari qo'shildi (3 ta)."))
 
+        # Turlarga uch tildagi SEO-tavsiflarni yozish (alohida buyruqda saqlanadi)
+        from django.core.management import call_command
+        call_command("seed_descriptions")
+
         self.stdout.write(self.style.SUCCESS("Seed yakunlandi."))

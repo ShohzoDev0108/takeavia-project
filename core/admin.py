@@ -52,6 +52,7 @@ class TourAdmin(admin.ModelAdmin):
     date_hierarchy = "depart_date"
     fields = (
         "title", "image", "image_preview", "image_url",
+        "description", "description_ru", "description_en",
         "duration", "hotel_label", "includes", "price",
         "depart_date", "return_date",
         "seats_left", "rating", "is_active", "order",

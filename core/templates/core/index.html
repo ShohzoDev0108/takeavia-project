@@ -11,10 +11,12 @@
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css"></noscript>
 <!-- LCP: hero fon rasmini oldindan yuklash -->
-<link rel="preload" as="image" fetchpriority="high" href="https://images.unsplash.com/photo-1470214203634-e436a8848e23?auto=format&fit=crop&w=1600&q=80">
+<link rel="preload" as="image" fetchpriority="high" href="/media/site/hero.webp">
 {% include "core/_seo.html" with seo_title=page_title seo_description=page_description seo_type="website" %}
 
 <style>
@@ -116,7 +118,8 @@
     display:flex; flex-direction:column; justify-content:center;
     background:
       linear-gradient(90deg, rgba(8,20,38,.72) 0%, rgba(8,20,38,.42) 45%, rgba(8,20,38,.15) 100%),
-      url('https://images.unsplash.com/photo-1470214203634-e436a8848e23?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      url('/media/site/hero.webp') center/cover no-repeat;
+    background-color:var(--navy-950); /* rasm hali yuklanmagan bo'lsa ham fon chiroyli qoladi */
   }
   .hero-inner{ position:relative; z-index:2; padding:110px 24px 130px;}
   .hero-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
@@ -299,6 +302,11 @@
   .faq-item[open] summary::after{ transform:rotate(45deg);}
   .faq-item[open]{ border-color:var(--blue-600);}
   .faq-item p{ padding:0 20px 16px; font-size:14.5px; line-height:1.65; color:var(--ink-700);}
+
+  /* ===== SEO matn bloki ===== */
+  .seo-text{ background:var(--bg-soft); border-radius:18px; padding:34px 36px; max-width:1000px;}
+  .seo-text h2{ font-size:21px; font-weight:800; color:var(--ink-900); margin-bottom:14px;}
+  .seo-text p{ font-size:14.5px; line-height:1.75; color:var(--ink-700); margin-top:10px;}
 
   /* ===== CTA ===== */
   .cta{
@@ -713,6 +721,18 @@
   ]
 }
 </script>
+
+<!-- ===== SEO matn ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="seo-text">
+      <h2>{% trans "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi" %}</h2>
+      <p>{% trans "Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay reys hamda narxni topamiz." %}</p>
+      <p>{% trans "Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Vizali davlatlar uchun hujjatlarni rasmiylashtirishda yordam beramiz — arizadan vizagacha barcha bosqichlarda yoningizdamiz." %}</p>
+      <p>{% trans "Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab beramiz." %}</p>
+    </div>
+  </div>
+</section>
 
 <!-- ===== CTA ===== -->
 <section class="wrap" style="margin:40px auto 70px;">

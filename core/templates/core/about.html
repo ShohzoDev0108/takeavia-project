@@ -11,8 +11,10 @@
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css"></noscript>
 {% include "core/_seo.html" with seo_title=page_title_short|add:" — Take Avia Trip" seo_description=page_description seo_type="website" %}
 <script type="application/ld+json">
 {
@@ -160,7 +162,7 @@
         <p>{% trans "TAKE AVIA TRIP jamoasi sayohatning har bir bosqichida qulaylik, aniqlik va ishonchlilikka alohida e'tibor qaratadi. Biz uchun sayohat — shunchaki manzilga yetib borish emas, balki yoqimli taassurotlar, xotirjamlik va sifatli xizmat uyg'unligidir. Shu sababli har bir murojaatga katta mas'uliyat bilan yondashib, mijozlarimizga qulay aviareyslar, manfaatli shartlar va yuqori darajadagi xizmatni taklif etamiz." %}</p>
         <p>{% trans "Bizning asosiy tamoyillarimiz — sifat, tezkorlik, ishonchlilik va mijozlarga g'amxo'rlik. Ana shu yondashuv tufayli TAKE AVIA TRIP shunchaki xizmat ko'rsatuvchi kompaniya emas, balki sayohatda qulaylik va ishonchni qadrlaydigan har bir inson uchun ishonchli hamkorga aylanmoqda." %}</p>
       </div>
-      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=75" alt="Sayohat jamoasi" width="800" height="320" loading="lazy" decoding="async">
+      <img src="/media/site/about.webp" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=75'" alt="Sayohat jamoasi" width="800" height="320" loading="lazy" decoding="async">
     </div>
 
     <div class="motto">

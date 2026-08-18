@@ -58,6 +58,18 @@ class Tour(models.Model):
     ]
 
     title = models.CharField("Nomi", max_length=150)
+    description = models.TextField(
+        "Tavsif (o'zbekcha)", blank=True, default="",
+        help_text="Tur haqida batafsil matn — SEO uchun muhim. Har bir xatboshi yangi qatordan.",
+    )
+    description_ru = models.TextField(
+        "Tavsif (ruscha)", blank=True, default="",
+        help_text="Bo'sh qoldirilsa, rus sahifada o'zbekcha tavsif ko'rsatiladi.",
+    )
+    description_en = models.TextField(
+        "Tavsif (inglizcha)", blank=True, default="",
+        help_text="Bo'sh qoldirilsa, ingliz sahifada o'zbekcha tavsif ko'rsatiladi.",
+    )
     image = models.ImageField(
         "Rasm", upload_to="tours/", blank=True, null=True,
         help_text="Kompyuteringizdan rasm tanlang.",
@@ -91,6 +103,18 @@ class Tour(models.Model):
         if self.image:
             return self.image.url
         return self.image_url
+
+    @property
+    def description_display(self):
+        """Joriy sayt tiliga mos tavsifni qaytaradi (bo'sh bo'lsa — o'zbekchaga qaytadi)."""
+        from django.utils.translation import get_language
+
+        lang = (get_language() or "uz").split("-")[0]
+        if lang == "ru" and self.description_ru:
+            return self.description_ru
+        if lang == "en" and self.description_en:
+            return self.description_en
+        return self.description
 
     @property
     def dates_display(self):
