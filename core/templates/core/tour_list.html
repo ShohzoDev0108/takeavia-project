@@ -38,7 +38,8 @@
     --shadow-lg:0 24px 60px rgba(10,29,52,.18);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html, body{ max-width:100%; overflow-x:hidden;}
+  html{ overflow-x:hidden;}
+  body{ max-width:100%;}
   body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
   a{text-decoration:none; color:inherit;}
   .wrap{max-width:1240px; margin:0 auto; padding:0 24px;}
@@ -100,7 +101,8 @@
 
   /* ===== HERO (barcha sahifalarda bir xil ko'rinadi) ===== */
   .hero{
-    position:relative; overflow:hidden; min-height:560px;
+    position:sticky; top:var(--header-h, 78px); z-index:10;
+    overflow:hidden; min-height:560px;
     display:flex; flex-direction:column; justify-content:center;
     background:
       linear-gradient(90deg, rgba(8,20,38,.72) 0%, rgba(8,20,38,.42) 45%, rgba(8,20,38,.15) 100%),
@@ -246,6 +248,17 @@
     </div>
   </div>
 </header>
+<script>
+  // Hero doim ekranda "yopishib" tursin — header balandligini aniq hisoblab, shu bo'yicha joylashtiramiz.
+  (function() {
+    function setHeaderH() {
+      var h = document.querySelector('header');
+      if (h) { document.documentElement.style.setProperty('--header-h', h.offsetHeight + 'px'); }
+    }
+    setHeaderH();
+    window.addEventListener('resize', setHeaderH);
+  })();
+</script>
 
 <!-- ===== HERO (barcha sahifalarda) ===== -->
 <section class="hero" id="qidiruv">
