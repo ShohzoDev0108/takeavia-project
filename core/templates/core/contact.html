@@ -250,5 +250,28 @@
     }
   })();
 </script>
+
+<script>
+  // Brauzer o'zining standart "maydonni to'ldiring" xabarini har doim
+  // inglizcha (yoki brauzer tili) ko'rsatadi — Django tarjimasiga bo'ysunmaydi.
+  // Shu sabab sahifa tiliga mos xabarni JS orqali o'zimiz o'rnatamiz.
+  (function() {
+    var MSG = {
+      uz: {required: "Iltimos, bu maydonni to'ldiring.", email: "Iltimos, to'g'ri manzil kiriting."},
+      ru: {required: "Пожалуйста, заполните это поле.", email: "Пожалуйста, введите корректный адрес."},
+      en: {required: "Please fill out this field.", email: "Please enter a valid address."}
+    };
+    var lang = "{{ LANGUAGE_CODE|default:'uz' }}".split('-')[0];
+    var msg = MSG[lang] || MSG.uz;
+    document.querySelectorAll('form input, form textarea, form select').forEach(function(el) {
+      el.addEventListener('invalid', function() {
+        if (el.validity.valueMissing) { el.setCustomValidity(msg.required); }
+        else if (el.validity.typeMismatch) { el.setCustomValidity(msg.email); }
+        else { el.setCustomValidity(''); }
+      });
+      el.addEventListener('input', function() { el.setCustomValidity(''); });
+    });
+  })();
+</script>
 </body>
 </html>

@@ -135,7 +135,15 @@ class Testimonial(models.Model):
     name = models.CharField("Ism-familiya", max_length=100)
     city = models.CharField("Shahar", max_length=100)
     avatar_url = models.URLField("Avatar URL", max_length=500, blank=True)
-    text = models.TextField("Fikr matni")
+    text = models.TextField("Fikr matni (o'zbekcha)")
+    text_ru = models.TextField(
+        "Fikr matni (ruscha)", blank=True, default="",
+        help_text="Bo'sh qoldirilsa, rus sahifada o'zbekcha matn ko'rsatiladi.",
+    )
+    text_en = models.TextField(
+        "Fikr matni (inglizcha)", blank=True, default="",
+        help_text="Bo'sh qoldirilsa, ingliz sahifada o'zbekcha matn ko'rsatiladi.",
+    )
     rating = models.PositiveSmallIntegerField("Baho (1-5)", default=5)
     is_active = models.BooleanField("Ko'rsatilsin", default=True)
 
@@ -146,6 +154,17 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.city})"
+
+    @property
+    def text_display(self):
+        from django.utils.translation import get_language
+
+        lang = (get_language() or "uz").split("-")[0]
+        if lang == "ru" and self.text_ru:
+            return self.text_ru
+        if lang == "en" and self.text_en:
+            return self.text_en
+        return self.text
 
 
 class Lead(models.Model):

@@ -121,11 +121,11 @@
     {% for t in tours %}
     <div class="tour-card">
       <div class="tour-media">
-        <img src="{{ t.image_src }}" alt="{{ t.title }}" width="400" height="380" loading="lazy" decoding="async">
+        <img src="{{ t.image_src }}" alt="{{ t.title|dbtr }}" width="400" height="380" loading="lazy" decoding="async">
         <div class="tour-rating">&#9733; {{ t.rating }}</div>
         {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
         <div class="tour-overlay">
-          <h3>{{ t.title }}</h3>
+          <h3>{{ t.title|dbtr }}</h3>
           <div class="meta">{{ t.duration|dbtr }} &middot; {{ t.hotel_label }}</div>
           <div class="includes">{{ t.includes|dbtr }}</div>
           <div class="dates">&#128197; {{ t.dates_display|dbtr }}</div>

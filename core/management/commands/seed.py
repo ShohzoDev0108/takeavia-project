@@ -94,4 +94,7 @@ class Command(BaseCommand):
         from django.core.management import call_command
         call_command("seed_descriptions")
 
+        # Mijoz fikrlariga rus/ingliz tarjimalarini yozish (alohida buyruqda saqlanadi)
+        call_command("seed_testimonials_i18n")
+
         self.stdout.write(self.style.SUCCESS("Seed yakunlandi."))

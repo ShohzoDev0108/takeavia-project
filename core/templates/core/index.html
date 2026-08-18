@@ -36,9 +36,12 @@
     --white:#ffffff;
     --orange:#ff7a3d;
     --star:#ffb400;
-    --lime:#1c64f2;      /* brend ko'ki: mijoz talabi — ko'k fon, oq matn (nom tarixiy) */
+    --lime:#1c64f2;      /* brend ko'ki: mijoz talabi — ko'k fon, oq matn (asosiy tugmalar uchun, nom tarixiy) */
     --lime-dark:#1550cc;
     --lime-text:#ffffff;
+    --neon:#cfe021;       /* asl neon-yashil: dekorativ elementlar (yorqin sharcha, ikkinchi darajali tugmalar) uchun qaytarildi */
+    --neon-dark:#b6c81a;
+    --neon-text:#1c2b12;
     --radius-lg:18px;
     --radius-md:12px;
     --radius-sm:8px;
@@ -160,14 +163,14 @@
   .route-flow-svg{ position:absolute; top:0; left:0; width:100%; height:100%; display:block; overflow:visible;}
   .route-pulse{
     position:absolute; top:0; left:0; width:14px; height:14px; margin:-7px 0 0 -7px;
-    border-radius:50%; background:var(--lime);
-    box-shadow:0 0 10px 3px rgba(28,100,242,.7), 0 0 26px 10px rgba(28,100,242,.35);
+    border-radius:50%; background:var(--neon);
+    box-shadow:0 0 10px 3px rgba(207,224,33,.7), 0 0 26px 10px rgba(207,224,33,.35);
     opacity:0; transition:opacity .35s ease; pointer-events:none; z-index:5; will-change:transform;
   }
   .route-pulse.is-on{ opacity:1;}
   .route-dot{ position:absolute; top:0; left:0; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; z-index:4;}
   .route-dot-ring{
-    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(28,100,242,.6);
+    position:absolute; width:26px; height:26px; border-radius:50%; border:1.5px solid rgba(207,224,33,.6);
     opacity:0; transform:scale(.6);
   }
   .route-dot.is-pending .route-dot-ring{ animation:routeRing 1s ease-out infinite;}
@@ -180,8 +183,8 @@
     border:1.5px solid rgba(255,255,255,.55); transition:background .3s ease, border-color .3s ease, box-shadow .3s ease, transform .3s ease;
   }
   .route-dot.is-active .route-dot-core{
-    background:var(--lime); border-color:var(--lime); transform:scale(1.35);
-    box-shadow:0 0 0 5px rgba(28,100,242,.22), 0 0 16px 4px rgba(28,100,242,.55);
+    background:var(--neon); border-color:var(--neon); transform:scale(1.35);
+    box-shadow:0 0 0 5px rgba(207,224,33,.22), 0 0 16px 4px rgba(207,224,33,.55);
   }
   .route-dot-code{
     margin-top:9px; font-size:11.5px; font-weight:700; letter-spacing:.5px; color:rgba(255,255,255,.6);
@@ -230,7 +233,7 @@
   .dest-info{ position:absolute; left:14px; right:14px; bottom:14px; z-index:2; color:#fff;}
   .dest-info .route{ display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; letter-spacing:.3px; text-transform:uppercase;}
   .dest-info .route .fi{ width:16px; height:11px; border-radius:2px; display:inline-block; background-size:cover; box-shadow:0 0 0 1px rgba(255,255,255,.3);}
-  .dest-info .route .arrow{ color:var(--lime); font-weight:700;}
+  .dest-info .route .arrow{ color:var(--neon); font-weight:700;}
   .dest-info h3{ font-size:18px; font-weight:700; margin-top:4px;}
   .dest-info .country{ font-size:12px; opacity:.8; margin-bottom:8px;}
   .dest-info .price{ font-size:14.5px; font-weight:700;}
@@ -239,7 +242,7 @@
   /* ===== Vacation types ===== */
   .vac-grid{ display:grid; grid-template-columns:repeat(8,1fr); gap:16px;}
   .vac-item{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 12px; text-align:center; transition:all .18s ease; cursor:pointer;}
-  .vac-item:hover{ border-color:var(--lime-dark); background:rgba(28,100,242,.08); box-shadow:var(--shadow-sm); transform:translateY(-3px);}
+  .vac-item:hover{ border-color:var(--neon-dark); background:rgba(207,224,33,.12); box-shadow:var(--shadow-sm); transform:translateY(-3px);}
   .vac-item .emoji{ font-size:30px; margin-bottom:12px;}
   .vac-item span{ font-size:13px; font-weight:600; color:var(--ink-700); line-height:1.3;}
 
@@ -269,7 +272,7 @@
     width:38px; height:38px; border-radius:50%; background:#fff; border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); color:var(--ink-700); z-index:5;
   }
-  .arrow-btn:hover{ background:var(--lime); color:var(--lime-text); border-color:var(--lime);}
+  .arrow-btn:hover{ background:var(--neon); color:var(--neon-text); border-color:var(--neon);}
   .arrow-btn.left{ right:auto; left:-4px;}
 
   /* ===== Why us ===== */
@@ -343,8 +346,8 @@
   .foot-bottom p{ font-size:12.5px; color:rgba(255,255,255,.45);}
   .pay-icons{ display:flex; gap:10px; align-items:center;}
   .pay-icons span{ background:rgba(255,255,255,.08); padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; color:#fff; letter-spacing:.5px;}
-  .to-top{ width:38px; height:38px; border-radius:50%; background:var(--lime); color:var(--lime-text); display:flex; align-items:center; justify-content:center; border:none; flex-shrink:0; transition:background .15s ease, transform .15s ease;}
-  .to-top:hover{ background:var(--lime-dark); transform:translateY(-2px);}
+  .to-top{ width:38px; height:38px; border-radius:50%; background:var(--neon); color:var(--neon-text); display:flex; align-items:center; justify-content:center; border:none; flex-shrink:0; transition:background .15s ease, transform .15s ease;}
+  .to-top:hover{ background:var(--neon-dark); transform:translateY(-2px);}
 
   /* toast messages */
   .toast-wrap{ position:fixed; top:76px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:10px; width:min(92vw, 480px);}
@@ -477,7 +480,7 @@
         <span class="route-dot-code">{{ d.to_code }}</span>
         <div class="route-dot-popup">
           <span class="fi fi-{{ d.flag_code }}"></span>
-          <span>{{ d.name }}</span>
+          <span>{{ d.name|dbtr }}</span>
         </div>
       </div>
       {% endfor %}
@@ -553,10 +556,10 @@
         {% for d in destinations %}
         <a class="dest-card" href="{% url 'core:tour_list' %}?q={{ d.name|urlencode }}">
           {% if d.is_popular %}<div class="dest-badge">&#9733; {% trans "Mashhur" %}</div>{% endif %}
-          <img src="{{ d.image_src }}" alt="{{ d.from_code }} — {{ d.name }}" width="200" height="250" loading="lazy" decoding="async">
+          <img src="{{ d.image_src }}" alt="{{ d.from_code }} — {{ d.name|dbtr }}" width="200" height="250" loading="lazy" decoding="async">
           <div class="dest-info">
             <div class="route"><span class="fi fi-{{ d.flag_code }}"></span> {{ d.from_code }} <span class="arrow">&#8594;</span> {{ d.to_code }}</div>
-            <h3>{{ d.name }}</h3>
+            <h3>{{ d.name|dbtr }}</h3>
             <div class="country">{{ d.country|dbtr }} &middot; &#9992; {{ d.duration|dbtr }}</div>
             <div class="price"><span class="label">{% trans "Taxminiy narx" %}</span> {% blocktrans with price=d.price_from %}${{ price }} dan{% endblocktrans %}</div>
           </div>
@@ -598,11 +601,11 @@
         {% for t in tours %}
         <div class="tour-card">
           <div class="tour-media">
-            <img src="{{ t.image_src }}" alt="{{ t.title }}" width="400" height="420" loading="lazy" decoding="async">
+            <img src="{{ t.image_src }}" alt="{{ t.title|dbtr }}" width="400" height="420" loading="lazy" decoding="async">
             <div class="tour-rating">&#9733; <span>{{ t.rating }}</span></div>
             {% if t.seats_left %}<div class="tour-badge">&#128293; {% blocktrans with seats=t.seats_left %}{{ seats }} ta joy qoldi{% endblocktrans %}</div>{% endif %}
             <div class="tour-overlay">
-              <h3>{{ t.title }}</h3>
+              <h3>{{ t.title|dbtr }}</h3>
               <div class="meta">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 {{ t.duration|dbtr }} &middot; {{ t.hotel_label }}
@@ -675,7 +678,7 @@
           <div><h4>{{ r.name }}</h4><span>{{ r.city|dbtr }}</span></div>
         </div>
         <div class="stars">{% for _ in "12345"|slice:r.rating %}&#9733;{% endfor %}</div>
-        <p>{{ r.text }}</p>
+        <p>{{ r.text_display }}</p>
       </div>
       {% empty %}
       <p style="color:var(--ink-500);">{% trans "Hozircha mijoz fikrlari qo'shilmagan." %}</p>
@@ -998,6 +1001,29 @@
         phaseStart = null;
         raf = requestAnimationFrame(tick);
       }
+    });
+  })();
+</script>
+
+<script>
+  // Brauzer o'zining standart "maydonni to'ldiring" xabarini har doim
+  // inglizcha (yoki brauzer tili) ko'rsatadi — Django tarjimasiga bo'ysunmaydi.
+  // Shu sabab sahifa tiliga mos xabarni JS orqali o'zimiz o'rnatamiz.
+  (function() {
+    var MSG = {
+      uz: {required: "Iltimos, bu maydonni to'ldiring.", email: "Iltimos, to'g'ri manzil kiriting."},
+      ru: {required: "Пожалуйста, заполните это поле.", email: "Пожалуйста, введите корректный адрес."},
+      en: {required: "Please fill out this field.", email: "Please enter a valid address."}
+    };
+    var lang = "{{ LANGUAGE_CODE|default:'uz' }}".split('-')[0];
+    var msg = MSG[lang] || MSG.uz;
+    document.querySelectorAll('form input, form textarea, form select').forEach(function(el) {
+      el.addEventListener('invalid', function() {
+        if (el.validity.valueMissing) { el.setCustomValidity(msg.required); }
+        else if (el.validity.typeMismatch) { el.setCustomValidity(msg.email); }
+        else { el.setCustomValidity(''); }
+      });
+      el.addEventListener('input', function() { el.setCustomValidity(''); });
     });
   })();
 </script>
