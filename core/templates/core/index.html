@@ -425,7 +425,7 @@
       <a href="#qidiruv">{% trans "Aviabiletlar" %}</a>
       <a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a>
       <a href="#yonalishlar">{% trans "Yo'nalishlar" %}</a>
-      <a href="#viza">{% trans "Vizaga yordam" %}</a>
+      <a href="#mehmonxona">{% trans "Mehmonxona" %}</a>
       <a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a>
       <a href="{% url 'core:contact' %}">{% trans "Bog'lanish" %}</a>
     </nav>
@@ -659,9 +659,9 @@
         <p>{% trans "Har qanday savolingizga doim tayyormiz." %}</p>
       </div>
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <h4 id="viza">{% trans "Viza bo'yicha yordam" %}</h4>
-        <p>{% trans "Viza rasmiylashtirishda to'liq yordam beramiz." %}</p>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></div>
+        <h4 id="mehmonxona">{% trans "Mehmonxona bron qilish" %}</h4>
+        <p>{% trans "Istalgan shahar va mamlakatda mehmonxona band qilishda yordam beramiz." %}</p>
       </div>
       <div class="why-item">
         <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
@@ -701,8 +701,8 @@
 {% trans "Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz 24/7 javob berib, barcha detallarni siz bilan kelishib oladi." as faq_a1 %}
 {% trans "Tur paket narxiga nimalar kiradi?" as faq_q2 %}
 {% trans "Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan." as faq_a2 %}
-{% trans "Vizaga yordam berasizlarmi?" as faq_q3 %}
-{% trans "Ha, vizali yo'nalishlar uchun hujjatlarni tayyorlash va topshirishda to'liq yordam beramiz." as faq_a3 %}
+{% trans "Mehmonxona bron qilishda yordam berasizlarmi?" as faq_q3 %}
+{% trans "Ha, byudjetingiz va talablaringizga mos mehmonxonani tanlab, bron qilishda to'liq yordam beramiz." as faq_a3 %}
 {% trans "Chipta va tur narxlari nimaga qarab o'zgaradi?" as faq_q4 %}
 {% trans "Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi." as faq_a4 %}
 {% trans "To'lovni qanday amalga oshirish mumkin?" as faq_q5 %}
@@ -791,7 +791,7 @@
         <ul>
           <li><a href="#">{% trans "Aviabiletlar" %}</a></li>
           <li><a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a></li>
-          <li><a href="#">{% trans "Vizaga yordam" %}</a></li>
+          <li><a href="#mehmonxona">{% trans "Mehmonxona" %}</a></li>
           <li><a href="#">{% trans "Sug'urta" %}</a></li>
         </ul>
       </div>
