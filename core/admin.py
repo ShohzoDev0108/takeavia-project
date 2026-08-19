@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import Destination, Lead, SiteSettings, Testimonial, Tour
+from .models import Destination, Lead, SiteSettings, Testimonial, Tour, TourGalleryImage
 
 admin.site.site_header = "Take Avia Trip — Boshqaruv paneli"
 admin.site.site_title = "Take Avia Trip"
@@ -40,6 +40,18 @@ class DestinationAdmin(admin.ModelAdmin):
         return _thumb(obj, size=160)
 
 
+class TourGalleryImageInline(admin.TabularInline):
+    model = TourGalleryImage
+    extra = 3
+    max_num = 3
+    fields = ("gallery_thumb", "image", "image_url", "order")
+    readonly_fields = ("gallery_thumb",)
+
+    @admin.display(description="Joriy rasm")
+    def gallery_thumb(self, obj):
+        return _thumb(obj, size=70)
+
+
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
     list_display = (
@@ -58,12 +70,13 @@ class TourAdmin(admin.ModelAdmin):
         "seats_left", "rating", "is_active", "order",
     )
     readonly_fields = ("image_preview",)
+    inlines = [TourGalleryImageInline]
 
     @admin.display(description="Rasm")
     def thumb(self, obj):
         return _thumb(obj)
 
-    @admin.display(description="Joriy rasm")
+    @admin.display(description="Joriy rasm (asosiy)")
     def image_preview(self, obj):
         return _thumb(obj, size=160)
 

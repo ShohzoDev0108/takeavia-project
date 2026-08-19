@@ -129,6 +129,42 @@ class Tour(models.Model):
         return f"{d.day} {self.UZ_MONTHS[d.month]} – {r.day} {self.UZ_MONTHS[r.month]}"
 
 
+class TourGalleryImage(models.Model):
+    """Tur 'batafsil' sahifasida asosiy rasmdan tashqari ko'rsatiladigan qo'shimcha rasmlar.
+
+    Asosiy rasm (Tour.image) katta bo'lib yuqorida turadi, bu yerdagi rasmlar esa
+    uning ostida kichikroq bo'lib, bosilganda asosiy o'rniga almashadi (jami 4 tagacha rasm).
+    """
+
+    tour = models.ForeignKey(
+        Tour, verbose_name="Tur", on_delete=models.CASCADE, related_name="gallery_images",
+    )
+    image = models.ImageField(
+        "Rasm", upload_to="tours/gallery/", blank=True, null=True,
+        help_text="Kompyuteringizdan rasm tanlang.",
+    )
+    image_url = models.URLField(
+        "Rasm URL (zaxira)", max_length=500, blank=True,
+        help_text="Faqat yuqorida rasm yuklanmagan holatda ishlatiladi.",
+    )
+    order = models.PositiveIntegerField("Tartib", default=0)
+
+    class Meta:
+        ordering = ["order", "id"]
+        verbose_name = "Tur galereyasi rasmi"
+        verbose_name_plural = "Tur galereyasi rasmlari (asosiysidan tashqari, 3 tagacha)"
+
+    def __str__(self):
+        return f"{self.tour.title} — qo'shimcha rasm #{self.order}"
+
+    @property
+    def image_src(self):
+        """Shablonlarda ishlatish uchun: yuklangan fayl bo'lsa o'shani, bo'lmasa URL'ni qaytaradi."""
+        if self.image:
+            return self.image.url
+        return self.image_url
+
+
 class Testimonial(models.Model):
     """Mijozlarimiz fikri."""
 

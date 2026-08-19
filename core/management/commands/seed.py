@@ -2,7 +2,7 @@ import datetime
 
 from django.core.management.base import BaseCommand
 
-from core.models import Destination, Testimonial, Tour
+from core.models import Destination, Testimonial, Tour, TourGalleryImage
 
 
 class Command(BaseCommand):
@@ -72,6 +72,30 @@ class Command(BaseCommand):
                      seats_left=8, order=6),
             ])
             self.stdout.write(self.style.SUCCESS("Turlar qo'shildi (6 ta)."))
+
+        if not TourGalleryImage.objects.exists():
+            # Tur nomi -> shu shahar uchun Yo'nalishlar bo'limidagi rasm (allaqachon tekshirilgan, ishonchli URL).
+            # Bu — 4 tadan rasmning ikkinchisi; admin panelda yana 2 tagacha rasm qo'shish mumkin.
+            dest_by_name = {d.name: d for d in Destination.objects.all()}
+            tour_to_dest = {
+                "Antalya": "Antalya",
+                "Maldiv": "Male",
+                "Dubay": "Dubay",
+                "Sharm El Sheikh": "Sharm El Sheikh",
+                "Istanbul": "Istanbul",
+                "Batumi": "Batumi",
+            }
+            gallery = []
+            for tour in Tour.objects.all():
+                dest_name = tour_to_dest.get(tour.title)
+                dest = dest_by_name.get(dest_name)
+                if dest and dest.image_url:
+                    gallery.append(TourGalleryImage(tour=tour, image_url=dest.image_url, order=1))
+            if gallery:
+                TourGalleryImage.objects.bulk_create(gallery)
+                self.stdout.write(self.style.SUCCESS(
+                    f"Tur galereyasiga {len(gallery)} ta rasm qo'shildi (har biriga admin panelda yana 2 tagacha qo'shish mumkin)."
+                ))
 
         if not Testimonial.objects.exists():
             Testimonial.objects.bulk_create([

@@ -130,6 +130,18 @@
   .b-rating{ background:rgba(5,15,28,.55); color:#fff; font-size:12px; font-weight:700; padding:7px 12px; border-radius:20px;}
   .b-seats{ background:#fff; color:var(--orange); font-size:12px; font-weight:700; padding:7px 12px; border-radius:20px; box-shadow:var(--shadow-sm);}
 
+  /* ===== Tur galereyasi (asosiy rasm ostidagi kichik rasmlar) ===== */
+  .gallery-thumbs{ display:flex; gap:10px; padding:14px 24px 0; flex-wrap:wrap;}
+  .gallery-thumb{
+    border:2px solid transparent; padding:0; background:none; cursor:pointer;
+    border-radius:10px; overflow:hidden; width:92px; height:66px; flex-shrink:0;
+    transition:border-color .15s ease, opacity .15s ease;
+  }
+  .gallery-thumb img{ width:100%; height:100%; object-fit:cover; display:block;}
+  .gallery-thumb.active{ border-color:var(--lime-dark);}
+  .gallery-thumb:not(.active):hover{ opacity:.75;}
+  @media(max-width:640px){ .gallery-thumbs{ padding:12px 16px 0; gap:8px;} .gallery-thumb{ width:72px; height:54px;} }
+
   .detail-grid{ display:grid; grid-template-columns:1.6fr 1fr; gap:26px; margin:30px 0 60px; align-items:start;}
   .card{ background:#fff; border-radius:16px; box-shadow:var(--shadow-sm); padding:26px;}
   .card h2{ font-size:19px; font-weight:800; margin-bottom:16px;}
@@ -426,6 +438,18 @@
   </div>
 </div>
 
+{% if tour.gallery_images.all %}
+<div class="gallery-thumbs wrap">
+  {% for g in tour.gallery_images.all %}
+  {% if g.image_src %}
+  <button type="button" class="gallery-thumb{% if forloop.first %} active{% endif %}" data-full="{{ g.image_src }}">
+    <img src="{{ g.image_src }}" alt="{{ tour.title|dbtr }}" width="92" height="66" loading="lazy" decoding="async">
+  </button>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endif %}
+
 <div class="wrap">
   <div class="detail-grid">
     <div class="card">
@@ -495,6 +519,20 @@
     setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-8px)'; }, 4000);
     setTimeout(() => t.remove(), 4600);
   });
+
+  // Tur galereyasi: kichik rasmga bosilganda asosiy (katta) rasm o'sha bilan almashadi
+  const galleryThumbs = document.querySelectorAll('.gallery-thumb');
+  const mainHeroImg = document.querySelector('.hero-img img');
+  if (galleryThumbs.length && mainHeroImg) {
+    galleryThumbs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const full = btn.getAttribute('data-full');
+        if (full) { mainHeroImg.src = full; }
+        galleryThumbs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  }
 </script>
 
 <script>
