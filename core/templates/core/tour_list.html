@@ -43,7 +43,7 @@
   body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
   a{text-decoration:none; color:inherit;}
   .wrap{max-width:1240px; margin:0 auto; padding:0 24px;}
-  header{ position:sticky; top:0; z-index:100; background:var(--brand-blue-dark);}
+  header{ position:sticky; top:0; z-index:100; background:var(--brand-blue);}
   .header-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; gap:24px;}
   .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:20px; letter-spacing:.2px; color:var(--navy-900); flex-shrink:0;}
   .logo .plane{ color:var(--blue-600); font-size:18px;}
@@ -109,9 +109,9 @@
     position:relative; overflow:hidden; min-height:560px;
     display:flex; flex-direction:column; justify-content:center;
     background:
-      linear-gradient(120deg, rgba(11,63,207,.90) 0%, rgba(17,94,255,.78) 45%, rgba(47,123,255,.58) 100%),
-      url('/media/site/hero.webp') center/cover no-repeat;
-    background-color:#0b3fcf; /* logo bilan mos ko'k fon — rasm hali yuklanmagan bo'lsa ham chiroyli qoladi */
+      linear-gradient(120deg, rgba(11,63,207,.55) 0%, rgba(17,94,255,.42) 45%, rgba(47,123,255,.3) 100%),
+      url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    background-color:var(--brand-blue); /* rasm hali yuklanmagan bo'lsa ham chiroyli, ochiqroq ko'k fon */
   }
   .hero-inner{ position:relative; z-index:2; padding:110px 24px 130px; max-width:1400px; margin:0 auto;}
   .hero-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
