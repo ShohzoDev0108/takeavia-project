@@ -28,7 +28,7 @@
 </script>
 <style>
   :root{
-    --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-500:#2f7bf6; --blue-50:#eaf2ff;
+    --navy-950:#0a1d34; --navy-900:#0d2645; --blue-600:#1c64f2; --blue-500:#2f7bf6; --blue-50:#eaf2ff; --brand-blue:#115EFF; --brand-blue-dark:#0b3fcf;
     --ink-900:#0f1f33; --ink-700:#33475b; --ink-500:#5b7085; --ink-400:#8195a8;
     --line:#e6ecf2; --bg-soft:#f4f7fb; --orange:#ff7a3d;
     --lime:#cfe021; --lime-dark:#b6c81a; --lime-text:#1c2b12; /* asl neon-yashil: barcha tugmalar va faol menyu chizig'i */
@@ -42,7 +42,7 @@
   body{ font-family:'Inter',system-ui,sans-serif; color:var(--ink-900); background:var(--bg-soft); -webkit-font-smoothing:antialiased;}
   a{text-decoration:none; color:inherit;}
   .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
-  header{ position:sticky; top:0; z-index:100; background:#fff; border-bottom:1px solid var(--line);}
+  header{ position:sticky; top:0; z-index:100; background:var(--brand-blue-dark);}
   .header-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; gap:24px;}
   .logo{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:20px; letter-spacing:.2px; color:var(--navy-900); flex-shrink:0;}
   .logo .plane{ color:var(--blue-600); font-size:18px;}
@@ -50,7 +50,7 @@
   .logo-text{ line-height:1;}
   .logo-img{ height:40px; width:auto; display:block;}
   nav.main-nav{ display:flex; align-items:center; gap:28px; flex:1; justify-content:center;}
-  nav.main-nav a{ font-size:14.5px; font-weight:500; color:var(--ink-700); white-space:nowrap; position:relative; padding:6px 0;}
+  nav.main-nav a{ font-size:14.5px; font-weight:500; color:rgba(255,255,255,.82); white-space:nowrap; position:relative; padding:6px 0;}
   nav.main-nav a.active{ color:var(--lime-dark); font-weight:600;}
   nav.main-nav a.active::after{
     content:""; position:absolute; left:0; right:0; bottom:-14px; height:2px; background:var(--lime-dark);
@@ -60,12 +60,12 @@
   nav.main-nav a:hover{ color:var(--lime-dark);}
   .header-right{ display:flex; align-items:center; gap:18px; flex-shrink:0;}
   .phone-badge{ display:flex; align-items:center; gap:10px;}
-  .phone-badge .icon{ width:38px; height:38px; border-radius:50%; background:var(--blue-50); color:var(--blue-600); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-  .phone-badge .num{ font-weight:700; font-size:14.5px; color:var(--ink-900); line-height:1.3;}
-  .phone-badge .sub{ font-size:11.5px; color:var(--ink-400);}
+  .phone-badge .icon{ width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.16); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .phone-badge .num{ font-weight:700; font-size:14.5px; color:#fff; line-height:1.3;}
+  .phone-badge .sub{ font-size:11.5px; color:rgba(255,255,255,.65);}
   .burger{ display:none; flex-direction:column; gap:4px; background:none; border:none; padding:6px;}
-  .burger span{ width:22px; height:2px; background:var(--ink-900); border-radius:2px;}
-  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--ink-700); border:1px solid var(--line); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
+  .burger span{ width:22px; height:2px; background:#fff; border-radius:2px;}
+  .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:#fff; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.08); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
   .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
   .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
   .lang-menu.open{ display:block;}
@@ -238,7 +238,7 @@
 <header>
   <div class="header-inner wrap" style="max-width:1400px;">
     <a href="{% url 'core:home' %}" class="logo">
-      <img src="{% static 'core/img/logo.png' %}" alt="Take Avia Trip — Tickets &amp; Travel" class="logo-img">
+      <img src="{% static 'core/img/logo-white.png' %}" alt="Take Avia Trip — Tickets &amp; Travel" class="logo-img">
     </a>
     <nav class="main-nav">
       <a href="{% url 'core:home' %}">{% trans "Bosh sahifa" %}</a>
@@ -456,7 +456,7 @@
       if (open) {
         mainNav.style.display = 'none';
       } else {
-        mainNav.style.cssText = 'display:flex; position:absolute; top:100%; left:0; right:0; background:#fff; flex-direction:column; padding:16px 24px; gap:14px; box-shadow:0 12px 20px rgba(0,0,0,.08); border-bottom:1px solid var(--line);';
+        mainNav.style.cssText = 'display:flex; position:absolute; top:100%; left:0; right:0; background:var(--brand-blue-dark); flex-direction:column; padding:16px 24px; gap:14px; box-shadow:0 12px 20px rgba(0,0,0,.18);';
       }
     });
     mainNav.querySelectorAll('a').forEach(a => {
