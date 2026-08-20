@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-15 18:01+0500\n"
+"POT-Creation-Date: 2026-08-20 23:56+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,8 +30,47 @@ msgstr ""
 "авиабилетов и туристических пакетов. О нашей компании, миссии и о том, "
 "почему клиенты выбирают нас."
 
-msgid "Bosh sahifaga qaytish"
-msgstr "Вернуться на главную"
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+msgid "Aviabiletlar"
+msgstr "Авиабилеты"
+
+msgid "Tur paketlar"
+msgstr "Турпакеты"
+
+msgid "Yo'nalishlar"
+msgstr "Направления"
+
+msgid "Mehmonxona"
+msgstr "Отель"
+
+msgid "Bog'lanish"
+msgstr "Контакты"
+
+msgid "24/7 qo'llab-quvvatlash"
+msgstr "Поддержка 24/7"
+
+msgid "Sayohatingiz shu yerdan boshlanadi"
+msgstr "Ваше путешествие начинается здесь"
+
+msgid "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling."
+msgstr "Бронируйте авиабилеты и туры по самым выгодным ценам."
+
+msgid "Telegram orqali yozish"
+msgstr "Написать в Telegram"
+
+msgid "Odatda 3 daqiqa ichida javob beramiz"
+msgstr "Обычно отвечаем в течение 3 минут"
+
+msgid "24/7 ishlaymiz"
+msgstr "Работаем 24/7"
+
+msgid "Bizning yo'nalishlar tarmog'i"
+msgstr "Наша сеть направлений"
+
+msgid "Toshkentdan dunyoning istalgan nuqtasiga"
+msgstr "Из Ташкента в любую точку мира"
 
 msgid ""
 "Take Avia Trip — sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur "
@@ -133,17 +172,14 @@ msgstr "Авиабилет + тур в одном месте"
 msgid "Vaqtingizni tejang, hammasini bir joydan toping."
 msgstr "Экономьте время — найдите всё в одном месте."
 
-msgid "24/7 qo'llab-quvvatlash"
-msgstr "Поддержка 24/7"
-
 msgid "Har qanday savolingizga doim tayyormiz."
 msgstr "Мы всегда готовы ответить на любой ваш вопрос."
 
-msgid "Viza bo'yicha yordam"
-msgstr "Помощь с визой"
+msgid "Mehmonxona bron qilish"
+msgstr "Бронирование отеля"
 
-msgid "Viza rasmiylashtirishda to'liq yordam beramiz."
-msgstr "Мы полностью помогаем с оформлением визы."
+msgid "Istalgan shahar va mamlakatda mehmonxona band qilishda yordam beramiz."
+msgstr "Поможем забронировать отель в любом городе и стране."
 
 msgid "Individual tur tanlash"
 msgstr "Индивидуальный подбор тура"
@@ -158,9 +194,6 @@ msgid ""
 "Jamoamiz bilan bog'laning — biz sizga sayohatni rejalashtirishda yordam "
 "beramiz."
 msgstr "Свяжитесь с нашей командой — мы поможем спланировать вашу поездку."
-
-msgid "Bog'lanish"
-msgstr "Контакты"
 
 msgid ""
 "Take Avia Trip bilan bog'laning — telefon, email yoki xabar qoldiring, "
@@ -223,63 +256,12 @@ msgstr "Take Avia Trip — Авиабилеты и турпакеты"
 
 msgid ""
 "Take Avia Trip — Toshkentdan aviabiletlar va tur paketlarni eng arzon "
-"narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, vizaga "
-"yordam, 24/7 qo'llab-quvvatlash."
+"narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, mehmonxona"
+" bron qilish, 24/7 qo'llab-quvvatlash."
 msgstr ""
 "Take Avia Trip — бронируйте авиабилеты и турпакеты из Ташкента по самым "
 "выгодным ценам. Турция, ОАЭ, Египет и другие направления, помощь с визой, "
 "поддержка 24/7."
-
-msgid "SAYOHAT AGENTLIGI"
-msgstr "ТУРИСТИЧЕСКОЕ АГЕНТСТВО"
-
-msgid "Bosh sahifa"
-msgstr "Главная"
-
-msgid "Aviabiletlar"
-msgstr "Авиабилеты"
-
-msgid "Tur paketlar"
-msgstr "Турпакеты"
-
-msgid "Yo'nalishlar"
-msgstr "Направления"
-
-msgid "Vizaga yordam"
-msgstr "Помощь с визой"
-
-msgid "Sayohatingiz shu yerdan boshlanadi"
-msgstr "Ваше путешествие начинается здесь"
-
-msgid "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling."
-msgstr "Бронируйте авиабилеты и туры по самым выгодным ценам."
-
-msgid "Qayerdan"
-msgstr "Откуда"
-
-msgid "Toshkent (TAS)"
-msgstr "Ташкент (TAS)"
-
-msgid "Qayerga"
-msgstr "Куда"
-
-msgid "Shahar yoki mamlakat"
-msgstr "Город или страна"
-
-msgid "Ketish sanasi"
-msgstr "Дата вылета"
-
-msgid "Qaytish sanasi"
-msgstr "Дата возврата"
-
-msgid "Yo'lovchilar"
-msgstr "Пассажиры"
-
-msgid "2 kishi, Economy"
-msgstr "2 человека, эконом"
-
-msgid "Variantlarni ko'rish"
-msgstr "Посмотреть варианты"
 
 msgid "Eng yaxshi narx kafolati"
 msgstr "Гарантия лучшей цены"
@@ -289,15 +271,6 @@ msgstr "Безопасная оплата"
 
 msgid "5000+ mamnun mijozlar"
 msgstr "5000+ довольных клиентов"
-
-msgid "Yo'nalishlar tarmog'i"
-msgstr "Сеть направлений"
-
-msgid "Bizning yo'nalishlar tarmog'i"
-msgstr "Наша сеть направлений"
-
-msgid "Toshkentdan dunyoning istalgan nuqtasiga"
-msgstr "Из Ташкента в любую точку мира"
 
 msgid "Toshkentdan mashhur reyslar"
 msgstr "Популярные рейсы из Ташкента"
@@ -324,31 +297,35 @@ msgstr "от $%(price)s"
 msgid "Hozircha reyslar qo'shilmagan. Admin panel orqali qo'shing."
 msgstr "Пока рейсы не добавлены. Добавьте их через панель администратора."
 
-msgid "Siz qaysi dam olishni xohlaysiz?"
+msgid "Qanday sayohatni xohlaysiz?"
 msgstr "Какой отдых вы предпочитаете?"
 
-msgid "Dengiz bo'yida"
+msgid "O'zingizga mos yo'nalishni tanlang — mos takliflarni tayyorlab beramiz"
+msgstr ""
+"Выберите подходящее направление — подготовим для вас лучшее предложение"
+
+msgid "Dengiz bo'yida dam olish"
 msgstr "Отдых у моря"
 
-msgid "Romantik sayohat"
+msgid "Romantik sayohatlar"
 msgstr "Романтическое путешествие"
 
-msgid "Oilaviy dam olish"
+msgid "Oilaviy sayohatlar"
 msgstr "Семейный отдых"
 
-msgid "Arzon turlar"
-msgstr "Недорогие туры"
+msgid "Qulay narxdagi turlar"
+msgstr "Туры по доступным ценам"
 
-msgid "Premium turlar"
+msgid "Premium sayohatlar"
 msgstr "Премиум туры"
 
-msgid "Ziyorat turlari"
+msgid "Ziyorat va tarixiy turlar"
 msgstr "Паломнические туры"
 
-msgid "Davolanish"
+msgid "Davolanish turlari"
 msgstr "Лечение"
 
-msgid "Ekstrimal dam olish"
+msgid "Ekstremal sayohatlar"
 msgstr "Экстремальный отдых"
 
 #, python-format
@@ -370,6 +347,97 @@ msgstr "Отзывы наших клиентов"
 msgid "Hozircha mijoz fikrlari qo'shilmagan."
 msgstr "Пока нет отзывов клиентов."
 
+msgid "Aviabilet yoki turni qanday band qilsam bo'ladi?"
+msgstr "Как забронировать авиабилет или тур?"
+
+msgid ""
+"Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz "
+"24/7 javob berib, barcha detallarni siz bilan kelishib oladi."
+msgstr ""
+"Заполните форму на сайте или свяжитесь с нами по телефону — наши менеджеры "
+"на связи 24/7 и согласуют с вами все детали."
+
+msgid "Tur paket narxiga nimalar kiradi?"
+msgstr "Что входит в стоимость тур-пакета?"
+
+msgid ""
+"Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va "
+"sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan."
+msgstr ""
+"Обычно в цену входят авиабилет (туда-обратно), отель, трансфер из аэропорта "
+"и страховка. Точный список указан на странице каждого тура."
+
+msgid "Mehmonxona bron qilishda yordam berasizlarmi?"
+msgstr "Помогаете ли вы с бронированием отеля?"
+
+msgid ""
+"Ha, byudjetingiz va talablaringizga mos mehmonxonani tanlab, bron qilishda "
+"to'liq yordam beramiz."
+msgstr ""
+"Да, поможем подобрать и забронировать отель, соответствующий вашему бюджету "
+"и пожеланиям."
+
+msgid "Chipta va tur narxlari nimaga qarab o'zgaradi?"
+msgstr "От чего зависят цены на билеты и туры?"
+
+msgid ""
+"Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu "
+"sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi."
+msgstr ""
+"Цена зависит от даты, сезона, авиакомпании и количества оставшихся мест. "
+"Поэтому цены на сайте ориентировочные — точную цену подтвердит менеджер."
+
+msgid "To'lovni qanday amalga oshirish mumkin?"
+msgstr "Как можно оплатить?"
+
+msgid ""
+"To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun "
+"eng qulay variantni taklif qiladi."
+msgstr ""
+"Наши менеджеры подробно расскажут о способах оплаты и предложат самый "
+"удобный для вас вариант."
+
+# FAQ bo'limi (bosh sahifa)
+msgid "Ko'p beriladigan savollar"
+msgstr "Часто задаваемые вопросы"
+
+# Bosh sahifa SEO matn bloki
+msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
+msgstr ""
+"Take Avia Trip — надёжная авиакасса и туристическое агентство в Ташкенте"
+
+msgid ""
+"Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga "
+"aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan "
+"yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv "
+"orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay "
+"reys hamda narxni topamiz."
+msgstr ""
+"С Take Avia Trip вы можете забронировать авиабилеты из Ташкента в любую "
+"точку мира по выгодной цене. Самые востребованные направления — Стамбул, "
+"Анталья, Дубай, Шарм-эль-Шейх, Батуми и Мальдивы. Мы работаем с крупными "
+"авиакомпаниями и подберём для вас самый удобный рейс и цену."
+
+msgid ""
+"Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga "
+"aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Istalgan "
+"shahar va mamlakatda byudjetingizga mos mehmonxona tanlab, bron qilishda "
+"to'liq yordam beramiz."
+msgstr ""
+"Помимо авиабилетов мы предлагаем готовые тур-пакеты: в цену входят перелёт, "
+"отель, трансфер из аэропорта и страховка. Для визовых стран помогаем с "
+"оформлением документов — мы рядом на всех этапах, от заявки до визы."
+
+msgid ""
+"Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 "
+"xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani "
+"to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab "
+"beramiz."
+msgstr ""
+"Наш офис находится в Ташкенте, а менеджеры на связи 24/7. Спланируйте "
+"путешествие уже сегодня — заполните форму на сайте или позвоните, и мы "
+"подготовим лучшее предложение."
+
 msgid "Qayerga borishni bilmayapsizmi?"
 msgstr "Не знаете, куда поехать?"
 
@@ -380,8 +448,8 @@ msgstr ""
 "Мы подберём для вас подходящий тур. Оставьте заявку — наши менеджеры "
 "свяжутся с вами."
 
-msgid "Email yoki telefon raqamingiz"
-msgstr "Ваш email или номер телефона"
+msgid "Telefon raqamingiz"
+msgstr "Ваш номер телефона"
 
 msgid "So'rov qoldirish"
 msgstr "Оставить заявку"
@@ -426,7 +494,7 @@ msgstr "Политика возврата"
 msgid "Savol-javob"
 msgstr "Вопрос-ответ"
 
-msgid "© 2026 Take Avia Trip. Barcha huquqlar himoyalangan."
+msgid "© 2025 Take Avia Trip. Barcha huquqlar himoyalangan."
 msgstr "© 2026 Take Avia Trip. Все права защищены."
 
 msgid "Qidiruv natijalari"
@@ -467,27 +535,9 @@ msgstr ""
 msgid "Barcha turlar"
 msgstr "Все туры"
 
-msgid "Tur haqida"
-msgstr "О туре"
-
-msgid "Yo'nalish"
-msgstr "Направление"
-
-msgid "Muddat"
-msgstr "Продолжительность"
-
-msgid "Mehmonxona"
-msgstr "Отель"
-
-msgid "Sanalar"
-msgstr "Даты"
-
-msgid "Qolgan joylar"
-msgstr "Осталось мест"
-
 #, python-format
-msgid "%(seats)s ta"
-msgstr "%(seats)s"
+msgid "%(title)s haqida"
+msgstr "О направлении %(title)s"
 
 msgid "Narxga nimalar kiradi"
 msgstr "Что входит в стоимость"
@@ -563,12 +613,18 @@ msgstr ""
 msgid "Iltimos, telefon raqamingiz yoki emailingizni kiriting."
 msgstr "Пожалуйста, укажите номер телефона или email."
 
+msgid "Toshkent (TAS)"
+msgstr "Ташкент (TAS)"
+
+msgid "2 kishi, Economy"
+msgstr "2 человека, эконом"
+
 msgid ""
 "So'rovingiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
 msgstr "Ваш запрос принят! Наши менеджеры скоро свяжутся с вами."
 
-msgid "Iltimos, email yoki telefon raqamingizni kiriting."
-msgstr "Пожалуйста, укажите email или номер телефона."
+msgid "Iltimos, ismingiz va telefon raqamingizni kiriting."
+msgstr "Пожалуйста, укажите имя и номер телефона."
 
 msgid ""
 "Xabaringiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
@@ -576,55 +632,3 @@ msgstr "Ваше сообщение принято! Наши менеджеры 
 
 msgid "Iltimos, aloqa ma'lumotingiz va xabar matningizni kiriting."
 msgstr "Пожалуйста, укажите контактные данные и текст сообщения."
-
-# FAQ bo'limi (bosh sahifa)
-msgid "Ko'p beriladigan savollar"
-msgstr "Часто задаваемые вопросы"
-
-msgid "Aviabilet yoki turni qanday band qilsam bo'ladi?"
-msgstr "Как забронировать авиабилет или тур?"
-
-msgid "Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz 24/7 javob berib, barcha detallarni siz bilan kelishib oladi."
-msgstr "Заполните форму на сайте или свяжитесь с нами по телефону — наши менеджеры на связи 24/7 и согласуют с вами все детали."
-
-msgid "Tur paket narxiga nimalar kiradi?"
-msgstr "Что входит в стоимость тур-пакета?"
-
-msgid "Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan."
-msgstr "Обычно в цену входят авиабилет (туда-обратно), отель, трансфер из аэропорта и страховка. Точный список указан на странице каждого тура."
-
-msgid "Vizaga yordam berasizlarmi?"
-msgstr "Помогаете ли вы с оформлением визы?"
-
-msgid "Ha, vizali yo'nalishlar uchun hujjatlarni tayyorlash va topshirishda to'liq yordam beramiz."
-msgstr "Да, для визовых направлений мы полностью помогаем с подготовкой и подачей документов."
-
-msgid "Chipta va tur narxlari nimaga qarab o'zgaradi?"
-msgstr "От чего зависят цены на билеты и туры?"
-
-msgid "Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi."
-msgstr "Цена зависит от даты, сезона, авиакомпании и количества оставшихся мест. Поэтому цены на сайте ориентировочные — точную цену подтвердит менеджер."
-
-msgid "To'lovni qanday amalga oshirish mumkin?"
-msgstr "Как можно оплатить?"
-
-msgid "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi."
-msgstr "Наши менеджеры подробно расскажут о способах оплаты и предложат самый удобный для вас вариант."
-
-
-# Bosh sahifa SEO matn bloki
-msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
-msgstr "Take Avia Trip — надёжная авиакасса и туристическое агентство в Ташкенте"
-
-msgid "Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay reys hamda narxni topamiz."
-msgstr "С Take Avia Trip вы можете забронировать авиабилеты из Ташкента в любую точку мира по выгодной цене. Самые востребованные направления — Стамбул, Анталья, Дубай, Шарм-эль-Шейх, Батуми и Мальдивы. Мы работаем с крупными авиакомпаниями и подберём для вас самый удобный рейс и цену."
-
-msgid "Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Vizali davlatlar uchun hujjatlarni rasmiylashtirishda yordam beramiz — arizadan vizagacha barcha bosqichlarda yoningizdamiz."
-msgstr "Помимо авиабилетов мы предлагаем готовые тур-пакеты: в цену входят перелёт, отель, трансфер из аэропорта и страховка. Для визовых стран помогаем с оформлением документов — мы рядом на всех этапах, от заявки до визы."
-
-msgid "Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab beramiz."
-msgstr "Наш офис находится в Ташкенте, а менеджеры на связи 24/7. Спланируйте путешествие уже сегодня — заполните форму на сайте или позвоните, и мы подготовим лучшее предложение."
-
-
-msgid "%(title)s haqida"
-msgstr "О направлении %(title)s"

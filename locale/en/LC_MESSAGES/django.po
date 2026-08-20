@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-15 18:01+0500\n"
+"POT-Creation-Date: 2026-08-20 23:56+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,8 +30,47 @@ msgstr ""
 " and tour packages. Learn about our company, our mission, and why customers "
 "choose us."
 
-msgid "Bosh sahifaga qaytish"
-msgstr "Back to home"
+msgid "Bosh sahifa"
+msgstr "Home"
+
+msgid "Aviabiletlar"
+msgstr "Flights"
+
+msgid "Tur paketlar"
+msgstr "Tour packages"
+
+msgid "Yo'nalishlar"
+msgstr "Destinations"
+
+msgid "Mehmonxona"
+msgstr "Hotel"
+
+msgid "Bog'lanish"
+msgstr "Contact"
+
+msgid "24/7 qo'llab-quvvatlash"
+msgstr "24/7 support"
+
+msgid "Sayohatingiz shu yerdan boshlanadi"
+msgstr "Your journey starts here"
+
+msgid "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling."
+msgstr "Book flights and tour packages at the best prices."
+
+msgid "Telegram orqali yozish"
+msgstr "Message us on Telegram"
+
+msgid "Odatda 3 daqiqa ichida javob beramiz"
+msgstr "We usually reply within 3 minutes"
+
+msgid "24/7 ishlaymiz"
+msgstr "Available 24/7"
+
+msgid "Bizning yo'nalishlar tarmog'i"
+msgstr "Our route network"
+
+msgid "Toshkentdan dunyoning istalgan nuqtasiga"
+msgstr "From Tashkent to anywhere in the world"
 
 msgid ""
 "Take Avia Trip — sizning ishonchli sayohat hamrohingiz. Aviabiletlar va tur "
@@ -132,17 +171,14 @@ msgstr "Flights + tours in one place"
 msgid "Vaqtingizni tejang, hammasini bir joydan toping."
 msgstr "Save time — find everything in one place."
 
-msgid "24/7 qo'llab-quvvatlash"
-msgstr "24/7 support"
-
 msgid "Har qanday savolingizga doim tayyormiz."
 msgstr "We're always ready to answer any question."
 
-msgid "Viza bo'yicha yordam"
-msgstr "Visa assistance"
+msgid "Mehmonxona bron qilish"
+msgstr "Hotel booking"
 
-msgid "Viza rasmiylashtirishda to'liq yordam beramiz."
-msgstr "We provide full support with visa processing."
+msgid "Istalgan shahar va mamlakatda mehmonxona band qilishda yordam beramiz."
+msgstr "We help book a hotel in any city or country."
 
 msgid "Individual tur tanlash"
 msgstr "Personalized tour selection"
@@ -157,9 +193,6 @@ msgid ""
 "Jamoamiz bilan bog'laning — biz sizga sayohatni rejalashtirishda yordam "
 "beramiz."
 msgstr "Get in touch with our team — we'll help you plan your trip."
-
-msgid "Bog'lanish"
-msgstr "Contact"
 
 msgid ""
 "Take Avia Trip bilan bog'laning — telefon, email yoki xabar qoldiring, "
@@ -219,63 +252,12 @@ msgstr "Take Avia Trip — Flight Tickets and Tour Packages"
 
 msgid ""
 "Take Avia Trip — Toshkentdan aviabiletlar va tur paketlarni eng arzon "
-"narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, vizaga "
-"yordam, 24/7 qo'llab-quvvatlash."
+"narxlarda bron qiling. Turkiya, BAA, Misr va boshqa yo'nalishlar, mehmonxona"
+" bron qilish, 24/7 qo'llab-quvvatlash."
 msgstr ""
 "Take Avia Trip — book flight tickets and tour packages from Tashkent at the "
 "best prices. Turkey, UAE, Egypt and more destinations, visa assistance, 24/7"
 " support."
-
-msgid "SAYOHAT AGENTLIGI"
-msgstr "TRAVEL AGENCY"
-
-msgid "Bosh sahifa"
-msgstr "Home"
-
-msgid "Aviabiletlar"
-msgstr "Flights"
-
-msgid "Tur paketlar"
-msgstr "Tour packages"
-
-msgid "Yo'nalishlar"
-msgstr "Destinations"
-
-msgid "Vizaga yordam"
-msgstr "Visa help"
-
-msgid "Sayohatingiz shu yerdan boshlanadi"
-msgstr "Your journey starts here"
-
-msgid "Aviabiletlar va tur paketlarni eng arzon narxlarda bron qiling."
-msgstr "Book flights and tour packages at the best prices."
-
-msgid "Qayerdan"
-msgstr "From"
-
-msgid "Toshkent (TAS)"
-msgstr "Tashkent (TAS)"
-
-msgid "Qayerga"
-msgstr "To"
-
-msgid "Shahar yoki mamlakat"
-msgstr "City or country"
-
-msgid "Ketish sanasi"
-msgstr "Departure date"
-
-msgid "Qaytish sanasi"
-msgstr "Return date"
-
-msgid "Yo'lovchilar"
-msgstr "Passengers"
-
-msgid "2 kishi, Economy"
-msgstr "2 people, Economy"
-
-msgid "Variantlarni ko'rish"
-msgstr "View options"
 
 msgid "Eng yaxshi narx kafolati"
 msgstr "Best price guarantee"
@@ -285,15 +267,6 @@ msgstr "Secure payment"
 
 msgid "5000+ mamnun mijozlar"
 msgstr "5000+ happy customers"
-
-msgid "Yo'nalishlar tarmog'i"
-msgstr "Route network"
-
-msgid "Bizning yo'nalishlar tarmog'i"
-msgstr "Our route network"
-
-msgid "Toshkentdan dunyoning istalgan nuqtasiga"
-msgstr "From Tashkent to anywhere in the world"
 
 msgid "Toshkentdan mashhur reyslar"
 msgstr "Popular flights from Tashkent"
@@ -320,31 +293,34 @@ msgstr "from $%(price)s"
 msgid "Hozircha reyslar qo'shilmagan. Admin panel orqali qo'shing."
 msgstr "No routes added yet. Add them via the admin panel."
 
-msgid "Siz qaysi dam olishni xohlaysiz?"
+msgid "Qanday sayohatni xohlaysiz?"
 msgstr "What kind of vacation do you want?"
 
-msgid "Dengiz bo'yida"
+msgid "O'zingizga mos yo'nalishni tanlang — mos takliflarni tayyorlab beramiz"
+msgstr "Choose the destination that suits you — we'll prepare the best offer"
+
+msgid "Dengiz bo'yida dam olish"
 msgstr "Beach vacation"
 
-msgid "Romantik sayohat"
+msgid "Romantik sayohatlar"
 msgstr "Romantic trip"
 
-msgid "Oilaviy dam olish"
+msgid "Oilaviy sayohatlar"
 msgstr "Family vacation"
 
-msgid "Arzon turlar"
-msgstr "Budget tours"
+msgid "Qulay narxdagi turlar"
+msgstr "Budget-friendly tours"
 
-msgid "Premium turlar"
+msgid "Premium sayohatlar"
 msgstr "Premium tours"
 
-msgid "Ziyorat turlari"
+msgid "Ziyorat va tarixiy turlar"
 msgstr "Pilgrimage tours"
 
-msgid "Davolanish"
+msgid "Davolanish turlari"
 msgstr "Health & wellness"
 
-msgid "Ekstrimal dam olish"
+msgid "Ekstremal sayohatlar"
 msgstr "Extreme vacation"
 
 #, python-format
@@ -366,6 +342,99 @@ msgstr "What our customers say"
 msgid "Hozircha mijoz fikrlari qo'shilmagan."
 msgstr "No customer reviews yet."
 
+msgid "Aviabilet yoki turni qanday band qilsam bo'ladi?"
+msgstr "How do I book a flight or a tour?"
+
+msgid ""
+"Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz "
+"24/7 javob berib, barcha detallarni siz bilan kelishib oladi."
+msgstr ""
+"Fill in the form on the website or contact us by phone — our managers are "
+"available 24/7 and will arrange all the details with you."
+
+msgid "Tur paket narxiga nimalar kiradi?"
+msgstr "What is included in a tour package price?"
+
+msgid ""
+"Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va "
+"sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan."
+msgstr ""
+"The price usually includes round-trip flights, hotel, airport transfer and "
+"insurance. The exact list is shown on each tour page."
+
+msgid "Mehmonxona bron qilishda yordam berasizlarmi?"
+msgstr "Do you help with hotel booking?"
+
+msgid ""
+"Ha, byudjetingiz va talablaringizga mos mehmonxonani tanlab, bron qilishda "
+"to'liq yordam beramiz."
+msgstr ""
+"Yes, we'll help you choose and book a hotel that matches your budget and "
+"requirements."
+
+msgid "Chipta va tur narxlari nimaga qarab o'zgaradi?"
+msgstr "What do ticket and tour prices depend on?"
+
+msgid ""
+"Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu "
+"sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi."
+msgstr ""
+"The price depends on the date, season, airline and remaining seats. That is "
+"why the prices on the website are approximate — a manager will confirm the "
+"exact price."
+
+msgid "To'lovni qanday amalga oshirish mumkin?"
+msgstr "How can I pay?"
+
+msgid ""
+"To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun "
+"eng qulay variantni taklif qiladi."
+msgstr ""
+"Our managers will tell you about the payment options in detail and offer the"
+" most convenient one for you."
+
+# FAQ bo'limi (bosh sahifa)
+msgid "Ko'p beriladigan savollar"
+msgstr "Frequently asked questions"
+
+# Bosh sahifa SEO matn bloki
+msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
+msgstr ""
+"Take Avia Trip — a trusted ticket office and travel agency in Tashkent"
+
+msgid ""
+"Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga "
+"aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan "
+"yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv "
+"orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay "
+"reys hamda narxni topamiz."
+msgstr ""
+"With Take Avia Trip you can book flights from Tashkent to anywhere in the "
+"world at a great price. The most popular destinations are Istanbul, Antalya,"
+" Dubai, Sharm El Sheikh, Batumi and the Maldives. We work with major "
+"airlines and will find the most convenient flight and price for you."
+
+msgid ""
+"Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga "
+"aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Istalgan "
+"shahar va mamlakatda byudjetingizga mos mehmonxona tanlab, bron qilishda "
+"to'liq yordam beramiz."
+msgstr ""
+"Besides flights, we offer ready-made tour packages: the price includes "
+"flights, hotel, airport transfer and insurance. For visa destinations we "
+"help with the paperwork — we are with you at every step, from application to"
+" visa."
+
+msgid ""
+"Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 "
+"xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani "
+"to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab "
+"beramiz."
+msgstr ""
+"Our office is located in Tashkent and our managers are available 24/7. Plan "
+"your trip today — fill in the form on the website or give us a call, and we "
+"will prepare the best offer."
+
 msgid "Qayerga borishni bilmayapsizmi?"
 msgstr "Not sure where to go?"
 
@@ -376,8 +445,8 @@ msgstr ""
 "We'll help you choose the right tour. Leave a request and our managers will "
 "contact you."
 
-msgid "Email yoki telefon raqamingiz"
-msgstr "Your email or phone number"
+msgid "Telefon raqamingiz"
+msgstr "Your phone number"
 
 msgid "So'rov qoldirish"
 msgstr "Leave a request"
@@ -422,7 +491,7 @@ msgstr "Refund policy"
 msgid "Savol-javob"
 msgstr "FAQ"
 
-msgid "© 2026 Take Avia Trip. Barcha huquqlar himoyalangan."
+msgid "© 2025 Take Avia Trip. Barcha huquqlar himoyalangan."
 msgstr "© 2026 Take Avia Trip. All rights reserved."
 
 msgid "Qidiruv natijalari"
@@ -463,27 +532,9 @@ msgstr ""
 msgid "Barcha turlar"
 msgstr "All tours"
 
-msgid "Tur haqida"
-msgstr "About the tour"
-
-msgid "Yo'nalish"
-msgstr "Destination"
-
-msgid "Muddat"
-msgstr "Duration"
-
-msgid "Mehmonxona"
-msgstr "Hotel"
-
-msgid "Sanalar"
-msgstr "Dates"
-
-msgid "Qolgan joylar"
-msgstr "Seats left"
-
 #, python-format
-msgid "%(seats)s ta"
-msgstr "%(seats)s"
+msgid "%(title)s haqida"
+msgstr "About %(title)s"
 
 msgid "Narxga nimalar kiradi"
 msgstr "What's included in the price"
@@ -556,13 +607,19 @@ msgstr ""
 msgid "Iltimos, telefon raqamingiz yoki emailingizni kiriting."
 msgstr "Please enter your phone number or email."
 
+msgid "Toshkent (TAS)"
+msgstr "Tashkent (TAS)"
+
+msgid "2 kishi, Economy"
+msgstr "2 people, Economy"
+
 msgid ""
 "So'rovingiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
 msgstr ""
 "Your request has been received! Our managers will contact you shortly."
 
-msgid "Iltimos, email yoki telefon raqamingizni kiriting."
-msgstr "Please enter your email or phone number."
+msgid "Iltimos, ismingiz va telefon raqamingizni kiriting."
+msgstr "Please enter your name and phone number."
 
 msgid ""
 "Xabaringiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."
@@ -571,55 +628,3 @@ msgstr ""
 
 msgid "Iltimos, aloqa ma'lumotingiz va xabar matningizni kiriting."
 msgstr "Please enter your contact info and your message."
-
-# FAQ bo'limi (bosh sahifa)
-msgid "Ko'p beriladigan savollar"
-msgstr "Frequently asked questions"
-
-msgid "Aviabilet yoki turni qanday band qilsam bo'ladi?"
-msgstr "How do I book a flight or a tour?"
-
-msgid "Saytdagi formani to'ldiring yoki telefon orqali bog'laning — menejerlarimiz 24/7 javob berib, barcha detallarni siz bilan kelishib oladi."
-msgstr "Fill in the form on the website or contact us by phone — our managers are available 24/7 and will arrange all the details with you."
-
-msgid "Tur paket narxiga nimalar kiradi?"
-msgstr "What is included in a tour package price?"
-
-msgid "Odatda narxga aviabilet (borish-qaytish), mehmonxona, aeroport transferi va sug'urta kiradi. Aniq ro'yxat har bir tur sahifasida ko'rsatilgan."
-msgstr "The price usually includes round-trip flights, hotel, airport transfer and insurance. The exact list is shown on each tour page."
-
-msgid "Vizaga yordam berasizlarmi?"
-msgstr "Do you help with visas?"
-
-msgid "Ha, vizali yo'nalishlar uchun hujjatlarni tayyorlash va topshirishda to'liq yordam beramiz."
-msgstr "Yes, for visa destinations we fully assist with preparing and submitting the documents."
-
-msgid "Chipta va tur narxlari nimaga qarab o'zgaradi?"
-msgstr "What do ticket and tour prices depend on?"
-
-msgid "Narx sanaga, mavsumga, aviakompaniyaga va qolgan joylar soniga bog'liq. Shu sababli saytdagi narxlar taxminiy — aniq narxni menejer tasdiqlaydi."
-msgstr "The price depends on the date, season, airline and remaining seats. That is why the prices on the website are approximate — a manager will confirm the exact price."
-
-msgid "To'lovni qanday amalga oshirish mumkin?"
-msgstr "How can I pay?"
-
-msgid "To'lov usullari haqida menejerlarimiz batafsil ma'lumot beradi va siz uchun eng qulay variantni taklif qiladi."
-msgstr "Our managers will tell you about the payment options in detail and offer the most convenient one for you."
-
-
-# Bosh sahifa SEO matn bloki
-msgid "Take Avia Trip — Toshkentdagi ishonchli aviakassa va sayohat agentligi"
-msgstr "Take Avia Trip — a trusted ticket office and travel agency in Tashkent"
-
-msgid "Take Avia Trip orqali Toshkentdan dunyoning istalgan nuqtasiga aviabiletlarni qulay narxda band qilishingiz mumkin. Eng ko'p so'raladigan yo'nalishlar — Istanbul, Antalya, Dubay, Sharm El Sheikh, Batumi va Maldiv orollari. Biz yirik aviakompaniyalar bilan ishlaymiz va siz uchun eng qulay reys hamda narxni topamiz."
-msgstr "With Take Avia Trip you can book flights from Tashkent to anywhere in the world at a great price. The most popular destinations are Istanbul, Antalya, Dubai, Sharm El Sheikh, Batumi and the Maldives. We work with major airlines and will find the most convenient flight and price for you."
-
-msgid "Aviabiletdan tashqari tayyor tur paketlarni ham taklif etamiz: narxga aviabilet, mehmonxona, aeroport transferi va sug'urta kiradi. Vizali davlatlar uchun hujjatlarni rasmiylashtirishda yordam beramiz — arizadan vizagacha barcha bosqichlarda yoningizdamiz."
-msgstr "Besides flights, we offer ready-made tour packages: the price includes flights, hotel, airport transfer and insurance. For visa destinations we help with the paperwork — we are with you at every step, from application to visa."
-
-msgid "Ofisimiz Toshkent shahrida joylashgan, menejerlarimiz esa 24/7 xizmatingizda. Sayohatingizni bugun rejalashtiring — saytdagi formani to'ldiring yoki qo'ng'iroq qiling, biz eng yaxshi taklifni tayyorlab beramiz."
-msgstr "Our office is located in Tashkent and our managers are available 24/7. Plan your trip today — fill in the form on the website or give us a call, and we will prepare the best offer."
-
-
-msgid "%(title)s haqida"
-msgstr "About %(title)s"
