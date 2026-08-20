@@ -112,6 +112,9 @@
   .btn-hero-primary:hover{ background:var(--lime-dark); transform:translateY(-2px); box-shadow:0 14px 30px rgba(207,224,33,.55);}
   .btn-hero-outline{ background:rgba(255,255,255,.14); backdrop-filter:blur(6px); color:#fff; border:1px solid rgba(255,255,255,.35);}
   .btn-hero-outline:hover{ background:rgba(255,255,255,.24); transform:translateY(-2px); border-color:rgba(255,255,255,.55);}
+  .hero-note{ display:flex; align-items:center; gap:8px; margin-top:14px; color:rgba(255,255,255,.78); font-size:12.5px; font-weight:600;}
+  .hero-note .dot{ width:7px; height:7px; border-radius:50%; background:#37e08a; flex-shrink:0; box-shadow:0 0 0 0 rgba(55,224,138,.6); animation:heroDotPulse 1.8s infinite;}
+  @keyframes heroDotPulse{ 0%{ box-shadow:0 0 0 0 rgba(55,224,138,.55);} 70%{ box-shadow:0 0 0 7px rgba(55,224,138,0);} 100%{ box-shadow:0 0 0 0 rgba(55,224,138,0);} }
 
 
   /* Yo'nalishlar tarmog'i animatsiyasi (route flow) */
@@ -246,6 +249,7 @@
           {{ site_settings.phone_1 }}
         </a>
       </div>
+      <div class="hero-note"><span class="dot"></span> {% trans "Odatda 5 daqiqa ichida javob beramiz" %} &middot; {% trans "24/7 ishlaymiz" %}</div>
     </div>
 
     {% if destinations %}
