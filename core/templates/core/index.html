@@ -51,7 +51,7 @@
     --shadow-lg:0 24px 60px rgba(10,29,52,.18);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; scroll-padding-top:96px;}
   html{ overflow-x:hidden;}
   body{ max-width:100%;}
   body{
@@ -292,14 +292,24 @@
   /* ===== Why us ===== */
   .why-bg{ background:var(--bg-soft);}
   .why-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px;}
-  .why-item{ background:#fff; border-radius:14px; padding:24px 18px; text-align:center; box-shadow:var(--shadow-sm);}
-  .why-item .ic{
-    width:50px; height:50px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center; margin:0 auto 14px; transition:transform .18s ease;
+  .why-item{
+    background:#fff; border-radius:16px; padding:28px 20px; text-align:center; box-shadow:var(--shadow-sm);
+    border-top:3px solid transparent; transition:transform .2s ease, box-shadow .2s ease;
   }
-  .why-item:hover .ic{ transform:scale(1.1);}
-  .why-item h4{ font-size:14.5px; font-weight:700; margin-bottom:6px; line-height:1.3;}
-  .why-item p{ font-size:12.5px; color:var(--ink-500); line-height:1.5;}
+  .why-item:hover{ transform:translateY(-5px); box-shadow:var(--shadow-md);}
+  .why-item .ic{
+    width:58px; height:58px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 16px; transition:transform .2s ease;
+    box-shadow:0 10px 22px -10px rgba(15,31,51,.4);
+  }
+  .why-item:hover .ic{ transform:scale(1.12) rotate(-4deg);}
+  .why-item h4{ font-size:15px; font-weight:700; margin-bottom:7px; line-height:1.3;}
+  .why-item p{ font-size:12.5px; color:var(--ink-500); line-height:1.55;}
+  .why-item.wi-indigo{ border-top-color:#4f5fe0;}
+  .why-item.wi-violet{ border-top-color:#7c3aed;}
+  .why-item.wi-teal{ border-top-color:#0891b2;}
+  .why-item.wi-rose{ border-top-color:#e0347a;}
+  .why-item.wi-amber{ border-top-color:#e8890c;}
 
   /* ===== Testimonials ===== */
   .test-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
@@ -339,8 +349,10 @@
   .cta p{ color:rgba(255,255,255,.8); font-size:14px; margin-top:10px; max-width:420px;}
   .cta-form{ display:flex; gap:10px; flex-wrap:wrap;}
   .cta-form input{
-    border:none; outline:none; border-radius:10px; padding:15px 18px; font:inherit; font-size:14px; min-width:260px;
+    border:none; outline:none; border-radius:10px; padding:15px 18px; font:inherit; font-size:14px;
   }
+  .cta-form input[name="name"]{ flex:1 1 160px; min-width:140px;}
+  .cta-form input[name="contact"]{ flex:1 1 190px; min-width:170px;}
   .cta-form .btn-primary{ padding:15px 24px;}
 
   /* ===== Footer ===== */
@@ -363,8 +375,23 @@
   .foot-bottom p{ font-size:12.5px; color:rgba(255,255,255,.45);}
   .pay-icons{ display:flex; gap:10px; align-items:center;}
   .pay-icons span{ background:rgba(255,255,255,.08); padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; color:#fff; letter-spacing:.5px;}
-  .to-top{ width:38px; height:38px; border-radius:50%; background:var(--neon); color:var(--neon-text); display:flex; align-items:center; justify-content:center; border:none; flex-shrink:0; transition:background .15s ease, transform .15s ease;}
+  .to-top{ width:38px; height:38px; border-radius:50%; background:var(--neon); color:var(--neon-text); display:flex; align-items:center; justify-content:center; border:none; flex-shrink:0; transition:background .15s ease, transform .15s ease; position:relative; overflow:visible;}
   .to-top:hover{ background:var(--neon-dark); transform:translateY(-2px);}
+  .to-top svg{ transition:transform .2s ease;}
+  .to-top:hover svg{ transform:translateY(-2px);}
+  .to-top.launching{ animation:toTopLaunch .55s cubic-bezier(.3,0,.25,1);}
+  .to-top.launching svg{ animation:toTopLaunchIcon .55s cubic-bezier(.3,0,.25,1);}
+  @keyframes toTopLaunch{
+    0%{ box-shadow:0 0 0 0 rgba(207,224,33,.5);}
+    45%{ box-shadow:0 0 0 10px rgba(207,224,33,0);}
+    100%{ box-shadow:0 0 0 0 rgba(207,224,33,0);}
+  }
+  @keyframes toTopLaunchIcon{
+    0%{ transform:translateY(0) scale(1); opacity:1;}
+    45%{ transform:translateY(-18px) scale(.8); opacity:.25;}
+    46%{ transform:translateY(16px) scale(.8); opacity:.25;}
+    100%{ transform:translateY(0) scale(1); opacity:1;}
+  }
 
   /* toast messages */
   .toast-wrap{ position:fixed; top:76px; left:50%; transform:translateX(-50%); z-index:999; display:flex; flex-direction:column; gap:10px; width:min(92vw, 480px);}
@@ -400,6 +427,7 @@
     .tour-media{ height:300px;}
   }
   @media(max-width:640px){
+    html{ scroll-padding-top:76px;}
     .header-inner{ padding:12px 16px; gap:10px;}
     .logo{ font-size:16px; gap:6px;}
     .logo .sub{ font-size:7px; letter-spacing:1px;}
@@ -433,10 +461,10 @@
     </a>
     <nav class="main-nav">
       <a href="{% url 'core:home' %}" class="active">{% trans "Bosh sahifa" %}</a>
-      <a href="#qidiruv">{% trans "Aviabiletlar" %}</a>
+      <a href="{% url 'core:home' %}#qidiruv">{% trans "Aviabiletlar" %}</a>
       <a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a>
-      <a href="#yonalishlar">{% trans "Yo'nalishlar" %}</a>
-      <a href="#mehmonxona">{% trans "Mehmonxona" %}</a>
+      <a href="{% url 'core:home' %}#yonalishlar">{% trans "Yo'nalishlar" %}</a>
+      <a href="{% url 'core:home' %}#mehmonxona">{% trans "Mehmonxona" %}</a>
       <a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a>
       <a href="{% url 'core:contact' %}">{% trans "Bog'lanish" %}</a>
     </nav>
@@ -491,7 +519,7 @@
           {{ site_settings.phone_1 }}
         </a>
       </div>
-      <div class="hero-note"><span class="dot"></span> {% trans "Odatda 5 daqiqa ichida javob beramiz" %} &middot; {% trans "24/7 ishlaymiz" %}</div>
+      <div class="hero-note"><span class="dot"></span> {% trans "Odatda 3 daqiqa ichida javob beramiz" %} &middot; {% trans "24/7 ishlaymiz" %}</div>
     </div>
 
     {% if destinations %}
@@ -650,27 +678,27 @@
   <div class="wrap">
     <div class="section-head" style="margin-bottom:22px;"><h2>{% trans "Nega Take Avia Trip?" %}</h2></div>
     <div class="why-grid">
-      <div class="why-item">
+      <div class="why-item wi-indigo">
         <div class="ic ic-indigo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
         <h4>{% trans "Tekshirilgan mehmonxonalar" %}</h4>
         <p>{% trans "Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz." %}</p>
       </div>
-      <div class="why-item">
+      <div class="why-item wi-violet">
         <div class="ic ic-violet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
         <h4>{% trans "Aviabilet + tur bir joyda" %}</h4>
         <p>{% trans "Vaqtingizni tejang, hammasini bir joydan toping." %}</p>
       </div>
-      <div class="why-item">
+      <div class="why-item wi-teal">
         <div class="ic ic-teal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h4>{% trans "24/7 qo'llab-quvvatlash" %}</h4>
         <p>{% trans "Har qanday savolingizga doim tayyormiz." %}</p>
       </div>
-      <div class="why-item">
+      <div class="why-item wi-rose">
         <div class="ic ic-rose"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></div>
         <h4 id="mehmonxona">{% trans "Mehmonxona bron qilish" %}</h4>
         <p>{% trans "Istalgan shahar va mamlakatda mehmonxona band qilishda yordam beramiz." %}</p>
       </div>
-      <div class="why-item">
+      <div class="why-item wi-amber">
         <div class="ic ic-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <h4>{% trans "Individual tur tanlash" %}</h4>
         <p>{% trans "Sizga mos turni individual tanlab beramiz." %}</p>
@@ -762,7 +790,8 @@
     </div>
     <form class="cta-form" method="post" action="{% url 'core:leave_request' %}">
       {% csrf_token %}
-      <input type="text" name="contact" placeholder="{% trans 'Email yoki telefon raqamingiz' %}" required>
+      <input type="text" name="name" placeholder="{% trans 'Ismingiz' %}" required>
+      <input type="tel" name="contact" placeholder="{% trans 'Telefon raqamingiz' %}" required>
       <button class="btn btn-primary" type="submit">{% trans "So'rov qoldirish" %}</button>
     </form>
   </div>
@@ -798,7 +827,7 @@
         <ul>
           <li><a href="#">{% trans "Aviabiletlar" %}</a></li>
           <li><a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a></li>
-          <li><a href="#mehmonxona">{% trans "Mehmonxona" %}</a></li>
+          <li><a href="{% url 'core:home' %}#mehmonxona">{% trans "Mehmonxona" %}</a></li>
           <li><a href="#">{% trans "Sug'urta" %}</a></li>
         </ul>
       </div>
@@ -825,7 +854,9 @@
       <div class="pay-icons">
         <span>VISA</span><span>Mastercard</span><span>UZCARD</span>
       </div>
-      <button class="to-top" id="toTop" aria-label="Yuqoriga">&#8593;</button>
+      <button class="to-top" id="toTop" aria-label="Yuqoriga">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L20 21l-8-4-8 4L12 2z"/></svg>
+      </button>
     </div>
   </div>
 </footer>
@@ -865,7 +896,11 @@
   // Back to top
   const toTop = document.getElementById('toTop');
   if (toTop) {
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    toTop.addEventListener('click', () => {
+      toTop.classList.add('launching');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => toTop.classList.remove('launching'), 600);
+    });
   }
 
   // Til almashtirgich dropdown

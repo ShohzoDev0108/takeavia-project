@@ -155,17 +155,18 @@ def flight_search(request):
 
 
 def leave_request(request):
-    """CTA forma — email/telefon qoldirish."""
+    """CTA forma — ism va telefon raqam qoldirish."""
     if request.method == "POST":
+        name = request.POST.get("name", "").strip()
         contact = request.POST.get("contact", "").strip()
         if contact:
-            Lead.objects.create(kind="contact", contact=contact)
+            Lead.objects.create(kind="contact", name=name, contact=contact)
             messages.success(
                 request,
                 _("So'rovingiz qabul qilindi! Menejerlarimiz tez orada siz bilan bog'lanadi."),
             )
         else:
-            messages.error(request, _("Iltimos, email yoki telefon raqamingizni kiriting."))
+            messages.error(request, _("Iltimos, ismingiz va telefon raqamingizni kiriting."))
     return redirect("core:home")
 
 
