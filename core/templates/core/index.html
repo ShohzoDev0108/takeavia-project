@@ -124,6 +124,12 @@
 
   /* Sticky header ostiga yashirinib qolmasligi uchun anchor-havolalarga bo'sh joy */
   #qidiruv, #yonalishlar, #mehmonxona{ scroll-margin-top:90px;}
+  /* Menyudan bosib kelingan bo'lim bir zum yorishib, "aynan shu bo'lim ochildi" ekanini ko'rsatadi */
+  @keyframes anchorFlash{
+    0%{ background-color:rgba(37,99,235,.10); }
+    100%{ background-color:rgba(37,99,235,0); }
+  }
+  .anchor-flash{ animation:anchorFlash 1.8s ease-out; border-radius:16px;}
 
   /* ===== HERO ===== */
   .hero{
@@ -465,10 +471,10 @@
     </a>
     <nav class="main-nav">
       <a href="{% url 'core:home' %}" class="active">{% trans "Bosh sahifa" %}</a>
-      <a href="{% url 'core:home' %}#qidiruv">{% trans "Aviabiletlar" %}</a>
+      <a href="{% url 'core:home' %}#yonalishlar">{% trans "Aviabiletlar" %}</a>
       <a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a>
       <a href="{% url 'core:home' %}#yonalishlar">{% trans "Yo'nalishlar" %}</a>
-      <a href="{% url 'core:home' %}#mehmonxona">{% trans "Mehmonxona" %}</a>
+      <a href="{% url 'core:contact' %}#contactForm">{% trans "Mehmonxona" %}</a>
       <a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a>
       <a href="{% url 'core:contact' %}">{% trans "Bog'lanish" %}</a>
     </nav>
@@ -831,7 +837,7 @@
         <ul>
           <li><a href="#">{% trans "Aviabiletlar" %}</a></li>
           <li><a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a></li>
-          <li><a href="{% url 'core:home' %}#mehmonxona">{% trans "Mehmonxona" %}</a></li>
+          <li><a href="{% url 'core:contact' %}#contactForm">{% trans "Mehmonxona" %}</a></li>
           <li><a href="#">{% trans "Sug'urta" %}</a></li>
         </ul>
       </div>
@@ -866,6 +872,18 @@
 </footer>
 
 <script>
+  // Menyudan (masalan "Aviabiletlar", "Yo'nalishlar") bosib kelingan bo'limni bir zum yoritish
+  (function flashAnchorTarget() {
+    const id = window.location.hash.replace('#', '');
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.classList.add('anchor-flash');
+      setTimeout(() => el.classList.remove('anchor-flash'), 2200);
+    });
+  })();
+
   // Mobile burger menu
   const burgerBtn = document.getElementById('burgerBtn');
   const mainNav = document.querySelector('nav.main-nav');

@@ -68,7 +68,13 @@
   .burger span{ width:22px; height:2px; background:#fff; border-radius:2px;}
 
   /* Sticky header ostiga yashirinib qolmasligi uchun anchor-havolalarga bo'sh joy */
-  #qidiruv, #yonalishlar, #mehmonxona{ scroll-margin-top:90px;}
+  #qidiruv, #yonalishlar, #mehmonxona, #contactForm{ scroll-margin-top:90px;}
+  /* Menyudan bosib kelingan bo'lim bir zum yorishib, "aynan shu bo'lim ochildi" ekanini ko'rsatadi */
+  @keyframes anchorFlash{
+    0%{ background-color:rgba(37,99,235,.10); }
+    100%{ background-color:rgba(37,99,235,0); }
+  }
+  .anchor-flash{ animation:anchorFlash 1.8s ease-out; border-radius:16px;}
   .lang-select{ position:relative; display:flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:#fff; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.08); padding:7px 10px; border-radius:8px; cursor:pointer; user-select:none;}
   .lang-select .fi{ width:20px; height:14px; border-radius:2px; display:inline-block; background-size:cover; flex-shrink:0;}
   .lang-menu{ position:absolute; top:calc(100% + 8px); right:0; background:#fff; border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow-md); padding:6px; min-width:170px; z-index:200; display:none;}
@@ -227,10 +233,10 @@
     </a>
     <nav class="main-nav">
       <a href="{% url 'core:home' %}">{% trans "Bosh sahifa" %}</a>
-      <a href="{% url 'core:home' %}#qidiruv">{% trans "Aviabiletlar" %}</a>
+      <a href="{% url 'core:home' %}#yonalishlar">{% trans "Aviabiletlar" %}</a>
       <a href="{% url 'core:tour_list' %}">{% trans "Tur paketlar" %}</a>
       <a href="{% url 'core:home' %}#yonalishlar">{% trans "Yo'nalishlar" %}</a>
-      <a href="{% url 'core:home' %}#mehmonxona">{% trans "Mehmonxona" %}</a>
+      <a href="{% url 'core:contact' %}#contactForm">{% trans "Mehmonxona" %}</a>
       <a href="{% url 'core:about' %}">{% trans "Biz haqimizda" %}</a>
       <a href="{% url 'core:contact' %}" class="active">{% trans "Bog'lanish" %}</a>
     </nav>
@@ -350,7 +356,7 @@
       </a>
     </div>
 
-    <div class="card">
+    <div class="card" id="contactForm">
       <h2>{% trans "Xabar qoldiring" %}</h2>
       <form class="form-grid" method="post">
         {% csrf_token %}
@@ -391,6 +397,18 @@
 </script>
 
 <script>
+  // Menyudan (masalan "Mehmonxona") bosib kelingan bo'limni bir zum yoritish
+  (function flashAnchorTarget() {
+    const id = window.location.hash.replace('#', '');
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.classList.add('anchor-flash');
+      setTimeout(() => el.classList.remove('anchor-flash'), 2200);
+    });
+  })();
+
   // Mobile burger menu
   const burgerBtn = document.getElementById('burgerBtn');
   const mainNav = document.querySelector('nav.main-nav');
