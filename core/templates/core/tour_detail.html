@@ -408,13 +408,6 @@
 <div class="wrap">
   <div class="detail-grid">
     <div class="card">
-      <h2>{% trans "Tur haqida" %}</h2>
-      <div class="info-row"><span class="k">{% trans "Yo'nalish" %}</span><span class="v">{{ tour.title|dbtr }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Muddat" %}</span><span class="v">{{ tour.duration|dbtr }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Mehmonxona" %}</span><span class="v">{{ tour.hotel_label }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Sanalar" %}</span><span class="v">{{ tour.dates_display|dbtr }}</span></div>
-      <div class="info-row"><span class="k">{% trans "Qolgan joylar" %}</span><span class="v">{% blocktrans with seats=tour.seats_left %}{{ seats }} ta{% endblocktrans %}</span></div>
-
       {% if tour.description_display %}
       <h2 style="margin-top:26px;">{% blocktrans with title=tour.title|dbtr %}{{ title }} haqida{% endblocktrans %}</h2>
       <div class="tour-desc">{{ tour.description_display|linebreaks }}</div>
