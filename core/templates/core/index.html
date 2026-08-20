@@ -144,12 +144,24 @@
   .btn-hero-outline:hover{ background:rgba(255,255,255,.24); transform:translateY(-2px); border-color:rgba(255,255,255,.55);}
 
   /* trust bar — hero pastki chetiga "suzib turgan" karta sifatida, yuqoriroqqa surilgan va kattalashtirilgan */
-  .trust-bar{ background:transparent; padding:0 0 52px; margin-top:-46px; position:relative; z-index:4;}
-  .trust-card{ background:#fff; border-radius:18px; box-shadow:var(--shadow-lg); padding:28px 34px; max-width:1192px; margin:0 auto;}
-  .trust-list{ display:flex; align-items:center; justify-content:center; gap:38px; flex-wrap:wrap; color:var(--ink-800); font-size:15px; font-weight:600;}
-  .trust-list li{ display:flex; align-items:center; gap:12px;}
-  .trust-list .ic{ width:42px; height:42px; border-radius:50%; background:var(--blue-50); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-  .trust-list svg{ color:var(--blue-600); flex-shrink:0;}
+  .trust-bar{ background:transparent; padding:0 0 60px; margin-top:-54px; position:relative; z-index:4;}
+  .trust-card{
+    background:#fff; border-radius:20px; box-shadow:var(--shadow-lg); max-width:1192px; margin:0 auto;
+    overflow:hidden; border-top:4px solid var(--brand-blue);
+  }
+  .trust-list{ display:flex; align-items:stretch; justify-content:center; color:var(--ink-800); font-size:15px; font-weight:700; flex-wrap:wrap;}
+  .trust-list li{ display:flex; align-items:center; gap:14px; flex:1; min-width:230px; padding:26px 28px; border-right:1px solid var(--line);}
+  .trust-list li:last-child{ border-right:none;}
+  .trust-list .ic{ width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .trust-list svg{ flex-shrink:0;}
+  .ic-amber{ background:#fef3e2; color:#e8890c;}
+  .ic-emerald{ background:#e2f8ef; color:#0d9d63;}
+  .ic-indigo{ background:#eaeeff; color:#4f5fe0;}
+  .ic-rose{ background:#fde8f0; color:#e0347a;}
+  .ic-violet{ background:#f2eafe; color:#7c3aed;}
+  .ic-terra{ background:#fdece1; color:#c2560c;}
+  .ic-red{ background:#fde9e9; color:#dc2626;}
+  .ic-teal{ background:#e0f6f8; color:#0891b2;}
 
   /* ===== Route flow (yo'nalishlar tarmog'i animatsiyasi) — hero foniga singdirilgan ===== */
   .hero-flow{ position:relative; width:100%; margin-top:40px;}
@@ -239,15 +251,15 @@
   .vac-item{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 12px; text-align:center; transition:all .18s ease; cursor:pointer;}
   .vac-item:hover{ border-color:var(--neon-dark); background:rgba(207,224,33,.12); box-shadow:var(--shadow-sm); transform:translateY(-3px);}
   .vac-item .ic{
-    width:44px; height:44px; border-radius:12px; background:var(--blue-50); color:var(--blue-600);
-    display:flex; align-items:center; justify-content:center; margin:0 auto 12px; transition:background .18s ease, color .18s ease;
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 12px; transition:transform .18s ease;
   }
-  .vac-item:hover .ic{ background:#fff; color:var(--lime-dark);}
+  .vac-item:hover .ic{ transform:scale(1.1);}
   .vac-item span{ font-size:13px; font-weight:600; color:var(--ink-700); line-height:1.3;}
 
   /* ===== Hot tours ===== */
   .tours-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;}
-  .tour-card{ border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm); transition:transform .2s ease, box-shadow .2s ease;}
+  .tour-card{ display:block; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-sm); transition:transform .2s ease, box-shadow .2s ease;}
   .tour-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md);}
   .tour-media{ position:relative; height:420px; overflow:hidden;}
   .tour-media img{ width:100%; height:100%; object-fit:cover; transition:transform .45s ease;}
@@ -263,7 +275,7 @@
   .tour-overlay .tour-dates{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:rgba(255,255,255,.7); margin-top:8px;}
   .tour-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:12px;}
   .tour-price{ font-size:21px; font-weight:800; color:#fff; text-shadow:0 1px 8px rgba(0,0,0,.3);}
-  .tour-cta .btn-primary{ padding:9px 16px; font-size:13px;}
+  .tour-foot .btn-primary{ padding:9px 16px; font-size:13px;}
 
   .carousel-row{ position:relative;}
   .arrow-btn{
@@ -279,9 +291,10 @@
   .why-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px;}
   .why-item{ background:#fff; border-radius:14px; padding:24px 18px; text-align:center; box-shadow:var(--shadow-sm);}
   .why-item .ic{
-    width:48px; height:48px; border-radius:12px; background:var(--blue-50); color:var(--blue-600);
-    display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+    width:50px; height:50px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 14px; transition:transform .18s ease;
   }
+  .why-item:hover .ic{ transform:scale(1.1);}
   .why-item h4{ font-size:14.5px; font-weight:700; margin-bottom:6px; line-height:1.3;}
   .why-item p{ font-size:12.5px; color:var(--ink-500); line-height:1.5;}
 
@@ -315,7 +328,8 @@
     border-radius:22px; overflow:hidden; position:relative; padding:56px 44px;
     background:
       linear-gradient(100deg, rgba(9,22,41,.92) 10%, rgba(9,22,41,.55) 70%),
-      url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1400&q=80') center/cover;
+      url('https://images.unsplash.com/photo-1759434190960-87511b2a5e5c?auto=format&fit=crop&w=1400&q=80') center/cover;
+    background-color:var(--navy-950);
     display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;
   }
   .cta h2{ color:#fff; font-size:26px; font-weight:800; max-width:420px;}
@@ -370,8 +384,10 @@
     .hero-cta{ flex-direction:column; align-items:stretch;}
     .btn-hero{ justify-content:center;}
     .trust-bar{ margin-top:-30px; padding-bottom:36px;}
-    .trust-card{ padding:20px;}
-    .trust-list{ display:grid; grid-template-columns:1fr 1fr; justify-content:start; gap:16px 12px; text-align:left;}
+    .trust-list{ display:grid; grid-template-columns:1fr 1fr; justify-content:start; text-align:left;}
+    .trust-list li{ min-width:0; padding:18px 16px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+    .trust-list li:nth-child(2n){ border-right:none;}
+    .trust-list li:nth-last-child(-n+2){ border-bottom:none;}
     .vac-grid{ grid-template-columns:repeat(2,1fr);}
     .why-grid{ grid-template-columns:1fr 1fr;}
     .foot-grid{ grid-template-columns:1fr;}
@@ -501,10 +517,10 @@
   <div class="wrap">
     <div class="trust-card">
       <ul class="trust-list">
-        <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9l-6.2 3.4 1.6-6.8L2.2 8.9l6.9-.6z"/></svg></span> {% trans "Eng yaxshi narx kafolati" %}</li>
-        <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> {% trans "Xavfsiz to'lov" %}</li>
-        <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> {% trans "24/7 qo'llab-quvvatlash" %}</li>
-        <li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> {% trans "5000+ mamnun mijozlar" %}</li>
+        <li><span class="ic ic-amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.9l-6.2 3.4 1.6-6.8L2.2 8.9l6.9-.6z"/></svg></span> {% trans "Eng yaxshi narx kafolati" %}</li>
+        <li><span class="ic ic-emerald"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span> {% trans "Xavfsiz to'lov" %}</li>
+        <li><span class="ic ic-indigo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span> {% trans "24/7 qo'llab-quvvatlash" %}</li>
+        <li><span class="ic ic-rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> {% trans "5000+ mamnun mijozlar" %}</li>
       </ul>
     </div>
   </div>
@@ -553,35 +569,35 @@
     </div>
     <div class="vac-grid">
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
+        <div class="ic ic-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></div>
         <span>{% trans "Dengiz bo'yida dam olish" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21l7.78-7.55 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="ic ic-rose"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78l1.06 1.06L12 21l7.78-7.55 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <span>{% trans "Romantik sayohatlar" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="ic ic-emerald"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <span>{% trans "Oilaviy sayohatlar" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41L13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.4" fill="currentColor" stroke="none"/></svg></div>
+        <div class="ic ic-violet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41L13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <span>{% trans "Qulay narxdagi turlar" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 3v18M6 3l6 6 6-6"/></svg></div>
+        <div class="ic ic-indigo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 3v18M6 3l6 6 6-6"/></svg></div>
         <span>{% trans "Premium sayohatlar" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 5v3H5V7z"/><path d="M5 10v10h4v-6h6v6h4V10"/><path d="M12 2v3"/></svg></div>
+        <div class="ic ic-terra"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 5v3H5V7z"/><path d="M5 10v10h4v-6h6v6h4V10"/><path d="M12 2v3"/></svg></div>
         <span>{% trans "Ziyorat va tarixiy turlar" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
+        <div class="ic ic-red"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg></div>
         <span>{% trans "Davolanish turlari" %}</span>
       </div>
       <div class="vac-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21l4-13 4 13"/><path d="M3 21h18"/><path d="M12 8l3-6 3 6"/></svg></div>
+        <div class="ic ic-teal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21l4-13 4 13"/><path d="M3 21h18"/><path d="M12 8l3-6 3 6"/></svg></div>
         <span>{% trans "Ekstremal sayohatlar" %}</span>
       </div>
     </div>
@@ -597,7 +613,7 @@
     </div>
     <div class="tours-grid">
         {% for t in tours %}
-        <div class="tour-card">
+        <a class="tour-card" href="{% url 'core:tour_detail' t.pk %}">
           <div class="tour-media">
             <img src="{{ t.image_src }}" alt="{{ t.title|dbtr }}" width="400" height="420" loading="lazy" decoding="async">
             <div class="tour-rating">&#9733; <span>{{ t.rating }}</span></div>
@@ -615,11 +631,11 @@
               </div>
               <div class="tour-foot">
                 <div class="tour-price">${{ t.price }}</div>
-                <div class="tour-cta"><a class="btn btn-primary" href="{% url 'core:tour_detail' t.pk %}">{% trans "Batafsil" %}</a></div>
+                <span class="btn btn-primary">{% trans "Batafsil" %}</span>
               </div>
             </div>
           </div>
-        </div>
+        </a>
         {% empty %}
         <p style="color:var(--ink-500);">{% trans "Hozircha faol turlar yo'q. Admin panel orqali qo'shing." %}</p>
         {% endfor %}
@@ -633,27 +649,27 @@
     <div class="section-head" style="margin-bottom:22px;"><h2>{% trans "Nega Take Avia Trip?" %}</h2></div>
     <div class="why-grid">
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+        <div class="ic ic-indigo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
         <h4>{% trans "Tekshirilgan mehmonxonalar" %}</h4>
         <p>{% trans "Faqat ishonchli va sifatli mehmonxonalarni tanlaymiz." %}</p>
       </div>
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+        <div class="ic ic-violet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
         <h4>{% trans "Aviabilet + tur bir joyda" %}</h4>
         <p>{% trans "Vaqtingizni tejang, hammasini bir joydan toping." %}</p>
       </div>
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="ic ic-teal"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h4>{% trans "24/7 qo'llab-quvvatlash" %}</h4>
         <p>{% trans "Har qanday savolingizga doim tayyormiz." %}</p>
       </div>
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></div>
+        <div class="ic ic-rose"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></div>
         <h4 id="mehmonxona">{% trans "Mehmonxona bron qilish" %}</h4>
         <p>{% trans "Istalgan shahar va mamlakatda mehmonxona band qilishda yordam beramiz." %}</p>
       </div>
       <div class="why-item">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="ic ic-amber"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <h4>{% trans "Individual tur tanlash" %}</h4>
         <p>{% trans "Sizga mos turni individual tanlab beramiz." %}</p>
       </div>
