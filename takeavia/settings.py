@@ -42,6 +42,15 @@ if not DEBUG and SECRET_KEY == _DEV_SECRET_KEY:
 # Serverda DJANGO_ALLOWED_HOSTS="takeavia.uz,www.takeavia.uz" ko'rinishida bering.
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
+# Google Analytics (GA4) o'lchov ID'si — masalan "G-XXXXXXXXXX".
+# .env faylida GOOGLE_ANALYTICS_ID=... qilib bering; bo'sh qoldirilsa,
+# kuzatuv kodi sahifaga umuman qo'shilmaydi (hech qanday xatoga sabab bo'lmaydi).
+GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", "")
+
+# Google Search Console tasdiqlash kodi (mulk sifatida qo'shganda Google beradigan
+# "google-site-verification=..." qiymati). .env'da GOOGLE_SITE_VERIFICATION=... qiling.
+GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", "")
+
 # HTTPS bilan ishlaganda CSRF uchun ishonchli manzillar
 CSRF_TRUSTED_ORIGINS = [
     o for o in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o
@@ -166,8 +175,15 @@ STATIC_URL = "static/"
 # collectstatic uchun (deploy paytida kerak bo'ladi)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Production'da statik fayllarni siqilgan va hash qo'shilgan nom bilan
-# (masalan style.a1b2c3.css) berish uchun — brauzer keshi to'g'ri yangilanadi.
+# Production'da statik fayllarni siqilgan (gzip/brotli) holda berish uchun.
+# Eslatma: avval "hash qo'shilgan nom" (masalan style.a1b2c3.css) beruvchi
+# CompressedManifestStaticFilesStorage ishlatilgan edi, lekin u collectstatic
+# paytida vaqti-vaqti bilan ba'zi fayllar uchun manifestni to'liqsiz yozib,
+# saytni "Missing staticfiles manifest entry" xatosi bilan buzib qo'ygani
+# sabab (masalan core/img/og-default-v2.png yoki hatto core/img/favicon.svg
+# kabi o'zgarmagan fayllar uchun ham xato bergan) — manifestsiz, faqat
+# siqilgan versiyaga o'tkazildi. Fayl nomini keshni yangilash uchun o'zimiz
+# qo'lda o'zgartiramiz (masalan og-default.png -> og-default-v2.png).
 # Lokal ishlab chiqishda (DEBUG=true) oddiy rejim ishlatiladi — har safar
 # `collectstatic` ishga tushirish shart bo'lmasin.
 STORAGES = {
@@ -176,7 +192,7 @@ STORAGES = {
     },
     "staticfiles": {
         "BACKEND": (
-            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            "whitenoise.storage.CompressedStaticFilesStorage"
             if not DEBUG
             else "django.contrib.staticfiles.storage.StaticFilesStorage"
         ),
@@ -192,16 +208,3 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {'console': {'class': 'logging.StreamHandler'}},
-    'loggers': {
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    },
-}
